@@ -1,0 +1,24 @@
+{
+  "countries": [
+    {
+      "name": "Thailand",
+      "code": "th",
+      "slug": "thailand",
+      "areas": [
+        { "name": "Bangkok",      "code": "bkk",          "slug": "bangkok" },
+        { "name": "Chiangmai",    "code": "chiangmai",    "slug": "chiangmai" },
+        { "name": "Ayutthaya",    "code": "ayutthaya",    "slug": "ayutthaya" },
+        { "name": "Isan",         "code": "isan",         "slug": "isan" },
+        { "name": "Kanchanaburi", "code": "kanchanaburi", "slug": "kanchanaburi" },
+        { "name": "Phuket",       "code": "phuket",       "slug": "phuket" },
+        { "name": "Krabi",        "code": "krabi",        "slug": "krabi" },
+        { "name": "Samui",        "code": "samui",        "slug": "samui" },
+        { "name": "Pattaya",      "code": "pattaya",      "slug": "pattaya" }
+      ]
+    },
+    { "name": "Japan",    "code": "jp", "slug": "japan"},
+    { "name": "USA",      "code": "us", "slug": "us"}
+  ]
+}
+
+

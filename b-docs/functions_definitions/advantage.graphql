@@ -1,0 +1,65 @@
+type Advantage @model {
+  id: ID! @isUnique
+  name: String! @isUnique
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  icon: File @relation(name: "AdvantageIcon")
+  hotels: [Hotel!]! @relation(name: "HotelsAdvantages")
+}
+
+# Queries
+
+type Query {
+  allAdvantages(
+    filter: AdvantageFilter,
+    orderBy: AdvantageOrderBy,
+    skip: Int,
+    after: String,
+    before: String,
+    first: Int,
+    last: Int
+  )
+}
+
+type Mutation {
+  createAdvantage(
+    name: String!,
+    iconID: ID,
+    icon: AdvantageiconFile,
+    hotelsIds: [ID!],
+    hotels: [AdvantagehotelsHotel!]
+  ): Advantage
+
+  updateAdvantage(
+    id: ID!,
+    name: String,
+    iconId: ID,
+    icon: AdvantageiconFile,
+    hotelsIds: [ID!]
+    hotels: [AdvantagehotelsHotel!]
+  ): Advantage
+
+  updateOrCreateAdvantage(
+    update: UpdateAdvantage!,
+    create: createAdvantage!
+  ): Advantage
+
+  deleteAdvantage(
+    id: ID!
+  ): Advantage
+
+  setAdvantageIcon(
+    advantageAdvantageId: ID!
+    iconField: ID!
+  ): SetAdvantageIconPayload
+
+  setCloudinaryAdvantageIcon(
+  )
+}
+
+type SetAdvantageIconPayload {
+  iconFile: File,
+  advantageAdvantage: Advantage
+}

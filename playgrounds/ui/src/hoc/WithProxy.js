@@ -1,7 +1,7 @@
 import React from 'react'
 import Loading from '../components/Loading';
 import { withRouter } from 'react-router-dom'
-import { login, isLoggedIn } from '../utils/AuthService';
+import { isLoggedIn } from '../utils/AuthService';
 import OnlyTitleNav from '../components/OnlyTitleNav'
 
 const WithProxy = (WrappedComponent) => {
@@ -20,7 +20,7 @@ const WithProxy = (WrappedComponent) => {
       if (isLoggedIn()) {
         await this.setState({ isAuthorized: true })
       } else {
-        login()
+        this.props.history.replace('/login')
       }
     }
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { login, isLoggedIn } from '../utils/AuthService';
+import { isLoggedIn } from '../utils/AuthService';
 
 const Nav = () => (
   <nav className="navbar" role="navigation" aria-label="main navigation" style={{
     background: "#007bff",
   }}>
     <div className="navbar-brand">
-      <Link className="navbar-item" to="/" style={{
+      <Link className="navbar-item" to="/dashboard" style={{
         color: "#ffffff",
       }}>
-        BOOK ME INSTEAD. PLAYGROUND HOME
+        BOOK ME INSTEAD.ADMIN HOME
       </Link>
     </div>
 
@@ -26,13 +26,13 @@ const Nav = () => (
                 LOGOUT
               </Link>
             ) : (
-              <button
+              <Link
                 className="button is-danger"
-                onClick={() => login()}
+                to="/login"
                 style={{ borderRadius: 0 }}
               >
-                LOGIN
-              </button>
+                LOGOUT
+              </Link>
             )
           }
         </div>

@@ -12,7 +12,7 @@ class Country extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isEditting: []
+      isEditting: ""
     }
     this.clickEdit = this.clickEdit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
@@ -32,16 +32,14 @@ class Country extends Component {
   }
 
   checkEdit = (id, e) => {
-    return this.state.isEditting.includes(id)
+    return this.state.isEditting === id
   }
 
   clickEdit = async (id, e) => {
     if (this.checkEdit(id)) {
-      await this.setState({ isEditting: this.state.isEditting.filter(n => n !== id)})
-      console.log(this.state)
+      await this.setState({ isEditting: "" })
     } else {
-      await this.setState({ isEditting: this.state.isEditting.concat([id])})
-      console.log(this.state)
+      await this.setState({ isEditting: id })
     }
   }
 

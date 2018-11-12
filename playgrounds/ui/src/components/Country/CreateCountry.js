@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Layout from '../Layout';
 import './Country.css'
+import WithProxy from '../../hoc/WithProxy'
 
 class CreateCountry extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class CreateCountry extends Component {
           slug
         }
       });
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       this.setState({
         isSending: false,
@@ -152,4 +152,4 @@ const PageWithQuery = graphql(CREATE_COUNTRY, {
   name: 'createCountry'
 })(CreateCountry)
 
-export default withRouter(PageWithQuery)
+export default WithProxy(PageWithQuery)

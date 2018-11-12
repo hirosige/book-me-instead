@@ -1,36 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom'
-import { login, isLoggedIn, isAccountExpired, logout } from '../utils/AuthService';
-import '../App.css';
+import { login, isLoggedIn } from '../utils/AuthService';
 
-class Nav extends Component {
-  async componentDidlMount() {
-    if (isLoggedIn()) {
-      if (isAccountExpired()) {
-        logout()
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        this.props.history.replace('/')
-      }
-    }
-  }
+const Nav = () => (
+  <nav className="navbar" role="navigation" aria-label="main navigation" style={{
+    background: "#007bff",
+  }}>
+    <div className="navbar-brand">
+      <Link className="navbar-item" to="/" style={{
+        color: "#ffffff",
+      }}>
+        BOOK ME INSTEAD. PLAYGROUND HOME
+      </Link>
+    </div>
 
-  render() {
-    return (
-      <nav className="navbar navbar-dark bg-primary">
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">SUNEIKII. PLAYGROUND HOME</Link>
+    <div className="navbar-end">
+      <div className="navbar-item">
+        <div className="buttons">
+          { (isLoggedIn()) ? (
+              <Link
+                className="button is-danger"
+                to="/logout"
+                style={{ borderRadius: 0 }}
+              >
+                LOGOUT
+              </Link>
+            ) : (
+              <button
+                className="button is-danger"
+                onClick={() => login()}
+                style={{ borderRadius: 0 }}
+              >
+                LOGIN
+              </button>
+            )
+          }
         </div>
-        <ul className="nav navbar-nav navbar-right">
-          <li className="nav-item">
-           {
-             (isLoggedIn()) ? ( <Link className="btn btn-danger log" to="/logout">Logout</Link> ) : ( <button className="btn btn-danger log" onClick={() => login()}>Log In</button> )
-           }
-          </li>
-        </ul>
-      </nav>
-    );
-  }
-}
+      </div>
+    </div>
+  </nav>
+)
 
-export default withRouter(Nav);
+export default Nav;

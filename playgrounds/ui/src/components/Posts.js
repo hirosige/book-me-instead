@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
 import { graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 import Layout from './Layout';
+import WithProxy from '../hoc/WithProxy'
 
 class Posts extends Component {
   render() {
@@ -33,4 +33,4 @@ const GET_ALL_POSTS = gql`
 `
 
 const PageWithQuery = graphql(GET_ALL_POSTS, {name: 'getAllPosts'})(Posts)
-export default withRouter(PageWithQuery)
+export default WithProxy(PageWithQuery)

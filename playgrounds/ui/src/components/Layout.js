@@ -1,22 +1,42 @@
 import React from 'react';
 import Nav from './Nav';
 import { Link } from 'react-router-dom';
+import MenuNav from './MenuNav';
 
 const Layout = (props) => (
   <div>
     <Nav />
-    <div className="row" style={{ padding: 0 }}>
-      <div className="col" style={{ padding: 0 }}>
-        <div className="list-group" style={{ borderRadius: 0 }}>
-          <Link
-            className="list-group-item list-group-item-action"
-            to="/posts"
-            style={{ borderRadius: 0 }}
-          >POSTS</Link>
+    <div className="columns is-gapless is-multiline is-mobile">
+      <div className="column is-one-quarter">
+        <MenuNav title="MENU" />
+        <div style={{
+          background: "#ffffff",
+          minHeight: "100vh",
+        }}>
+          <aside className="menu" style={{ padding: "10px" }} >
+            <p className="menu-label">
+              GENERAL
+            </p>
+            <ul className="menu-list">
+              <li><Link to="/">HOME</Link></li>
+              <li>
+                <Link to="/posts">POSTS</Link>
+              </li>
+              <li>
+                <Link className="is-active" to="/countries">COUNTRIES</Link>
+              </li>
+            </ul>
+          </aside>
         </div>
       </div>
-      <div className="col-9" style={{ padding: 0 }}>
-        { props.children }
+      <div className="column">
+        <MenuNav title="CONTENTS" />
+        <div style={{
+          background: "rgb(237, 242, 247)",
+          minHeight: "100vh",
+        }}>
+          { props.children }
+        </div>
       </div>
     </div>
   </div>

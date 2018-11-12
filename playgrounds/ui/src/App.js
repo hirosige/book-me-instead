@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom'
-import Home from './components/Home';
 import Callback from './components/Callback';
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
@@ -13,10 +12,11 @@ import Posts from './components/Posts';
 import {
   getGraphCoolToken,
 } from './utils/AuthService';
+import Country from './components/Country/Country';
+import CreateCountry from './components/Country/CreateCountry';
+import Dashboard from './components/Dashboard';
 
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT })
-
-console.log(process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT)
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -38,10 +38,13 @@ class App extends Component {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <div>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/dashboard' component={Dashboard} />
             <Route path='/callback' component={Callback} />
             <Route path='/logout' component={Logout} />
             <Route path='/posts' component={Posts} />
+            <Route exact path='/countries' component={Country} />
+            <Route path='/countries/new' component={CreateCountry} />
           </div>
         </BrowserRouter>
       </ApolloProvider>

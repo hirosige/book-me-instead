@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { logout } from '../utils/AuthService';
 import Loading from './Loading';
-
+import OnlyTitleNav from './OnlyTitleNav'
 
 class Logout extends React.Component {
   async componentWillMount() {
@@ -13,7 +13,10 @@ class Logout extends React.Component {
 
   render() {
     return (
-      <Loading />
+      <div>
+        <OnlyTitleNav title="BOOK ME INSTEAD. LOGOUT" />
+        <Loading />
+      </div>
     )
   }
 }

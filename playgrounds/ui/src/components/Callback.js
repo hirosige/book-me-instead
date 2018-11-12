@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom'
 import { graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 import Loading from './Loading';
+import OnlyTitleNav from './OnlyTitleNav'
 
 class Callback extends Component {
   async componentDidMount() {
@@ -32,6 +33,7 @@ class Callback extends Component {
   render() {
     return (
       <div>
+        <OnlyTitleNav title="BOOK ME INSTEAD. ALMOST THERE" />
         <Loading />
       </div>
     )

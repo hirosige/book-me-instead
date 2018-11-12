@@ -84,6 +84,10 @@ export function isLoggedIn() {
   return !!idToken && !isTokenExpired(idToken);
 }
 
+export function decodeGraphcoolUserId() {
+  return decode(getGraphCoolToken())
+}
+
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);
   if (!token.exp) { return null; }

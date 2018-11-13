@@ -1,14 +1,62 @@
 import React, { Component } from 'react'
 
 class CountryEditableTableRow extends Component  {
+  constructor(props) {
+    super(props)
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    console.log("child edit")
+    console.log(event.target.value)
+    this.props.updateCountryState({[event.target.name]: event.target.value})
+  }
+
   render () {
     const { country } = this.props
 
     return (
       <React.Fragment>
-        <td>{country.name}:editting</td>
-        <td>{country.code}</td>
-        <td>{country.slug}</td>
+        <td>
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-small"
+                type="text"
+                placeholder="Input Name"
+                name="name"
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-small"
+                type="text"
+                placeholder="Input Code"
+                name="code"
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-small"
+                type="text"
+                placeholder="Input Slug"
+                name="slug"
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+        </td>
         <td>
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             { country.areas.map((area) => (
@@ -22,22 +70,22 @@ class CountryEditableTableRow extends Component  {
         </td>
         <td>
           <div className="field has-addons">
-            <p className="control">
+            <div className="control">
               <div
                 className="button is-small is-warning"
                 onClick={this.props.clickEdit.bind(this, country.id)}
                 style={{ borderRadius: 0 }}>
                 <span>CANCEL</span>
               </div>
-            </p>
-            <p className="control">
-              <div
+            </div>
+            <div className="control">
+              <button
                 className="button is-small is-info"
-                onClick={this.props.handleDelete.bind(this, country.id)}
+                type="submit"
                 style={{ borderRadius: 0 }}>
                 <span>SUBMIT</span>
-              </div>
-            </p>
+              </button>
+            </div>
           </div>
         </td>
       </React.Fragment>

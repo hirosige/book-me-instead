@@ -6,7 +6,7 @@ import SideMenu from './SideMenu';
 
 const Layout = (props) => (
   <div>
-    <Nav />
+    <Nav {...props} />
     <div className="columns is-gapless is-multiline is-mobile">
       <div className="column is-one-quarter">
         <MenuNav title="MENU" />

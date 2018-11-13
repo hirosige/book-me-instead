@@ -57,7 +57,7 @@ export function isLoggedIn() {
   return !!idToken && !isTokenExpired(idToken);
 }
 
-export function decodeGraphcoolUserId() {
+export function getDecodedGraphcoolToken() {
   return decode(getGraphCoolToken())
 }
 

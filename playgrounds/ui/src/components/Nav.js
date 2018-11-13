@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { isLoggedIn } from '../utils/AuthService';
 
-const Nav = () => (
+const Nav = (props) => (
   <nav className="navbar" role="navigation" aria-label="main navigation" style={{
     background: "#007bff",
   }}>
@@ -15,6 +15,9 @@ const Nav = () => (
     </div>
 
     <div className="navbar-end">
+      <div className="navbar-item">
+        {console.log(props.me)}
+      </div>
       <div className="navbar-item">
         <div className="buttons">
           { (isLoggedIn()) ? (

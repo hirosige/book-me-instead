@@ -1,6 +1,22 @@
 import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import './Country.css'
 
 class CountryTableRow extends Component  {
+  handleDelete = async (id, e) => {
+    try {
+      const res = await this.props.deleteCountry({
+        variables: {
+          id,
+        }
+      });
+      console.log(res)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   render () {
     const { country } = this.props
 
@@ -22,22 +38,22 @@ class CountryTableRow extends Component  {
         </td>
         <td>
           <div className="field has-addons">
-            <p className="control">
+            <div className="control">
               <div
                 className="button is-small is-primary"
                 onClick={this.props.clickEdit.bind(this, country.id)}
                 style={{ borderRadius: 0 }}>
                 <span>EDIT</span>
               </div>
-            </p>
-            <p className="control">
+            </div>
+            <div className="control">
               <div
                 className="button is-small is-danger"
-                onClick={this.props.handleDelete.bind(this, country.id)}
+                onClick={this.handleDelete.bind(this, country.id)}
                 style={{ borderRadius: 0 }}>
                 <span>DELETE</span>
               </div>
-            </p>
+            </div>
           </div>
         </td>
       </React.Fragment>
@@ -45,4 +61,14 @@ class CountryTableRow extends Component  {
   }
 }
 
-export default CountryTableRow
+const DELETE_COUNTRY = gql`
+  mutation DeleteCountry($id: ID!) {
+    deleteCountry(id: $id) {
+      id
+    }
+  }
+`
+
+const PageWithQuery = graphql(DELETE_COUNTRY, {name: 'deleteCountry'})(CountryTableRow)
+
+export default PageWithQuery

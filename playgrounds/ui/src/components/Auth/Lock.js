@@ -49,7 +49,10 @@ class Lock extends Component {
   }
 
   render() {
-    const style = { marginTop: '70px' }
+    const style = {
+      display: "flex",
+      alignItems: "center",
+    }
 
     return(
       !isLoggedIn() ? (
@@ -57,6 +60,9 @@ class Lock extends Component {
           background: "rgb(237, 242, 247)",
           height: "100vh",
           position: "fixed",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           width: "100%" }}
         >
           <OnlyTitleNav title="BOOK ME INSTEAD.ADMIN LOGIN" />

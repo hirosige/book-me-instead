@@ -21,6 +21,7 @@ class CreateCountry extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    console.log(this.props.me())
   }
 
   handleClose = event => {

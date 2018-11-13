@@ -1,21 +1,49 @@
 import React from 'react'
+import { GraphQLClient } from 'graphql-request'
 import Loading from '../components/Loading';
 import { withRouter } from 'react-router-dom'
-import { isLoggedIn } from '../utils/AuthService';
+import { isLoggedIn, getDecodedGraphcoolToken } from '../utils/AuthService';
 import OnlyTitleNav from '../components/OnlyTitleNav'
 
 const WithProxy = (WrappedComponent) => {
+
+  const client = new GraphQLClient(process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${process.env.REACT_APP_GRAPHCOOL_API_KEY}`,
+    },
+  })
+
   class HOC extends React.Component {
     constructor () {
       super()
 
       this.state = {
-        isAuthorized: false
+        isAuthorized: false,
+        me: null
       }
+      this.setMe()
+    }
+
+    async setMe() {
+      const { userId } = getDecodedGraphcoolToken()
+
+      const userQuery = `{
+        User(id: "${ userId }") {
+          id
+          email
+          role
+        }
+      }`
+
+      await client.request(userQuery)
+        .then(async user => {
+          console.log(user)
+          await this.setState({ me: user })
+        })
     }
 
     async componentDidMount() {
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 300))
 
       if (isLoggedIn()) {
         await this.setState({ isAuthorized: true })
@@ -25,7 +53,7 @@ const WithProxy = (WrappedComponent) => {
     }
 
     render() {
-      if (!this.state.isAuthorized) {
+      if (!this.state.isAuthorized && !this.state.me) {
         return (
           <div>
             <OnlyTitleNav title="BOOK ME INSTEAD. APP PROXY" />
@@ -42,7 +70,7 @@ const WithProxy = (WrappedComponent) => {
           </div>
         )
       } else {
-        return <WrappedComponent />;
+        return <WrappedComponent me={this.state.me} />;
       }
     }
   }

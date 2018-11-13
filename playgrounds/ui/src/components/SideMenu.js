@@ -11,7 +11,6 @@ class SideMenu extends Component {
 
   render () {
     const { location } = this.props
-    console.log(location.pathname)
 
     return (
       <aside className="menu" style={{ padding: "10px" }} >

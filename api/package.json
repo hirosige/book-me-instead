@@ -1,0 +1,36 @@
+{
+  "name": "post-example",
+  "version": "1.0.0",
+  "description": "My Graphcool Service",
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.1",
+    "@types/validator": "^6.3.0",
+    "algoliasearch": "^3.30.0",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "graphcool-lib": "^0.1.0",
+    "graphql-request": "^1.4.0",
+    "graphql-tag": "^2.10.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^8.1.0",
+    "jwks-rsa": "^1.2.1",
+    "omise": "^0.5.5",
+    "validator": "^9.0.0"
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hirosige/back.suneikii.property.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hirosige/back.suneikii.property/issues"
+  },
+  "homepage": "https://github.com/hirosige/back.suneikii.property#readme"
+}

@@ -1,0 +1,10 @@
+type Advantage @model {
+  id: ID! @isUnique
+  name: String! @isUnique
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  icon: File @relation(name: "AdvantageIcon")
+  hotels: [Hotel!]! @relation(name: "HotelsAdvantages")
+}

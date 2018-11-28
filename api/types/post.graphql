@@ -1,0 +1,14 @@
+type Post @model {
+  id: ID! @isUnique
+  title: String! @isUnique
+  description: String!
+  imageUrl: String!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  author: User! @relation(name: "UserPosts")
+  category: PostCategory @relation(name: "PostAndPostCategory")
+  tags: [Tag!]! @relation(name: "PostTags")
+  hero: File! @relation(name: "PostHero")
+}

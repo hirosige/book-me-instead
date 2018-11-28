@@ -1,0 +1,6 @@
+enum ROOM_TYPE {
+  SUPERIOR
+  DELUXE
+  FAMILY
+  PREMIUM
+}

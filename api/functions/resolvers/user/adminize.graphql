@@ -1,0 +1,8 @@
+type AdminizePayload {
+  id: String!
+  role: String!
+}
+
+extend type Mutation {
+  adminize(userId: String!): AdminizePayload!
+}

@@ -1,0 +1,35 @@
+query canSee($user_id: ID!) {
+  SomeUserExists(filter: {
+    OR: [
+      { id: $user_id role: ADMIN },
+      { id: $user_id role: STAFF }
+    ]
+  })
+}
+
+query canCreate($user_id: ID!) {
+  SomeUserExists(filter: {
+    OR: [
+      { id: $user_id role: ADMIN },
+      { id: $user_id role: STAFF }
+    ]
+  })
+}
+
+query canUpdate($user_id: ID!) {
+  SomeUserExists(filter: {
+    OR: [
+      { id: $user_id role: ADMIN },
+      { id: $user_id role: STAFF }
+    ]
+  })
+}
+
+query canDelete($user_id: ID!) {
+  SomeUserExists(filter: {
+    OR: [
+      { id: $user_id role: ADMIN },
+      { id: $user_id role: STAFF }
+    ]
+  })
+}

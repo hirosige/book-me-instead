@@ -1,0 +1,808 @@
+types:
+  - ./types/post.graphql
+  - ./types/user.graphql
+  - ./types/file.graphql
+  - ./types/favorite.graphql
+  - ./types/area.graphql
+  - ./types/country.graphql
+  - ./types/advantage.graphql
+  - ./types/contact.graphql
+  - ./types/profile.graphql
+  - ./types/post_category.graphql
+  - ./types/tag.graphql
+  - ./types/booking.graphql
+  - ./types/hotel.graphql
+  - ./types/review.graphql
+  - ./types/room.graphql
+  - ./enums/role.graphql
+  - ./enums/room_type.graphql
+
+functions:
+
+  # from auth0 user
+  authenticate:
+    handler:
+      code:
+        src: ./functions/resolvers/auth0/auth0Authentication.js
+        environment:
+          AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
+          AUTH0_API_IDENTIFIER: ${env:AUTH0_API_IDENTIFIER}
+    type: resolver
+    schema: ./functions/resolvers/auth0/auth0Authentication.graphql
+
+  isAdmin:
+    handler:
+      code:
+        src: ./functions/resolvers/user/isAdmin.js
+        environment:
+          GRAPHCOOL_SIMPLE_ENDPOINT: ${env:GRAPHCOOL_SIMPLE_ENDPOINT}
+          GRAPHCOOL_API_KEY: ${env:GRAPHCOOL_API_KEY}
+    type: resolver
+    schema: ./functions/resolvers/user/isAdmin.graphql
+
+  adminize:
+    handler:
+      code:
+        src: ./functions/resolvers/user/adminize.js
+        environment:
+          GRAPHCOOL_SIMPLE_ENDPOINT: ${env:GRAPHCOOL_SIMPLE_ENDPOINT}
+          GRAPHCOOL_API_KEY: ${env:GRAPHCOOL_API_KEY}
+    type: resolver
+    schema: ./functions/resolvers/user/adminize.graphql
+
+  sayHelloPost:
+    type: operationAfter
+    operation: Post.create
+    handler:
+      code: functions/hooks/sayHelloPost.js
+
+  syncAlgolia:
+    type: subscription
+    query: functions/subscriptions/algolia/userSync.graphql
+    handler:
+      code:
+        src: ./functions/subscriptions/algolia/userSync.js
+        environment:
+          ALGOLIA_APP_ID: ${env:ALGOLIA_APP_ID}
+          ALGOLIA_API_KEY: ${env:ALGOLIA_API_KEY}
+
+  validateProfile:
+    type: operationBefore
+    operation: Profile.create
+    handler:
+      code: functions/validators/validateProfile.js
+
+  # Omise starts ↓
+  # Account
+  getAccountInfo:
+    handler:
+      code:
+        src: functions/resolvers/omise/account/getAccountInfo.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/account/getAccount.graphql
+  # Balance
+  getBalance:
+    handler:
+      code:
+        src: functions/resolvers/omise/balance/getBalance.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/balance/getBalance.graphql
+  # Card
+  getCards:
+    handler:
+      code:
+        src: functions/resolvers/omise/card/getCards.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/card/getCards.graphql
+  getCard:
+    handler:
+      code:
+        src: functions/resolvers/omise/card/getCard.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/card/getCard.graphql
+  updateCard:
+    handler:
+      code:
+        src: functions/resolvers/omise/card/updateCard.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/card/updateCard.graphql
+  deleteCard:
+    handler:
+      code:
+        src: functions/resolvers/omise/card/deleteCard.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/card/deleteCard.graphql
+  # Charge
+  getCharges:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/getCharges.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/getCharges.graphql
+  createChargeForGuest:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/createChargeForGuest.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/createChargeForGuest.graphql
+  createChargeForOurClient:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/createChargeForOurClient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/createChargeForOurClient.graphql
+  getChargeInfo:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/getChargeInfo.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/getChargeInfo.graphql
+  updateCharge:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/updateCharge.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/updateCharge.graphql
+  resolveCharge:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/resolveCharge.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/resolveCharge.graphql
+  cancelCharge:
+    handler:
+      code:
+        src: functions/resolvers/omise/charge/cancelCharge.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/charge/cancelCharge.graphql
+  # Customer
+  getCustomers:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/getCustomers.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/getCustomers.graphql
+  createCustomer:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/createCustomer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/createCustomer.graphql
+  createCustomerWithCard:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/createCustomerWithCard.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/createCustomerWithCard.graphql
+  getCustomer:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/getCustomer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/getCustomer.graphql
+  updateCustomer:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/updateCustomer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/updateCustomer.graphql
+  addCardToCustomer:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/addCardToCustomer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/addCardToCustomer.graphql
+  deleteCustomer:
+    handler:
+      code:
+        src: functions/resolvers/omise/customer/deleteCustomer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/customer/deleteCustomer.graphql
+  # Dispute
+  getDisputes:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/getDisputes.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/getDisputes.graphql
+  getOpenDisputes:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/getOpenDisputes.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/getOpenDisputes.graphql
+  getPendingDisputes:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/getPendingDisputes.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/getPendingDisputes.graphql
+  getClosedDisputes:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/getClosedDisputes.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/getClosedDisputes.graphql
+  getDispute:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/getDispute.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/getDispute.graphql
+  updateDispute:
+    handler:
+      code:
+        src: functions/resolvers/omise/dispute/updateDispute.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/dispute/updateDispute.graphql
+  # Document
+  getDocumentsByDispute:
+    handler:
+      code:
+        src: functions/resolvers/omise/document/getDocumentsByDispute.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/document/getDocumentsByDispute.graphql
+  # Event
+  getEvents:
+    handler:
+      code:
+        src: functions/resolvers/omise/event/getEvents.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/event/getEvents.graphql
+  getEvent:
+    handler:
+      code:
+        src: functions/resolvers/omise/event/getEvent.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/event/getEvent.graphql
+  # Recipient
+  getRecipients:
+    handler:
+      code:
+        src: functions/resolvers/omise/recipient/getRecipients.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/recipient/getRecipients.graphql
+  getRecipient:
+    handler:
+      code:
+        src: functions/resolvers/omise/recipient/getRecipient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/recipient/getRecipient.graphql
+  createRecipient:
+    handler:
+      code:
+        src: functions/resolvers/omise/recipient/createRecipient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/recipient/createRecipient.graphql
+  updateRecipient:
+    handler:
+      code:
+        src: functions/resolvers/omise/recipient/updateRecipient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/recipient/updateRecipient.graphql
+  deleteRecipient:
+    handler:
+      code:
+        src: functions/resolvers/omise/recipient/deleteRecipient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/recipient/deleteRecipient.graphql
+  # Refund
+  getRefunds:
+    handler:
+      code:
+        src: functions/resolvers/omise/refund/getRefunds.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/refund/getRefunds.graphql
+  getRefundsByCharge:
+    handler:
+      code:
+        src: functions/resolvers/omise/refund/getRefundsByCharge.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/refund/getRefundsByCharge.graphql
+  createRefund:
+    handler:
+      code:
+        src: functions/resolvers/omise/refund/createRefund.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/refund/createRefund.graphql
+  getRefund:
+    handler:
+      code:
+        src: functions/resolvers/omise/refund/getRefund.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/refund/getRefund.graphql
+  # Schedule
+  getSchedules:
+    handler:
+      code:
+        src: functions/resolvers/omise/schedule/getSchedules.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/schedule/getSchedules.graphql
+  getSchedule:
+    handler:
+      code:
+        src: functions/resolvers/omise/schedule/getSchedule.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/schedule/getSchedule.graphql
+  deleteSchedule:
+    handler:
+      code:
+        src: functions/resolvers/omise/schedule/deleteSchedule.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/schedule/deleteSchedule.graphql
+  # Transaction
+  getTransactions:
+    handler:
+      code:
+        src: functions/resolvers/omise/transaction/getTransactions.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transaction/getTransactions.graphql
+  getTransaction:
+    handler:
+      code:
+        src: functions/resolvers/omise/transaction/getTransaction.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transaction/getTransaction.graphql
+  # Transfer
+  getTransfers:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/getTransfers.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/getTransfers.graphql
+  getTransfer:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/getTransfer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/getTransfer.graphql
+  createTransfer:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/createTransfer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/createTransfer.graphql
+  createTransferToRecipient:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/createTransferToRecipient.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/createTransferToRecipient.graphql
+  updateTransfer:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/updateTransfer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/updateTransfer.graphql
+  deleteTransfer:
+    handler:
+      code:
+        src: functions/resolvers/omise/transfer/deleteTransfer.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/transfer/deleteTransfer.graphql
+
+permissions:
+
+  # Advantage
+  - operation: Advantage.read
+    authenticated: true
+  - operation: Advantage.create
+    authenticated: true
+  - operation: Advantage.update
+    authenticated: true
+  - operation: Advantage.delete
+    authenticated: true
+
+  # Area
+  - operation: Area.read
+    authenticated: true
+  - operation: Area.create
+    authenticated: true
+  - operation: Area.update
+    authenticated: true
+  - operation: Area.delete
+    authenticated: true
+
+  # Booking
+  - operation: Booking.read
+    authenticated: true
+  - operation: Booking.create
+    authenticated: true
+  - operation: Booking.update
+    authenticated: true
+  - operation: Booking.delete
+    authenticated: true
+
+  # Contact
+  - operation: Contact.read
+    authenticated: true
+  - operation: Contact.create
+    authenticated: true
+  - operation: Contact.update
+    authenticated: true
+  - operation: Contact.delete
+    authenticated: true
+
+  # Country
+  - operation: Country.read
+    authenticated: false
+    query: ./permissions/adminOrStaff.graphql:canSee
+  - operation: Country.create
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canCreate
+  - operation: Country.update
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canUpdate
+  - operation: Country.delete
+    authenticated: true
+    query: ./permissions/onlyAdmin.graphql:canDelete
+
+  # Favorite
+  - operation: Favorite.read
+    authenticated: true
+  - operation: Favorite.create
+    authenticated: true
+  - operation: Favorite.update
+    authenticated: true
+  - operation: Favorite.delete
+    authenticated: true
+
+  # File
+  - operation: File.read
+    authenticated: true
+  - operation: File.create
+    authenticated: true
+  - operation: File.update
+    authenticated: true
+  - operation: File.delete
+    authenticated: true
+
+  # Hotel
+  - operation: Hotel.read
+  - operation: Hotel.create
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canCreate
+  - operation: Hotel.update
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canUpdate
+  - operation: Hotel.delete
+    authenticated: true
+    query: ./permissions/onlyAdmin.graphql:canDelete
+
+  # PostCategory
+  - operation: PostCategory.read
+    authenticated: true
+  - operation: PostCategory.create
+    authenticated: true
+  - operation: PostCategory.update
+    authenticated: true
+  - operation: PostCategory.delete
+    authenticated: true
+
+  # Post
+  - operation: Post.read
+    authenticated: true
+  - operation: Post.create
+    authenticated: true
+  - operation: Post.update
+    authenticated: true
+  - operation: Post.delete
+    authenticated: true
+
+  # Profile
+  - operation: Profile.read
+    authenticated: true
+  - operation: Profile.create
+    authenticated: true
+  - operation: Profile.update
+    authenticated: true
+  - operation: Profile.delete
+    authenticated: true
+
+  # Review
+  - operation: Review.read
+    authenticated: true
+  - operation: Review.create
+    authenticated: true
+  - operation: Review.update
+    authenticated: true
+  - operation: Review.delete
+    authenticated: true
+
+  # Room
+  - operation: Room.read
+    authenticated: true
+  - operation: Room.create
+    authenticated: true
+  - operation: Room.update
+    authenticated: true
+  - operation: Room.delete
+    authenticated: true
+
+  # Tag
+  - operation: Tag.read
+    authenticated: true
+  - operation: Tag.create
+    authenticated: true
+  - operation: Tag.update
+    authenticated: true
+  - operation: Tag.delete
+    authenticated: true
+
+  # User
+  - operation: User.read
+    authenticated: true
+  - operation: User.create
+  - operation: User.update
+    authenticated: true
+  - operation: User.delete
+    authenticated: true
+
+  # Relation
+
+  # RoomPhotos
+  - operation: RoomPhotos.connect
+    authenticated: true
+  - operation: RoomPhotos.disconnect
+    authenticated: true
+
+  # CountryAreas
+  - operation: CountryAreas.connect
+    authenticated: true
+  - operation: CountryAreas.disconnect
+    authenticated: true
+
+  # CountryHotels
+  - operation: CountryHotels.connect
+    authenticated: true
+  - operation: CountryHotels.disconnect
+    authenticated: true
+
+  # UserProfile
+  - operation: UserProfile.connect
+    authenticated: true
+  - operation: UserProfile.disconnect
+    authenticated: true
+
+  # PostTags
+  - operation: PostTags.connect
+    authenticated: true
+  - operation: PostTags.disconnect
+    authenticated: true
+
+  # AreaHotels
+  - operation: AreaHotels.connect
+    authenticated: true
+  - operation: AreaHotels.disconnect
+    authenticated: true
+
+  # HotelsAdvantages
+  - operation: HotelsAdvantages.connect
+    authenticated: true
+  - operation: HotelsAdvantages.disconnect
+    authenticated: true
+
+  # UserReviews
+  - operation: UserReviews.connect
+    authenticated: true
+  - operation: UserReviews.disconnect
+    authenticated: true
+
+  # UserFavorites
+  - operation: UserFavorites.connect
+    authenticated: true
+  - operation: UserFavorites.disconnect
+    authenticated: true
+
+  # HotelRooms
+  - operation: HotelRooms.connect
+    authenticated: true
+  - operation: HotelRooms.disconnect
+    authenticated: true
+
+  # FavoriteHotels
+  - operation: FavoriteHotels.connect
+    authenticated: true
+  - operation: FavoriteHotels.disconnect
+    authenticated: true
+
+  # UserBookings
+  - operation: UserBookings.connect
+    authenticated: true
+  - operation: UserBookings.disconnect
+    authenticated: true
+
+  # HotelPhotos
+  - operation: HotelPhotos.connect
+    authenticated: true
+  - operation: HotelPhotos.disconnect
+    authenticated: true
+
+  # AdvantageIcon
+  - operation: AdvantageIcon.connect
+    authenticated: true
+  - operation: AdvantageIcon.disconnect
+    authenticated: true
+
+  # Avatar
+  - operation: Avatar.connect
+    authenticated: true
+  - operation: Avatar.disconnect
+    authenticated: true
+
+  # HotelReviews
+  - operation: HotelReviews.connect
+    authenticated: true
+  - operation: HotelReviews.disconnect
+    authenticated: true
+
+  # HotelBookings
+  - operation: HotelBookings.connect
+    authenticated: true
+  - operation: HotelBookings.disconnect
+    authenticated: true
+
+  # UserPosts
+  - operation: UserPosts.connect
+    authenticated: true
+  - operation: UserPosts.disconnect
+    authenticated: true
+
+  # PostHero
+  - operation: PostHero.connect
+    authenticated: true
+  - operation: PostHero.disconnect
+    authenticated: true
+
+  # PostAndPostCategory
+  - operation: PostAndPostCategory.connect
+    authenticated: true
+  - operation: PostAndPostCategory.disconnect
+    authenticated: true

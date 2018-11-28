@@ -1,0 +1,13 @@
+{
+  "graphQLErrors":[{
+    "locations":[
+      {"line":2,"column":3}
+      ],
+    "path":["createCountry"],
+    "code":3010,
+    "message":"A unique constraint would be violated on Country. Details: Field name = name,requestId:ap-northeast-1:simple:cjoqupqzc0pta0140f5jpxs5y"}
+  ],
+  "networkError":null,
+  "message":"GraphQL error: A unique constraint would be violated on Country. Details: Field name = name"
+}
+

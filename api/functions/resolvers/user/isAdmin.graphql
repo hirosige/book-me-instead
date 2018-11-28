@@ -1,0 +1,7 @@
+type IsAdminPayload {
+  isAdmin: Boolean!
+}
+
+extend type Query {
+  isAdmin(userId: ID!): IsAdminPayload!
+}

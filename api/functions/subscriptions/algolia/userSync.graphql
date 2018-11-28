@@ -1,0 +1,9 @@
+subscription {
+  User(filter: { mutation_in: [CREATED]}) {
+    node {
+      id
+      email
+      auth0UserId
+    }
+  }
+}

@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Link } from 'react-router-dom';
 import Layout from '../Layout';
 import './Country.css'
 import CountryTableRow from './CountryTableRow';
 import CountryEditableTableRow from './CountryEditableTableRow';
 import WithProxy from '../../hoc/WithProxy'
 import ContentLoader from "react-content-loader"
+import CreateCountryModal from './CreateCountryModal';
+import {
+  QUERY_CREATED,
+  QUERY_UPDATED,
+  QUERY_DELETED
+} from '../../constants/query'
 
 class Country extends Component {
   constructor(props) {
     super(props)
 
+    this.props.data = {
+      variables: {
+        first: 10,
+        skip: 0
+      }
+    }
+
     this.state = {
       isEditting: "",
+      isCreating: false,
+      isActive: "",
+      currentPage: 0,
       country: {
         name: "",
         code: "",
@@ -25,8 +40,62 @@ class Country extends Component {
     this.handleEdit = this.handleEdit.bind(this)
   }
 
+  componentDidMount() {
+    this.props.data.variables({
+      first: 10,
+      skip: 0
+    })
+
+    this.props.getAllCountries.subscribeToMore({
+      document: COUNTRIES_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        let result = { allPosts: prev.allCountries };
+        const { mutation } = subscriptionData.data.Country
+
+        switch(mutation) {
+          case QUERY_CREATED:
+            const newCountries = [
+              ...prev.allCountries,
+              subscriptionData.data.Country.node,
+            ]
+
+            result = { allCountries: newCountries };
+            break
+          case QUERY_UPDATED:
+            const updatedId = subscriptionData.data.Country.node.id
+            const editCountries = prev.allCountries.map(country => {
+              if (country.id === updatedId) {
+                return subscriptionData.data.Country.node
+              }
+              return country
+            })
+            result = { allCountries: editCountries }
+            break
+          case QUERY_DELETED:
+            const deletedId = subscriptionData.data.Country.previousValues.id
+            const deletedCountries = prev.allCountries.filter(n => n.id !== deletedId)
+
+            result = { allCountries: deletedCountries };
+            break
+          default:
+            break
+      }
+
+        console.log('result', result)
+        console.log('prev', prev);
+        console.log('sub', subscriptionData.data);
+
+        return result;
+      },
+    });
+}
+
   checkEdit = (id, e) => {
     return this.state.isEditting === id
+  }
+
+  clickAddCountry = () => {
+    this.switchModal()
   }
 
   clickEdit = async (id, e) => {
@@ -44,10 +113,16 @@ class Country extends Component {
     }})
   }
 
+  switchModal = () => {
+    if (this.state.isActive === "") {
+      this.setState({ isActive: "is-active" })
+    } else {
+      this.setState({ isActive: "" })
+    }
+  }
+
   handleEdit = async (event) => {
     event.preventDefault();
-
-    console.log(this.state.country)
 
     const { isEditting } = this.state
 
@@ -76,27 +151,20 @@ class Country extends Component {
     }
   }
 
+  nextPage = () => {
+    this.setState({ currentPage: this.state.currentPage + 1 })
+  }
+
   render() {
+    this.props.data.variables({
+      first: 10,
+      skip: 0
+    })
     const { allCountries } = this.props.getAllCountries
 
     if (this.props.getAllCountries && this.props.getAllCountries.loading) {
       return (
         <Layout>
-          <span className="icon" style={{
-            height: '30px',
-            width: '30px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: '50%',
-            background: '#007BFF',
-            margin: "30px",
-          }}>
-            <i className="fas fa-sync fa-spin" style={{
-              fontSize: '1rem',
-              color: '#ffffff'
-            }}></i>
-          </span>
           <ContentLoader
             height={300}
             width={500}
@@ -119,6 +187,18 @@ class Country extends Component {
     return (
       <Layout {...this.props}>
         <div style={{ padding: "10px" }}>
+          <CreateCountryModal
+            isActive={this.state.isActive}
+            switchModal={this.switchModal} />
+          <button
+            className="button is-small is-warning"
+            onClick={this.clickAddCountry}
+            style={{
+              marginBottom: "10px"
+            }}
+          >
+            ADD COUNTRY
+          </button>
           <form onSubmit={this.handleEdit}>
             <table className="table is-narrow is-hoverable" style={{ tableLayout: "fixed" }}>
               <thead>
@@ -150,12 +230,9 @@ class Country extends Component {
               </tbody>
             </table>
           </form>
-          <Link className="button is-warning is-small" to="/countries/new" style={{
-            marginTop: "10px",
-            borderRadius: 0,
-          }}>
-            ADD COUNTRY
-          </Link>
+          <button
+            className="button is-primary is-small"
+            onClick={this.nextPage}>Next Page</button>
         </div>
       </Layout>
     )
@@ -163,8 +240,14 @@ class Country extends Component {
 }
 
 const GET_ALL_COUNTRIES = gql`
-  query {
-    allCountries {
+  query paginatedCountries(
+    $first: Int!
+    $skip: Int!,
+  ) {
+    allCountries(
+      first: $first
+      skip: $skip
+    ) {
       id
       name
       code
@@ -196,6 +279,37 @@ const UPDATE_COUNTRY = gql`
     }
   }
 `
+
+const COUNTRIES_SUBSCRIPTION = gql`
+  subscription {
+    Country(
+      filter: {
+        mutation_in: [CREATED, UPDATED, DELETED]
+      }
+    ) {
+      mutation # 実行されたmutationの種類を出力
+      node { # 変化後のデータを出力
+        id
+        name
+        code
+        slug
+        areas {
+          id
+          name
+          code
+          slug
+        }
+      }
+      updatedFields # UPDATEされたフィールドを出力
+      previousValues { # 変化前のデータを出力
+        id
+        name
+        code
+        slug
+      }
+    }
+  }
+`;
 
 const PageWithQuery = compose(
   graphql(GET_ALL_COUNTRIES, {name: 'getAllCountries'}),

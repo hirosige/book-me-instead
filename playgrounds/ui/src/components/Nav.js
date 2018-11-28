@@ -16,7 +16,6 @@ const Nav = (props) => (
 
     <div className="navbar-end">
       <div className="navbar-item">
-        {console.log(props.me)}
       </div>
       <div className="navbar-item">
         <div className="buttons">

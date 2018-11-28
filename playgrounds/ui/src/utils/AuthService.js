@@ -1,12 +1,35 @@
 import decode from 'jwt-decode';
+import { GraphQLClient } from 'graphql-request'
+
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 const GRAPHCOOL_ACCESS_TOKEN = 'graphcool_access_token';
+
+const client = new GraphQLClient(process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT, {
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_GRAPHCOOL_API_KEY}`,
+  },
+})
 
 export function logout() {
   clearIdToken();
   clearAccessToken();
   clearGraphCoolToken();
+}
+
+export async function getGraphcoolUser() {
+  const { userId } = getDecodedGraphcoolToken()
+
+  const userQuery = `{
+    User(id: "${ userId }") {
+      id
+      email
+      role
+    }
+  }`
+
+  const user = (await client.request(userQuery)).User
+  return user
 }
 
 export function getIdToken() {
@@ -52,9 +75,13 @@ export function setIdToken() {
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
+export async function isAuthorized() {
+  return ((await getGraphcoolUser()).role === "ADMIN")
+}
+
 export function isLoggedIn() {
   const idToken = getIdToken();
-  return !!idToken && !isTokenExpired(idToken);
+  return !!idToken && !isTokenExpired(idToken)
 }
 
 export function getDecodedGraphcoolToken() {

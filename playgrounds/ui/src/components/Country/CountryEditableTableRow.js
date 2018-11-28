@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
-
 class CountryEditableTableRow extends Component  {
   constructor(props) {
     super(props)
+
+    this.state = {
+      country: props.country
+    }
+
+    this.props.updateCountryState({...props.country})
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    console.log("child edit")
     console.log(event.target.value)
     this.props.updateCountryState({[event.target.name]: event.target.value})
+
+    this.setState({ country: {
+      [event.target.name]: event.target.value
+    }})
   }
 
   render () {
@@ -26,6 +34,7 @@ class CountryEditableTableRow extends Component  {
                 type="text"
                 placeholder="Input Name"
                 name="name"
+                value={this.state.country.name}
                 onChange={this.handleChange}
               />
             </div>
@@ -39,6 +48,7 @@ class CountryEditableTableRow extends Component  {
                 type="text"
                 placeholder="Input Code"
                 name="code"
+                value={this.state.country.code}
                 onChange={this.handleChange}
               />
             </div>
@@ -52,6 +62,7 @@ class CountryEditableTableRow extends Component  {
                 type="text"
                 placeholder="Input Slug"
                 name="slug"
+                value={this.state.country.slug}
                 onChange={this.handleChange}
               />
             </div>

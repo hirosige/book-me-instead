@@ -6,12 +6,11 @@ import './Country.css'
 class CountryTableRow extends Component  {
   handleDelete = async (id, e) => {
     try {
-      const res = await this.props.deleteCountry({
+      await this.props.deleteCountry({
         variables: {
           id,
         }
       });
-      console.log(res)
     } catch(err) {
       console.log(err)
     }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Layout from '../Layout';
 import './Country.css'
-import WithProxy from '../../hoc/WithProxy'
 
 class CreateCountry extends Component {
   constructor(props) {
@@ -14,6 +12,7 @@ class CreateCountry extends Component {
         code: "",
         slug: ""
       },
+      isActive: "",
       isSending: false,
       isComplete: false,
     };
@@ -21,7 +20,6 @@ class CreateCountry extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    console.log(this.props.me())
   }
 
   handleClose = event => {
@@ -71,8 +69,8 @@ class CreateCountry extends Component {
 
   render() {
     return (
-      <Layout>
-        <div style={{ padding: "40px" }}>
+      <React.Fragment>
+        <div>
           { this.state.isComplete && (
             <div className="notification is-success">
               <button className="delete" onClick={this.handleClose}></button>
@@ -81,40 +79,58 @@ class CreateCountry extends Component {
           )}
 
           <form onSubmit={this.handleSubmit}>
-            <div className="field">
-              <label className="label">Name</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Text input"
-                  name="name"
-                  value={this.state.country.name}
-                  onChange={this.handleChange} />
+            <div class="field is-horizontal is-grouped">
+              <div class="field-label is-normal">
+                <label class="label">Name</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Input Name"
+                      name="name"
+                      value={this.state.country.name}
+                      onChange={this.handleChange} />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="field">
-              <label className="label">Code</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Text input"
-                  name="code"
-                  value={this.state.country.code}
-                  onChange={this.handleChange} />
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Code</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Input Code"
+                      name="code"
+                      value={this.state.country.code}
+                      onChange={this.handleChange} />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="field">
-              <label className="label">Slug</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Text input"
-                  name="slug"
-                  value={this.state.country.slug}
-                  onChange={this.handleChange} />
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Slug</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Input Slug"
+                      name="slug"
+                      value={this.state.country.slug}
+                      onChange={this.handleChange} />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="field is-grouped">
@@ -128,7 +144,7 @@ class CreateCountry extends Component {
             </div>
           </form>
         </div>
-      </Layout>
+      </React.Fragment>
     )
   }
 }
@@ -153,4 +169,4 @@ const PageWithQuery = graphql(CREATE_COUNTRY, {
   name: 'createCountry'
 })(CreateCountry)
 
-export default WithProxy(PageWithQuery)
+export default PageWithQuery

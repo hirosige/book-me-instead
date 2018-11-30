@@ -79,13 +79,13 @@ class CreateCountry extends Component {
           )}
 
           <form onSubmit={this.handleSubmit}>
-            <div class="field is-horizontal is-grouped">
-              <div class="field-label is-normal">
-                <label class="label">Name</label>
+            <div className="field is-horizontal is-grouped">
+              <div className="field-label is-normal">
+                <label className="label">Name</label>
               </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
+              <div className="field-body">
+                <div className="field">
+                  <div className="control">
                     <input
                       className="input"
                       type="text"
@@ -97,13 +97,13 @@ class CreateCountry extends Component {
                 </div>
               </div>
             </div>
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Code</label>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Code</label>
               </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
+              <div className="field-body">
+                <div className="field">
+                  <div className="control">
                     <input
                       className="input"
                       type="text"
@@ -115,13 +115,13 @@ class CreateCountry extends Component {
                 </div>
               </div>
             </div>
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Slug</label>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Slug</label>
               </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
+              <div className="field-body">
+                <div className="field">
+                  <div className="control">
                     <input
                       className="input"
                       type="text"

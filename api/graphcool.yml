@@ -6,6 +6,7 @@ types:
   - ./types/area.graphql
   - ./types/country.graphql
   - ./types/advantage.graphql
+  - ./types/advantage_icon.graphql
   - ./types/contact.graphql
   - ./types/profile.graphql
   - ./types/post_category.graphql
@@ -49,6 +50,18 @@ functions:
           GRAPHCOOL_API_KEY: ${env:GRAPHCOOL_API_KEY}
     type: resolver
     schema: ./functions/resolvers/user/adminize.graphql
+
+  connectToOmise:
+    handler:
+      code:
+        src: functions/resolvers/omise/meta/userSync.js
+        environment:
+          OMISE_PUBLIC_KEY: ${env:OMISE_PUBLIC_KEY}
+          OMISE_SECRET_KEY: ${env:OMISE_SECRET_KEY}
+          GRAPHCOOL_SIMPLE_ENDPOINT: ${env:GRAPHCOOL_SIMPLE_ENDPOINT}
+          GRAPHCOOL_API_KEY: ${env:GRAPHCOOL_API_KEY}
+    type: resolver
+    schema: functions/resolvers/omise/meta/userSync.graphql
 
   sayHelloPost:
     type: operationAfter
@@ -540,6 +553,16 @@ permissions:
   - operation: Advantage.delete
     authenticated: true
 
+  # AdvantageIcon
+  - operation: AdvantageIcon.read
+    authenticated: true
+  - operation: AdvantageIcon.create
+    authenticated: true
+  - operation: AdvantageIcon.update
+    authenticated: true
+  - operation: AdvantageIcon.delete
+    authenticated: true
+
   # Area
   - operation: Area.read
     authenticated: true
@@ -765,10 +788,10 @@ permissions:
   - operation: HotelPhotos.disconnect
     authenticated: true
 
-  # AdvantageIcon
-  - operation: AdvantageIcon.connect
+  # AdvantageAndIcon
+  - operation: AdvantageAndIcon.connect
     authenticated: true
-  - operation: AdvantageIcon.disconnect
+  - operation: AdvantageAndIcon.disconnect
     authenticated: true
 
   # Avatar

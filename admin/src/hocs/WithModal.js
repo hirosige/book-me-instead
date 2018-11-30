@@ -1,9 +1,10 @@
 import React from 'react'
 
-const withModal = buttonCaption => WrappedComponent => {
+const withModal = (buttonCaption, buttonSize) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       isActive: "",
+      isCompleted: false,
     }
 
     switchModal = () => {
@@ -14,12 +15,23 @@ const withModal = buttonCaption => WrappedComponent => {
       }
     }
 
+    closeCompleted = () => {
+      this.setState({
+        isCompleted: false,
+      })
+    }
+
+    makeCompleted = () => {
+      this.setState({
+        isCompleted: true,
+      })
+    }
+
     render () {
       return (
         <React.Fragment>
           <button
-            className="button is-primary"
-            style={{ borderRadius: 0 }}
+            className={`button is-primary ${buttonSize} no-br`}
             onClick={this.switchModal}
           >{buttonCaption}</button>
           <div className={`modal ${this.state.isActive}`}>
@@ -28,6 +40,8 @@ const withModal = buttonCaption => WrappedComponent => {
               <WrappedComponent
                 {...this.props}
                 {...this.state}
+                makeCompleted={this.makeCompleted}
+                closeCompleted={this.closeCompleted}
                 switchModal={this.switchModal}
               />
             </div>

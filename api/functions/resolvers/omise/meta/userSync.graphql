@@ -1,0 +1,9 @@
+type ConnectToOmisePayload {
+  id: ID!
+  email: String!
+  omiseCustomerId: String!
+}
+
+extend type Mutation {
+  connectToOmise(userId: String!): ConnectToOmisePayload!
+}

@@ -20,6 +20,7 @@ const SideMenu = (props) => (
       <ul className="menu-list">
         <li><Link className={props.activate(props.componentName, 'Dashboard')} to="/dashboard">DASHBOARD</Link></li>
         <li><Link className={props.activate(props.componentName, 'Country')} to="/countries">COUNTRIES</Link></li>
+        <li><Link className={props.activate(props.componentName, 'Advantage')} to="/advantages">ADVANTAGES</Link></li>
       </ul>
     </aside>
   </React.Fragment>
@@ -27,5 +28,5 @@ const SideMenu = (props) => (
 
 export default compose(
   withActiveMenu(),
-  hasLogger(true)
+  // hasLogger(true),
 )(SideMenu)

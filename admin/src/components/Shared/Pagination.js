@@ -13,7 +13,7 @@ const Pagination = (props) => (
       if (loading) return <div>Loading...</div>;
       if (error) return <div>Error {JSON.stringify(error)}</div>;
 
-      const { count } = data._allCountriesMeta
+      const { count } = Object.entries(data)[0][1]
       const lastPage = Math.ceil(count / props.recordPerPage)
 
       return (

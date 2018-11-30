@@ -7,7 +7,7 @@ const CountryDeleteMutation = ({ deleteId }) => (
     {client => (
       <div>
         <button
-          className="button is-small is-danger"
+          className="button is-small is-danger no-br"
           onClick={async () => {
             const { data } = await client.mutate({
               mutation: DELETE_A_COUNTRY,

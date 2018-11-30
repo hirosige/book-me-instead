@@ -1,0 +1,15 @@
+type AdvantageIcon @model {
+  id: ID! @isUnique
+  name: String!
+  cdnUrl: String!
+  uuid: String!
+  isImage: Boolean!
+  isStored: Boolean!
+  mimeType: String!
+  size: Int!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  advantage: Advantage @relation(name: "AdvantageAndIcon")
+}

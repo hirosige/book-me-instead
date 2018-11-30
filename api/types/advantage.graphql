@@ -5,6 +5,6 @@ type Advantage @model {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  icon: File @relation(name: "AdvantageIcon")
+  icon: AdvantageIcon @relation(name: "AdvantageAndIcon")
   hotels: [Hotel!]! @relation(name: "HotelsAdvantages")
 }

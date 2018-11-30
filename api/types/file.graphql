@@ -13,6 +13,5 @@ type File @model {
   hotels: Hotel @relation(name: "HotelPhotos")
   rooms: Room @relation(name: "RoomPhotos")
   user: User @relation(name: "Avatar")
-  advantage: Advantage @relation(name: "AdvantageIcon")
   post: Post @relation(name: "PostHero")
 }

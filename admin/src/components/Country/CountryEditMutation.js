@@ -1,94 +1,124 @@
 import React from 'react'
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-
-const UPDATE_DOG = gql`
-  mutation UpdateDog(
-    $id: ID!
-    $name: String!
-    $breed: String!
-  ) {
-    updateDog(
-      id: $id
-      name: $name
-      breed: $breed
-    ) {
-      id
-      name
-      breed
-    }
-  }
-`;
+import { compose } from 'recompose'
+import withModal from '../../hocs/WithModal';
+import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
+import { UPDATE_COUNTRY } from '../../queries/Country'
+import Danger from '../Notification/Danger'
+import Success from '../Notification/Success'
 
 class CountryEditMutation extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      isActive: "",
+      ...props.editItem,
     }
   }
 
-  switchModal = () => {
-    if (this.state.isActive === "is-active") {
-      this.setState({ isActive: "" })
-    } else {
-      this.setState({ isActive: "is-active" })
-    }
+  initializeState = () => {
+    this.setState({
+      name: "",
+      code: "",
+      slug: "",
+    })
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value,
+    })
   }
 
   render () {
-    let id = this.props.editItem.id
-    let name = this.props.editItem.name
-    let breed = this.props.editItem.breed
-
     return (
       <React.Fragment>
-        <button className="button is-primary is-small" onClick={this.switchModal}>EDIT</button>
-        <div className={`modal ${this.state.isActive}`}>
-          <div className="modal-background"></div>
-          <div className="modal-card">
-            <Mutation
-              mutation={UPDATE_DOG}
-            >
-              {(createDog, { data }) => (
-                <form
-                  onSubmit={e => {
-                    console.log('test')
-                    e.preventDefault();
-                    createDog({ variables: {
-                      id,
-                      name: name.value,
-                      breed: breed.value
-                    }});
-                    name.value = "";
-                    breed.value = "";
-                    this.switchModal()
-                  }}
-                >
-                <header className="modal-card-head">
-                  <div className="modal-card-title">Update Dog</div>
-                  <div className="delete" aria-label="close" onClick={this.switchModal}></div>
+        <Mutation
+          mutation={UPDATE_COUNTRY}
+        >
+          {(updateCountry, { data, loading, error }) => (
+            <React.Fragment>
+              <form onSubmit={e => {
+                e.preventDefault();
+                updateCountry({ variables: {
+                  id: this.state.id,
+                  name: this.state.name,
+                  code: this.state.code,
+                  slug: this.state.slug,
+                }}).then(() => {
+                  this.initializeState()
+                  this.props.makeCompleted()
+                });
+
+                }}
+              >
+                <header className="modal-card-head no-br bk-primary">
+                  <p className="modal-card-title txt-white">UPDATE COUNTRY</p>
+                  <div className="delete" aria-label="close" onClick={this.props.switchModal}></div>
                 </header>
+                {error && (
+                  <Danger message={error.message} />
+                )}
+                {this.props.isCompleted && (
+                  <Success
+                    message="Country is Successfully updated."
+                    closeCompleted={this.props.closeCompleted}
+                  />
+                )}
                 <section className="modal-card-body">
-                  <input
-                    ref={name}
-                  />
-                  <input
-                    ref={breed}
-                  />
-                  </section>
-                <footer className="modal-card-foot">
-                  <button className="button is-success" type="submit">Save changes</button>
-                  <div className="button" onClick={this.switchModal}>Cancel</div>
+                  <HorizontalInputBoxFrame
+                    columnName="Name"
+                    notice="Do not enter the first zero"
+                  >
+                    <input
+                      name="name"
+                      className="input"
+                      type="text"
+                      placeholder="Name"
+                      value={this.state.name}
+                      onChange={this.handleChange}
+                    />
+                  </HorizontalInputBoxFrame>
+                  <HorizontalInputBoxFrame
+                    columnName="Code"
+                    notice="Do not enter the first zero"
+                  >
+                    <input
+                      name="code"
+                      className="input"
+                      type="text"
+                      placeholder="Code"
+                      value={this.state.code}
+                      onChange={this.handleChange}
+                    />
+                  </HorizontalInputBoxFrame>
+                  <HorizontalInputBoxFrame
+                    columnName="Slug"
+                    notice="Do not enter the first zero"
+                  >
+                    <input
+                      name="slug"
+                      className="input"
+                      type="text"
+                      placeholder="Slug"
+                      value={this.state.slug}
+                      onChange={this.handleChange}
+                    />
+                  </HorizontalInputBoxFrame>
+                </section>
+                <footer className="modal-card-foot no-br">
+                  <button className="button is-success no-br" type="submit">SUBMIT</button>
+                  <div className="button no-br" onClick={this.props.switchModal}>CANCEL</div>
                 </footer>
               </form>
-              )}
-            </Mutation>
-          </div>
-        </div>
+            </React.Fragment>
+          )}
+        </Mutation>
       </React.Fragment>
-    );
+    )
   }
-};
+}
 
-export default CountryEditMutation
+export default compose(
+  withModal('EDIT', 'is-small')
+)(CountryEditMutation)

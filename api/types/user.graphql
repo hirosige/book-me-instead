@@ -2,6 +2,7 @@ type User @model {
   id: ID! @isUnique
   email: String
   auth0UserId: String @isUnique
+  omiseCustomerId: String @isUnique @migrateValue(value: "Not Yet")
   role: ROLE! @defaultValue(value: USER)
 
   createdAt: DateTime!

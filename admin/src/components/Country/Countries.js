@@ -46,8 +46,8 @@ const Countries = (props) => (
                 <tr>
                   <th><abbr title="Name">Name</abbr></th>
                   <th><abbr title="Breed">Code</abbr></th>
-                  <th><abbr title="Breed">Slug</abbr></th>
-                  <th><abbr title="Breed">Controls</abbr></th>
+                  <th><abbr title="Slug">Slug</abbr></th>
+                  <th><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>

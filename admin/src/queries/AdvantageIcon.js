@@ -1,0 +1,64 @@
+import gql from "graphql-tag";
+
+const CREATE_ADVANTAGE_ICON = gql`
+  mutation CreateAdvantageIcon(
+    $cdnUrl: String!
+    $isImage: Boolean!
+    $isStored: Boolean!
+    $mimeType: String!
+    $size: Int!
+    $name: String!
+    $uuid: String!
+  ) {
+    createAdvantageIcon(
+      cdnUrl: "teat"
+      isImage: true
+      isStored: true
+      mimeType: "test"
+      size: 100
+      name: "test"
+      uuid: "test"
+    ) {
+      id
+      name
+    }
+  }
+`;
+
+const UPDATE_ADVANTAGE = gql`
+  mutation UpdateAdvantage(
+    $id: ID!
+    $name: String!
+    $code: String!
+    $slug: String!
+  ) {
+    updateAdvantage(
+      id: $id
+      name: $name
+    ) {
+      id
+      name
+      icon {
+        name
+      }
+      hotels {
+        name
+      }
+    }
+  }
+`;
+
+
+const DELETE_AN_ADVANTAGE = gql`
+  mutation DeleteAdvantage($id: ID!) {
+    deleteAdvantage(id: $id) {
+      id
+    }
+  }
+`;
+
+export {
+  CREATE_ADVANTAGE_ICON,
+  UPDATE_ADVANTAGE,
+  DELETE_AN_ADVANTAGE,
+}

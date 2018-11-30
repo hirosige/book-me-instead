@@ -8,6 +8,9 @@ import NotFound from './components/Error/NotFound';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Forbidden from './components/Error/Forbidden';
+import AddCreditCard from './components/AddCreditCard/AddCreditCard';
+import Upload from './components/Upload/Upload';
+import Advantages from './components/Advantage/Advantages';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -18,7 +21,10 @@ const AppRoutes = () => (
       <Route path='/login' component={Login} />
       <Route path='/logout' component={Logout} />
       <Route exact path='/countries' component={Countries} />
+      <Route exact path='/advantages' component={Advantages} />
+      <Route exact path='/credit' component={AddCreditCard} />
       <Route exact path='/forbidden' component={Forbidden} />
+      <Route exact path='/upload' component={Upload} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

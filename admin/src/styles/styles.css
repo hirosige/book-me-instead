@@ -13,8 +13,10 @@
 
 /* Projects */
 @import 'objects/projects/_footer';
+@import 'objects/projects/_dashboard';
 
 /* Components */
+@import 'objects/components/_tag-cloud';
 
 /* Utilities */
 @import 'objects/utilities/_margin';

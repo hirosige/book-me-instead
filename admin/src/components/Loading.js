@@ -13,8 +13,8 @@ const Loading = () => (
       alignItems: 'center',
     }}>
       <span className="icon" style={{
-        height: '80px',
-        width: '80px',
+        height: '30px',
+        width: '30px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,7 +22,7 @@ const Loading = () => (
         background: '#007BFF',
       }}>
         <i className="fas fa-sync fa-spin" style={{
-          fontSize: '3rem',
+          fontSize: '1.1rem',
           color: '#ffffff'
         }}></i>
       </span>

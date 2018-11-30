@@ -8,6 +8,17 @@ const Country = ({ country }) => (
     <td>{country.code}</td>
     <td>{country.slug}</td>
     <td>
+      {country.areas.length !== 0 ? (
+        <div className="c-tag-cloud">
+          {country.areas.map(area => (
+            <span className="tag is-danger">{area.name}</span>
+          ))}
+        </div>
+      ) : (
+        <div>エリアなし</div>
+      )}
+    </td>
+    <td>
       <div className="field has-addons">
         <div className="control">
           <CountryEditMutation editItem={country} />

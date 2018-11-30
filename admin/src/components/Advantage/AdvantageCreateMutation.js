@@ -1,10 +1,9 @@
 import React from 'react'
-import { Mutation, graphql } from "react-apollo";
+import { Mutation } from "react-apollo";
 import { compose } from 'recompose'
 import withModal from '../../hocs/WithModal';
 import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
 import { CREATE_ADVANTAGE } from '../../queries/Advantage'
-import { CREATE_FILE } from '../../queries/File'
 import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
 import Uploader from '../Upload/Uploader'
@@ -46,7 +45,6 @@ class AdvantageCreateMutation extends React.Component {
   }
 
   handleChangePhoto = fileInfo => {
-    console.log('file', fileInfo)
 
     this.setState({
       ...this.state,
@@ -150,6 +148,5 @@ class AdvantageCreateMutation extends React.Component {
 }
 
 export default compose(
-  graphql(CREATE_FILE, { name: "createFile" }),
   withModal('CREATE ADVANTAGE')
 )(AdvantageCreateMutation)

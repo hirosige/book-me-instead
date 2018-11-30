@@ -1,0 +1,8 @@
+.c-tag-cloud {
+  padding: 10px;
+  background: #EDF2F7;
+}
+
+.c-tag-cloud > span + span {
+  margin-left: 10px;
+}

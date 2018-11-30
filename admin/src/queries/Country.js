@@ -15,6 +15,12 @@ const GET_COUNTRIES = gql`
       name
       code
       slug
+      areas {
+        id
+        name
+        code
+        slug
+      }
     }
   }
 `

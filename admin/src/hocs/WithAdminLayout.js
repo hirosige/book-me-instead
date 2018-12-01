@@ -1,8 +1,9 @@
 import React from 'react'
 import { compose } from 'recompose'
-import SideMenu from '../components/SideMenu';
-import { isLoggedIn } from '../utils/AuthService'
+import SideMenu from '../components/SideMenu'
 import { Link } from 'react-router-dom'
+import { isLoggedIn } from '../utils/AuthService'
+import LoggedInMenu from '../components/Layout/LoggedInMenu'
 
 const withAdminLayout = () => WrappedComponent => {
 
@@ -30,59 +31,18 @@ const withAdminLayout = () => WrappedComponent => {
                 </div>
               </div>
               <div className="navbar-end">
-                  { (isLoggedIn()) ? (
-                      <React.Fragment>
-                        <div className="navbar-item">
-                          <span className="icon" style={{
-                            borderRadius: "50%",
-                            background: "rgb(0, 209, 178)",
-                            color: "#ffffff",
-                            height: "35px",
-                            width: "35px",
-                          }}>
-                            <i className="fas fa-user"></i>
-                          </span>
-                        </div>
-                        <div className="navbar-item">
-                          <div className="dropdown is-active">
-                            <div className="dropdown-trigger">
-                              <button className="button is-small" aria-haspopup="true" aria-controls="dropdown-menu" style={{ background: "rgb(0, 209, 178)", color: "#ffffff", border: 0 }}>
-                                <span>{this.props.me.email}</span>
-                                <span className="icon is-small">
-                                  <i className="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                              </button>
-                            </div>
-                            <div className="dropdown-menu" id="dropdown-menu" role="menu" style={{ borderRadius: 0 }}>
-                              <div className="dropdown-content" style={{ borderRadius: 0 }}>
-                                <div className="dropdown-item">
-                                  MY PROFILE
-                                </div>
-                                <hr className="dropdown-divider" />
-                                <Link
-                                  className="dropdown-item"
-                                  to="/logout"
-                                  style={{ borderRadius: 0 }}
-                                >
-                                  LOGOUT
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </React.Fragment>
-                    ) : (
-                      <div className="navbar-item">
-                        <Link
-                          className="button is-danger"
-                          to="/login"
-                          style={{ borderRadius: 0 }}
-                        >
-                          LOGOUT
-                        </Link>
-                      </div>
-                    )
-                  }
+                {(isLoggedIn()) ? (
+                  <LoggedInMenu {...this.props} />
+                ) : (
+                  <div className="navbar-item">
+                    <Link
+                      className="button is-danger no-br"
+                      to="/login"
+                    >
+                      LOGOUT
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </nav>
@@ -94,8 +54,8 @@ const withAdminLayout = () => WrappedComponent => {
               <WrappedComponent {...this.props} />
             </div>
           </div>
-          <footer class="footer l-footer p-footer">
-            <div class="content has-text-left">
+          <footer className="footer l-footer p-footer">
+            <div className="content has-text-left">
               <p>
                 <strong>BOOK ME INSTEAD</strong> by SUNEIKII.
               </p>

@@ -19,7 +19,7 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 
 const Advantages = (props) => (
-  <React.Fragment>
+  <div className=".l-main__content">
     <Query
       query={GET_ADVANTAGES}
       variables={{
@@ -59,7 +59,7 @@ const Advantages = (props) => (
         )
       }}
     </Query>
-  </React.Fragment>
+  </div>
 )
 
 export default compose(

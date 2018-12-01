@@ -1,6 +1,11 @@
 import React from 'react'
 
-const withModal = (buttonCaption, buttonSize) => WrappedComponent => {
+const withModal = ({
+  button,
+  size,
+  color,
+  type
+}) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       isActive: "",
@@ -9,7 +14,10 @@ const withModal = (buttonCaption, buttonSize) => WrappedComponent => {
 
     switchModal = () => {
       if (this.state.isActive === "is-active") {
-        this.setState({ isActive: "" })
+        this.setState({
+          isActive: "",
+          isCompleted: false,
+        })
       } else {
         this.setState({ isActive: "is-active" })
       }
@@ -31,12 +39,12 @@ const withModal = (buttonCaption, buttonSize) => WrappedComponent => {
       return (
         <React.Fragment>
           <button
-            className={`button is-primary ${buttonSize} no-br`}
+            className={`button ${color} ${size} no-br`}
             onClick={this.switchModal}
-          >{buttonCaption}</button>
+          >{button}</button>
           <div className={`modal ${this.state.isActive}`}>
             <div className="modal-background"></div>
-            <div className="modal-card">
+            <div className={`modal-${type}`}>
               <WrappedComponent
                 {...this.props}
                 {...this.state}
@@ -45,6 +53,10 @@ const withModal = (buttonCaption, buttonSize) => WrappedComponent => {
                 switchModal={this.switchModal}
               />
             </div>
+            <button
+              className="modal-close is-large"
+              aria-label="close"
+              onClick={this.switchModal}></button>
           </div>
         </React.Fragment>
       )

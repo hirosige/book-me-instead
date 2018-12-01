@@ -5,3 +5,7 @@
 .bk-primary {
   background-color: var(--primary);
 }
+
+.bk-danger {
+  background-color: var(--danger);
+}

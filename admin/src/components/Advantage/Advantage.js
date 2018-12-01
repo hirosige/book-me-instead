@@ -1,6 +1,8 @@
 import React from 'react'
-import AdvantageDeleteMutation from './AdvantageDeleteMutation';
-import AdvantageEditMutation from './AdvantageEditMutation';
+import AdvantageEditMutation from './AdvantageEditMutation'
+import DeleteMutation from '../Shared/DeleteMutation'
+import { DELETE_AN_ADVANTAGE } from '../../queries/Advantage'
+import ImageModal from '../Shared/ImageModal';
 
 const Advantage = ({ advantage }) => (
   <tr>
@@ -8,12 +10,18 @@ const Advantage = ({ advantage }) => (
     <td>
       {advantage.icon ? (
         <div>
-          <figure class="image is-32x32">
+          <figure className="image is-32x32 disp-ib">
             <img
               src={advantage.icon.cdnUrl}
               alt={advantage.icon.name}
             />
           </figure>
+          <div className="mls disp-ib"/>
+          <ImageModal
+            className="disp-ib"
+            url={advantage.icon.cdnUrl}
+            alt={advantage.icon.name}
+          />
         </div>
       ) : (
         <div>画像なし</div>
@@ -25,7 +33,12 @@ const Advantage = ({ advantage }) => (
           <AdvantageEditMutation editItem={advantage} />
         </div>
         <div className="control">
-          <AdvantageDeleteMutation deleteId={advantage.id} />
+          <DeleteMutation
+            deleteId={advantage.id}
+            title="DELETE ADVANTAGE"
+            message="Are you sure to delete ?"
+            mutation={DELETE_AN_ADVANTAGE}
+          />
         </div>
       </div>
     </td>

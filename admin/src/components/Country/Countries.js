@@ -19,7 +19,7 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 
 const Countries = (props) => (
-  <React.Fragment>
+  <div className=".l-main__content">
     <Query
       query={GET_COUNTRIES}
       variables={{
@@ -61,7 +61,7 @@ const Countries = (props) => (
         )
       }}
     </Query>
-  </React.Fragment>
+  </div>
 )
 
 export default compose(

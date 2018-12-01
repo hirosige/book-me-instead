@@ -30,8 +30,6 @@ class Callback extends Component {
     const user = await getGraphcoolUser()
     setGraphCoolUser(user)
 
-    console.log('me', getMe())
-
     this.props.history.replace('/dashboard')
   }
 

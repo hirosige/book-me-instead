@@ -1,11 +1,8 @@
 import React from 'react'
-import { Mutation } from "react-apollo";
 import { compose } from 'recompose'
 import withModal from '../../hocs/WithModal';
-import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
 import { UPDATE_ADVANTAGE } from '../../queries/Advantage'
-import Danger from '../Notification/Danger'
-import Success from '../Notification/Success'
+import AdvantageMutationForm from './AdvantageMutationForm'
 
 class AdvantageEditMutation extends React.Component {
   constructor(props) {
@@ -15,11 +12,7 @@ class AdvantageEditMutation extends React.Component {
     }
   }
 
-  initializeState = () => {
-    this.setState({
-      name: "",
-    })
-  }
+  initializeState = () => { /* Do nothing for edit */ }
 
   handleChange = (e) => {
     this.setState({
@@ -28,67 +21,46 @@ class AdvantageEditMutation extends React.Component {
     })
   }
 
+  handleChangePhoto = fileInfo => {
+
+    this.setState({
+      ...this.state,
+      iconName: fileInfo.name,
+      iconCdnUrl: fileInfo.cdnUrl,
+      iconIsImage: fileInfo.isImage,
+      iconIsStored: fileInfo.isStored,
+      iconMimeType: fileInfo.mimeType,
+      iconUuid: fileInfo.uuid,
+      iconSize: fileInfo.size,
+    })
+  }
+
   render () {
+    const { icon } = this.state
+
     return (
       <React.Fragment>
-        <Mutation
+        <AdvantageMutationForm
           mutation={UPDATE_ADVANTAGE}
-        >
-          {(updateCountry, { data, loading, error }) => (
-            <React.Fragment>
-              <form onSubmit={e => {
-                e.preventDefault();
-                updateCountry({ variables: {
-                  id: this.state.id,
-                  name: this.state.name,
-                }}).then(() => {
-                  this.initializeState()
-                  this.props.makeCompleted()
-                });
-
-                }}
-              >
-                <header className="modal-card-head no-br" style={{ background: "#007BFF" }}>
-                  <p className="modal-card-title" style={{ color: "#ffffff" }} >UPDATE ADVANTAGE</p>
-                  <div className="delete" aria-label="close" onClick={this.props.switchModal}></div>
-                </header>
-                {error && (
-                  <Danger message={error.message} />
-                )}
-                {this.props.isCompleted && (
-                  <Success
-                    message="Country is Successfully updated."
-                    closeCompleted={this.props.closeCompleted}
-                  />
-                )}
-                <section className="modal-card-body">
-                  <HorizontalInputBoxFrame
-                    columnName="Name"
-                    notice="Do not enter the first zero"
-                  >
-                    <input
-                      name="name"
-                      className="input"
-                      type="text"
-                      placeholder="Name"
-                      value={this.state.name}
-                      onChange={this.handleChange}
-                    />
-                  </HorizontalInputBoxFrame>
-                </section>
-                <footer className="modal-card-foot no-br">
-                  <button className="button is-success no-br" type="submit">SUBMIT</button>
-                  <div className="button no-br" onClick={this.props.switchModal}>CANCEL</div>
-                </footer>
-              </form>
-            </React.Fragment>
-          )}
-        </Mutation>
+          advantage={this.state}
+          handleChange={this.handleChange}
+          handleChangePhoto={this.handleChangePhoto}
+          initializeState={this.initializeState}
+          title="EDIT ADVANTAGE"
+          message="Advantage is Successfully updated."
+          photoValue={icon ? icon.cdnUrl : ''}
+          {...this.props}
+        />
       </React.Fragment>
     )
   }
 }
 
 export default compose(
-  withModal('EDIT', 'is-small')
+  withModal({
+    button: 'EDIT',
+    size: 'is-small',
+    color: 'is-primary',
+    type: 'card',
+  })
 )(AdvantageEditMutation)

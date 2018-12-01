@@ -1,12 +1,12 @@
 import gql from "graphql-tag";
 
-const GET_ADVANTAGES = gql`
-  query PageAdvantages(
+const GET_HOTELS = gql`
+  query PageHotels(
     $first: Int!
     $skip: Int!
-    $searchFilter: AdvantageFilter
+    $searchFilter: HotelFilter
   ) {
-    allAdvantages(
+    allHotels(
       filter: $searchFilter
       first: $first
       skip: $skip
@@ -109,7 +109,7 @@ const DELETE_AN_ADVANTAGE = gql`
 `;
 
 export {
-  GET_ADVANTAGES,
+  GET_HOTELS,
   GET_ADVANTAGE_COUNT,
   CREATE_ADVANTAGE,
   UPDATE_ADVANTAGE,

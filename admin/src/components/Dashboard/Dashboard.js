@@ -13,32 +13,12 @@ const Dashboard = props => (
     <div className="p-dashboard content is-small">
       <h1 className="p-dashboard__title">DASHBOARD</h1>
       <div className="p-dashboard__content">
-        <div class="card p-dashboard__card">
-          <div class="card-content">
-            <p class="title">
+        <div className="card p-dashboard__card">
+          <div className="card-content">
+            <p className="title">
               “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
             </p>
-            <p class="subtitle">
-              Jeff Atwood
-            </p>
-          </div>
-        </div>
-        <div class="card p-dashboard__card">
-          <div class="card-content">
-            <p class="title">
-              “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-            </p>
-            <p class="subtitle">
-              Jeff Atwood
-            </p>
-          </div>
-        </div>
-        <div class="card p-dashboard__card">
-          <div class="card-content">
-            <p class="title">
-              “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-            </p>
-            <p class="subtitle">
+            <p className="subtitle">
               Jeff Atwood
             </p>
           </div>

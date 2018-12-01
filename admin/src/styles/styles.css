@@ -17,6 +17,7 @@
 
 /* Components */
 @import 'objects/components/_tag-cloud';
+@import 'objects/components/_upload_button';
 
 /* Utilities */
 @import 'objects/utilities/_margin';
@@ -25,3 +26,4 @@
 @import 'objects/utilities/_border';
 @import 'objects/utilities/_background';
 @import 'objects/utilities/_text_color';
+@import 'objects/utilities/_display';

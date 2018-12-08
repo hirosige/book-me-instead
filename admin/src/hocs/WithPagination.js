@@ -5,7 +5,7 @@ const withPagination = pageQuery => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       currentPage: 1,
-      recordPerPage: 10,
+      recordPerPage: 5,
     }
 
     nextPage = () => {
@@ -20,6 +20,10 @@ const withPagination = pageQuery => WrappedComponent => {
       this.setState({ currentPage: this.state.currentPage - 1 })
     }
 
+    changeRecordPerPage= e => {
+      this.setState({ recordPerPage: parseInt(e.target.value) })
+    }
+
     render () {
       return (
         <React.Fragment>
@@ -27,13 +31,17 @@ const withPagination = pageQuery => WrappedComponent => {
             nextPage={this.nextPage}
             movePage={this.movePage}
             previousPage={this.previousPage}
+            changeRecordPerPage={this.changeRecordPerPage}
             query={pageQuery}
             variables={{
               searchFilter: this.props.searchCondition
             }}
             {...this.state}
           >
-            <WrappedComponent {...this.props} {...this.state} />
+            <WrappedComponent
+              {...this.props}
+              {...this.state}
+            />
           </Pagination>
         </React.Fragment>
       )

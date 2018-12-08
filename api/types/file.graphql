@@ -9,9 +9,4 @@ type File @model {
   url: String! @isUnique
   cdnrPublicId: String
   cdnrUrl: String
-
-  hotels: Hotel @relation(name: "HotelPhotos")
-  rooms: Room @relation(name: "RoomPhotos")
-  user: User @relation(name: "Avatar")
-  post: Post @relation(name: "PostHero")
 }

@@ -6,9 +6,9 @@ const HorizontalInputBoxFrame = ({ columnName, children, notice }) => (
     <div className="field-body">
       <div className="field is-expanded">
         <div className="field has-addons">
-          <p className="control is-expanded">
+          <div className="control is-expanded">
             {children}
-          </p>
+          </div>
         </div>
         <p className="help">{notice}</p>
       </div>

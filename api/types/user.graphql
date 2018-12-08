@@ -8,7 +8,7 @@ type User @model {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  avatar: File @relation(name: "Avatar")
+  avatar: UserPhoto @relation(name: "Avatar")
   posts: [Post!]! @relation(name: "UserPosts")
   profile: Profile @relation(name: "UserProfile")
   favorites: [Favorite!]! @relation(name: "UserFavorites")

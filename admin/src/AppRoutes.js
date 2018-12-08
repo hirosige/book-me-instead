@@ -11,6 +11,8 @@ import Forbidden from './components/Error/Forbidden';
 import AddCreditCard from './components/AddCreditCard/AddCreditCard';
 import Upload from './components/Upload/Upload';
 import Advantages from './components/Advantage/Advantages';
+import Hotels from './components/Hotel/Hotels';
+import Maps from './components/Maps/Maps';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -22,6 +24,8 @@ const AppRoutes = () => (
       <Route path='/logout' component={Logout} />
       <Route exact path='/countries' component={Countries} />
       <Route exact path='/advantages' component={Advantages} />
+      <Route exact path='/hotels' component={Hotels} />
+      <Route exact path='/maps' component={Maps} />
       <Route exact path='/credit' component={AddCreditCard} />
       <Route exact path='/forbidden' component={Forbidden} />
       <Route exact path='/upload' component={Upload} />

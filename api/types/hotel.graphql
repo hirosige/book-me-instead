@@ -15,8 +15,8 @@ type Hotel @model {
 
   country: Country! @relation(name: "CountryHotels")
   area: Area! @relation(name: "AreaHotels")
+  photos: HotelPhoto @relation(name: "HotelPhotos")
   rooms: [Room!]! @relation(name: "HotelRooms")
-  photos: [File!]! @relation(name: "HotelPhotos")
   favorites: [Favorite!]! @relation(name: "FavoriteHotels")
   advantages: [Advantage!]! @relation(name: "HotelsAdvantages")
 

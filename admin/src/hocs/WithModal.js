@@ -38,13 +38,13 @@ const withModal = ({
     render () {
       return (
         <React.Fragment>
-          <button
-            className={`button ${color} ${size} no-br`}
+          <div
+            className={`button ${color} ${size} u-no-br`}
             onClick={this.switchModal}
-          >{button}</button>
+          >{button}</div>
           <div className={`modal ${this.state.isActive}`}>
             <div className="modal-background"></div>
-            <div className={`modal-${type}`}>
+            <div className={`modal-${type}`} style={{ width: "80%" }}>
               <WrappedComponent
                 {...this.props}
                 {...this.state}
@@ -53,10 +53,11 @@ const withModal = ({
                 switchModal={this.switchModal}
               />
             </div>
-            <button
+            <div
               className="modal-close is-large"
               aria-label="close"
-              onClick={this.switchModal}></button>
+              onClick={this.switchModal}>
+            </div>
           </div>
         </React.Fragment>
       )

@@ -74,7 +74,11 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    AdvantageCreateMutation
+    AdvantageCreateMutation,
+    /* for search columns */
+    [
+      { id: 1, type: "name", name: "Name" },
+    ],
   ),
   withPagination(GET_ADVANTAGE_COUNT),
   hasLogger(false),

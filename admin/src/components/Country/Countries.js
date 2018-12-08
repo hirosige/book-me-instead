@@ -41,14 +41,15 @@ const Countries = (props) => (
 
         return (
           <div>
-            <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
               <thead>
                 <tr>
-                  <th><abbr title="Name">Name</abbr></th>
-                  <th><abbr title="Breed">Code</abbr></th>
-                  <th><abbr title="Slug">Slug</abbr></th>
-                  <th><abbr title="Areas">Areas</abbr></th>
-                  <th><abbr title="Controls">Controls</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Name">Name</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Breed">Code</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Slug">Slug</abbr></th>
+                  <th className="c-table-cell u-w250"><abbr title="Areas">Areas</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Areas">Hotels</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>
@@ -76,7 +77,13 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    CountryCreateMutation
+    CountryCreateMutation,
+    /* for search columns */
+    [
+      { id: 1, type: "name", name: "Name" },
+      { id: 2, type: "code", name: "Code" },
+      { id: 3, type: "slug", name: "Slug" },
+    ],
   ),
   withPagination(GET_COUNTRY_COUNT),
   hasLogger(false),

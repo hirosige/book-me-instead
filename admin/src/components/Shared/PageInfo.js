@@ -30,7 +30,20 @@ const PageInfo = ({ count, totalAmount, current, keyword }) => (
           <div className="heading">Current Search Keyword</div>
           <div className="title" style={{ fontSize: "1rem" }}>
             { Object.keys(keyword.searchFilter).length ? (
-              <div>SearchCondition: {JSON.stringify(keyword.searchFilter)}</div>
+              <div>{
+                `${ // convert str, ex) name_contains => Name Contains
+                    Object.keys(keyword.searchFilter)[0]
+                      .split('_')
+                      .map(item => {
+                        if (item === "gt") return "Greater Than"
+                        if (item === "gte") return "Greater Than And Equal"
+                        if (item === "lt") return "Less Than"
+                        if (item === "lte") return "Less Than And Equal"
+                        return item.charAt(0).toUpperCase() + item.slice(1)
+                      })
+                      .join(' ')
+                  } "${Object.entries(keyword.searchFilter)[0][1]}"`
+              }</div>
             ) : (
               <div>Nothing</div>
             )}

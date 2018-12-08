@@ -31,9 +31,9 @@ class Uploader extends Component {
     if (this.dialog) {
       this.dialog.reject()
     }
-    if (this.files) {
-      uploadcare.jQuery.when.apply(null, this.files).cancel()
-    }
+    // if (this.files) {
+    //   uploadcare.jQuery.when.apply(null, this.files).cancel()
+    // }
 
     const widgetElement = uploadcare.jQuery(this.uploader).next('.uploadcare--widget')
     const widget = widgetElement.data('uploadcareWidget')

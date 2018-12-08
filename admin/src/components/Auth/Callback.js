@@ -7,7 +7,6 @@ import {
   setGraphCoolToken,
   getGraphcoolUser,
   setGraphCoolUser,
-  getMe,
 } from '../../utils/AuthService';
 
 import { withRouter } from 'react-router-dom'

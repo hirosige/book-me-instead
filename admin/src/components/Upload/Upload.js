@@ -53,7 +53,7 @@ const Upload = () => (
             onDone={files => {
               console.log('Files choosed', files)
 
-              files.map(file => {
+              files.forEach(file => {
                 console.log('File changed: ', file)
 
                 if (file) {

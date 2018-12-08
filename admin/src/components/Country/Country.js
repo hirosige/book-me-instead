@@ -23,6 +23,14 @@ const Country = ({ country }) => (
       )}
     </td>
     <td>
+      <div className="control">
+        <div className="tags has-addons">
+          <span className="tag is-info u-no-br">{country.hotels.length}</span>
+          <span className="tag is-dark u-no-br">Hotels</span>
+        </div>
+      </div>
+    </td>
+    <td>
       <div className="field has-addons">
         <div className="control">
           <CountryEditMutation editItem={country} />

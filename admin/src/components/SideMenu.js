@@ -1,7 +1,7 @@
 import React from 'react'
 import { compose } from 'recompose'
 import withActiveMenu from '../hocs/WithActiveMenu';
-import hasLogger from '../hocs/HasLogger';
+// import hasLogger from '../hocs/HasLogger';
 import { Link } from 'react-router-dom'
 
 const SideMenu = (props) => (
@@ -20,7 +20,22 @@ const SideMenu = (props) => (
       <ul className="menu-list">
         <li><Link className={props.activate(props.componentName, 'Dashboard')} to="/dashboard">DASHBOARD</Link></li>
         <li><Link className={props.activate(props.componentName, 'Country')} to="/countries">COUNTRIES</Link></li>
+      </ul>
+      <p className="menu-label">
+        ACCOMMODATION
+      </p>
+      <ul className="menu-list">
+        <li><Link className={props.activate(props.componentName, 'Hotel')} to="/hotels">HOTELS</Link></li>
         <li><Link className={props.activate(props.componentName, 'Advantage')} to="/advantages">ADVANTAGES</Link></li>
+      </ul>
+      <p className="menu-label">
+        ACCOUNTING
+      </p>
+      <p className="menu-label">
+        MAPS
+      </p>
+      <ul className="menu-list">
+        <li><Link className={props.activate(props.componentName, 'Maps')} to="/maps">MAPS</Link></li>
       </ul>
     </aside>
   </React.Fragment>

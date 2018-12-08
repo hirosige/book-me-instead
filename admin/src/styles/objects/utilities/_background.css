@@ -1,11 +1,11 @@
-.bk-white {
+.u-bk-white {
   background-color: var(--white);
 }
 
-.bk-primary {
+.u-bk-primary {
   background-color: var(--primary);
 }
 
-.bk-danger {
+.u-bk-danger {
   background-color: var(--danger);
 }

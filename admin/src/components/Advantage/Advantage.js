@@ -10,15 +10,15 @@ const Advantage = ({ advantage }) => (
     <td>
       {advantage.icon ? (
         <div>
-          <figure className="image is-32x32 disp-ib">
+          <figure className="image is-32x32 u-disp-ib">
             <img
               src={advantage.icon.cdnUrl}
               alt={advantage.icon.name}
             />
           </figure>
-          <div className="mls disp-ib"/>
+          <div className="u-mls u-disp-ib"/>
           <ImageModal
-            className="disp-ib"
+            className="u-disp-ib"
             url={advantage.icon.cdnUrl}
             alt={advantage.icon.name}
           />

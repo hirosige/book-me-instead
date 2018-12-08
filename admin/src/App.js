@@ -6,10 +6,7 @@ import {
   InMemoryCache,
   split,
 } from 'apollo-boost'
-// import {  } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context';
-// import {  } from 'apollo-cache-inmemory'
-// import {  } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import AppRoutes from './AppRoutes'

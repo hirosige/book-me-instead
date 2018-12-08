@@ -1,0 +1,24 @@
+type GetNearbyPlacesPayload {
+  geometry: Json
+  icon: String
+  id: String
+  name: String
+  placeId: String
+  plusCode: Json
+  reference: String
+  scope: String
+  types: [String]
+  vicinity: String
+  openingHours: Json
+  photos: [Json]
+}
+
+extend type Query {
+  getNearbyPlaces (
+    lat: Float!
+    lng: Float!
+    radius: Int!
+    type: String!
+    keyword: String
+  ): [GetNearbyPlacesPayload!]!
+}

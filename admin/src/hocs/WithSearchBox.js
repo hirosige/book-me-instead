@@ -1,7 +1,10 @@
 import React from 'react'
-import SearchForm from '../components/Shared/SearchFrom';
+import SearchForm from '../components/Shared/SearchForm';
 
-const withSearchBox = CreateModalComponent => WrappedComponent => {
+const withSearchBox = (
+  CreateModalComponent,
+  columnTypes
+) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       tmpSearchKeywords: {
@@ -14,6 +17,7 @@ const withSearchBox = CreateModalComponent => WrappedComponent => {
 
     handleChange = async (e) => {
       e.preventDefault()
+
       await this.setState({
         tmpSearchKeywords: {
           ...this.state.tmpSearchKeywords,
@@ -42,30 +46,33 @@ const withSearchBox = CreateModalComponent => WrappedComponent => {
     render () {
       return (
         <React.Fragment>
-          <nav className="navbar" role="navigation" aria-label="main navigation" style={{ background: "#17a2b8", fontSize: "1.2rem", zIndex: 2 }}>
-            <div className="navbar-brand">
-              <div className="navbar-item" style={{ color: "#ffffff" }}>
-                TOOLBOX
+          <div style={{
+            background: "#17a2b8",
+            color: "#ffffff",
+            fontSize: "1.2rem",
+            height: "45.5px",
+            padding: "6px",
+          }}>
+            <div className="level">
+              <div className="level-left">
+                <div className="level-item">
+                  TOOLBOX
+                </div>
+              </div>
+              <div className="level-right">
+                <div className="level-item">
+                  <CreateModalComponent {...this.props} />
+                </div>
+                <div className="level-item">
+                  <SearchForm
+                    {...this.state}
+                    handleChange={this.handleChange}
+                    columnTypes={columnTypes}
+                  />
+                </div>
               </div>
             </div>
-            <div className="navbar-end">
-              <div className="navbar-item" style={{ color: "#ffffff" }}>
-                <nav className="level">
-                  <div className="level-right">
-                    <div className="level-item">
-                      <CreateModalComponent {...this.props} />
-                    </div>
-                    <div className="level-item">
-                      <SearchForm
-                        {...this.state}
-                        handleChange={this.handleChange}
-                      />
-                    </div>
-                  </div>
-                </nav>
-              </div>
-            </div>
-          </nav>
+          </div>
           <WrappedComponent {...this.props} {...this.state} />
         </React.Fragment>
       )

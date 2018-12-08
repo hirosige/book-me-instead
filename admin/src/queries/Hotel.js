@@ -13,27 +13,39 @@ const GET_HOTELS = gql`
     ) {
       id
       name
-      icon {
+      address
+      latitude
+      longitude
+      appliances
+      tel
+      fax
+      email
+      isPublished
+      country {
+        id
+      }
+      area {
+        id
+      }
+      photos {
+        id
         name
         cdnUrl
         isImage
         isStored
-        mimeType
+        count
         uuid
         size
-      }
-      hotels {
-        name
       }
     }
   }
 `
 
-const GET_ADVANTAGE_COUNT = gql`
-  query AdvantageCount(
-    $searchFilter: AdvantageFilter
+const GET_HOTEL_COUNT = gql`
+  query HotelCount(
+    $searchFilter: HotelFilter
   ) {
-    _allAdvantagesMeta(
+    _allHotelsMeta(
       filter: $searchFilter
     ) {
       count
@@ -41,27 +53,46 @@ const GET_ADVANTAGE_COUNT = gql`
   }
 `
 
-const CREATE_ADVANTAGE = gql`
-  mutation CreateAdvantage(
+const CREATE_HOTEL = gql`
+  mutation CreateHotel(
     $name: String!
-    $iconName: String!
-    $iconCdnUrl: String!
-    $iconIsImage: Boolean!
-    $iconIsStored: Boolean!
-    $iconMimeType: String!
-    $iconUuid: String!
-    $iconSize: Int!
+    $address: String!
+    $latitude: Float
+    $longitude: Float
+    $appliances: String!
+    $tel: String!
+    $fax: String!
+    $email: String!
+    $countryId: ID!
+    $areaId: ID!
+    $photoGrpName: String!
+    $photoGrpCdnUrl: String!
+    $photoGrpIsImage: Boolean!
+    $photoGrpIsStored: Boolean!
+    $photoGrpCount: Int!
+    $photoGrpUuid: String!
+    $photoGrpSize: Int!
   ) {
-    createAdvantage(
+    createHotel(
       name: $name
-      icon: {
-        name: $iconName
-        cdnUrl: $iconCdnUrl
-        isImage: $iconIsImage
-        isStored: $iconIsStored
-        mimeType: $iconMimeType
-        uuid: $iconUuid
-        size: $iconSize
+      address: $address
+      latitude: $latitude
+      longitude: $longitude
+      appliances: $appliances
+      tel: $tel
+      fax: $fax
+      email: $email
+      isPublished: false
+      countryId: $countryId
+      areaId: $areaId
+      photos: {
+        name: $photoGrpName
+        cdnUrl: $photoGrpCdnUrl
+        isImage: $photoGrpIsImage
+        isStored: $photoGrpIsStored
+        count: $photoGrpCount
+        uuid: $photoGrpUuid
+        size: $photoGrpSize
       }
     ) {
       id
@@ -69,29 +100,50 @@ const CREATE_ADVANTAGE = gql`
   }
 `;
 
-const UPDATE_ADVANTAGE = gql`
-  mutation UpdateAdvantage(
+const UPDATE_HOTEL = gql`
+  mutation UpdateHotel(
     $id: ID!
     $name: String!
-    $iconName: String!
-    $iconCdnUrl: String!
-    $iconIsImage: Boolean!
-    $iconIsStored: Boolean!
-    $iconMimeType: String!
-    $iconUuid: String!
-    $iconSize: Int!
+    $address: String!
+    $latitude: Float
+    $longitude: Float
+    $appliances: String!
+    $tel: String!
+    $fax: String!
+    $email: String!
+    $countryId: ID!
+    $areaId: ID!
+    $photoGrpId: ID!
+    $photoGrpName: String!
+    $photoGrpCdnUrl: String!
+    $photoGrpIsImage: Boolean!
+    $photoGrpIsStored: Boolean!
+    $photoGrpCount: Int!
+    $photoGrpUuid: String!
+    $photoGrpSize: Int!
   ) {
-    updateAdvantage(
+    updateHotel(
       id: $id
       name: $name
-      icon: {
-        name: $iconName
-        cdnUrl: $iconCdnUrl
-        isImage: $iconIsImage
-        isStored: $iconIsStored
-        mimeType: $iconMimeType
-        uuid: $iconUuid
-        size: $iconSize
+      address: $address
+      latitude: $latitude
+      longitude: $longitude
+      appliances: $appliances
+      tel: $tel
+      fax: $fax
+      email: $email
+      isPublished: false
+      countryId: $countryId
+      areaId: $areaId
+      photosId: $photoGrpId
+      photos: {
+        name: $photoGrpName
+        cdnUrl: $photoGrpCdnUrl
+        isImage: $photoGrpIsImage
+        isStored: $photoGrpIsStored
+        count: $photoGrpCount
+        uuid: $photoGrpUuid
+        size: $photoGrpSize
       }
     ) {
       id
@@ -100,9 +152,9 @@ const UPDATE_ADVANTAGE = gql`
 `;
 
 
-const DELETE_AN_ADVANTAGE = gql`
-  mutation DeleteAdvantage($id: ID!) {
-    deleteAdvantage(id: $id) {
+const DELETE_AN_HOTEL = gql`
+  mutation DeleteHotel($id: ID!) {
+    deleteHotel(id: $id) {
       id
     }
   }
@@ -110,8 +162,8 @@ const DELETE_AN_ADVANTAGE = gql`
 
 export {
   GET_HOTELS,
-  GET_ADVANTAGE_COUNT,
-  CREATE_ADVANTAGE,
-  UPDATE_ADVANTAGE,
-  DELETE_AN_ADVANTAGE,
+  GET_HOTEL_COUNT,
+  CREATE_HOTEL,
+  UPDATE_HOTEL,
+  DELETE_AN_HOTEL,
 }

@@ -21,8 +21,25 @@ const GET_COUNTRIES = gql`
         code
         slug
       }
+      hotels {
+        id
+        name
+      }
     }
   }
+`
+
+const GET_AREAS_BY_COUNTRY = gql`
+  query GetAreasByCountry(
+    $id: ID!
+  ) {
+  Country(id: $id) {
+    areas {
+      id
+      name
+    }
+  }
+}
 `
 
 const GET_COUNTRY_COUNT = gql`
@@ -88,6 +105,7 @@ const DELETE_A_COUNTRY = gql`
 
 export {
   GET_COUNTRIES,
+  GET_AREAS_BY_COUNTRY,
   GET_COUNTRY_COUNT,
   CREATE_COUNTRY,
   UPDATE_COUNTRY,

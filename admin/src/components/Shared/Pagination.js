@@ -24,7 +24,6 @@ const Pagination = (props) => (
             count={count}
             keyword={props.variables}
           />
-          <PaginationPlane {...props} lastPage={lastPage} />
           {props.children}
           <PaginationPlane {...props} lastPage={lastPage} />
         </React.Fragment>

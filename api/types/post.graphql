@@ -7,8 +7,9 @@ type Post @model {
   createdAt: DateTime!
   updatedAt: DateTime!
 
+  hero: PostPhoto! @relation(name: "PostHero")
+  photos: [PostPhoto!]! @relation(name: "PostPhotos")
   author: User! @relation(name: "UserPosts")
   category: PostCategory @relation(name: "PostAndPostCategory")
   tags: [Tag!]! @relation(name: "PostTags")
-  hero: File! @relation(name: "PostHero")
 }

@@ -1,0 +1,15 @@
+type UserPhoto @model {
+  id: ID! @isUnique
+  name: String!
+  cdnUrl: String!
+  uuid: String!
+  isImage: Boolean!
+  isStored: Boolean!
+  mimeType: String!
+  size: Int!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  user: User! @relation(name: "Avatar")
+}

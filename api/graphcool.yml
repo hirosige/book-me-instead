@@ -1,6 +1,8 @@
 types:
   - ./types/post.graphql
+  - ./types/post_photo.graphql
   - ./types/user.graphql
+  - ./types/user_photo.graphql
   - ./types/file.graphql
   - ./types/favorite.graphql
   - ./types/area.graphql
@@ -13,12 +15,23 @@ types:
   - ./types/tag.graphql
   - ./types/booking.graphql
   - ./types/hotel.graphql
+  - ./types/hotel_photo.graphql
   - ./types/review.graphql
   - ./types/room.graphql
+  - ./types/room_photo.graphql
   - ./enums/role.graphql
   - ./enums/room_type.graphql
 
 functions:
+  # from google api
+  getNearbyPlaces:
+    handler:
+      code:
+        src: ./functions/resolvers/google/getNearbyPlaces.js
+        environment:
+          GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+    type: resolver
+    schema: ./functions/resolvers/google/getNearbyPlaces.graphql
 
   # from auth0 user
   authenticate:
@@ -639,6 +652,18 @@ permissions:
     authenticated: true
     query: ./permissions/onlyAdmin.graphql:canDelete
 
+  # HotelPhoto
+  - operation: HotelPhoto.read
+  - operation: HotelPhoto.create
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canCreate
+  - operation: HotelPhoto.update
+    authenticated: true
+    query: ./permissions/adminOrStaff.graphql:canUpdate
+  - operation: HotelPhoto.delete
+    authenticated: true
+    query: ./permissions/onlyAdmin.graphql:canDelete
+
   # PostCategory
   - operation: PostCategory.read
     authenticated: true
@@ -657,6 +682,16 @@ permissions:
   - operation: Post.update
     authenticated: true
   - operation: Post.delete
+    authenticated: true
+
+  # PostPhoto
+  - operation: PostPhoto.read
+    authenticated: true
+  - operation: PostPhoto.create
+    authenticated: true
+  - operation: PostPhoto.update
+    authenticated: true
+  - operation: PostPhoto.delete
     authenticated: true
 
   # Profile
@@ -689,6 +724,16 @@ permissions:
   - operation: Room.delete
     authenticated: true
 
+    # RoomPhoto
+  - operation: RoomPhoto.read
+    authenticated: true
+  - operation: RoomPhoto.create
+    authenticated: true
+  - operation: RoomPhoto.update
+    authenticated: true
+  - operation: RoomPhoto.delete
+    authenticated: true
+
   # Tag
   - operation: Tag.read
     authenticated: true
@@ -706,6 +751,15 @@ permissions:
   - operation: User.update
     authenticated: true
   - operation: User.delete
+    authenticated: true
+
+  # UserPhoto
+  - operation: UserPhoto.read
+    authenticated: true
+  - operation: UserPhoto.create
+  - operation: UserPhoto.update
+    authenticated: true
+  - operation: UserPhoto.delete
     authenticated: true
 
   # Relation
@@ -822,6 +876,12 @@ permissions:
   - operation: PostHero.connect
     authenticated: true
   - operation: PostHero.disconnect
+    authenticated: true
+
+  # PostPhotos
+  - operation: PostPhotos.connect
+    authenticated: true
+  - operation: PostPhotos.disconnect
     authenticated: true
 
   # PostAndPostCategory

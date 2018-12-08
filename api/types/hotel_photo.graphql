@@ -1,0 +1,15 @@
+type HotelPhoto @model {
+  id: ID! @isUnique
+  name: String!
+  cdnUrl: String!
+  uuid: String!
+  count: Int!
+  isImage: Boolean!
+  isStored: Boolean!
+  size: Int!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  hotel: Hotel @relation(name: "HotelPhotos")
+}

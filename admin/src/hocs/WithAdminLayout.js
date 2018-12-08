@@ -36,7 +36,7 @@ const withAdminLayout = () => WrappedComponent => {
                 ) : (
                   <div className="navbar-item">
                     <Link
-                      className="button is-danger no-br"
+                      className="button is-danger u-no-br"
                       to="/login"
                     >
                       LOGOUT
@@ -47,7 +47,7 @@ const withAdminLayout = () => WrappedComponent => {
             </div>
           </nav>
           <div className="columns is-gapless is-multiline is-mobile" style={{ margin: 0 }}>
-            <div className="column is-2 txt-white">
+            <div className="column is-2 u-txt-white">
               <SideMenu {...this.props} />
             </div>
             <div className="column" style={{ background: "rgb(237, 242, 247)" }}>

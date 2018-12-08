@@ -32,14 +32,14 @@ const LoggedInMenu = props => (
             </span>
           </button>
         </div>
-        <div className="dropdown-menu no-br" id="dropdown-menu" role="menu">
-          <div className="dropdown-content no-br">
+        <div className="dropdown-menu u-no-br" id="dropdown-menu" role="menu">
+          <div className="dropdown-content u-no-br">
             <div className="dropdown-item">
               MY PROFILE
             </div>
             <hr className="dropdown-divider" />
             <Link
-              className="dropdown-item no-br"
+              className="dropdown-item u-no-br"
               to="/logout"
             >
               LOGOUT

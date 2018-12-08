@@ -8,6 +8,6 @@ type Room @model {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  photos: [File!]! @relation(name: "RoomPhotos")
+  photos: [RoomPhoto!]! @relation(name: "RoomPhotos")
   hotel: Hotel! @relation(name: "HotelRooms")
 }

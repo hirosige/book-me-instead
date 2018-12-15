@@ -26,6 +26,13 @@ class CountryCreateMutation extends React.Component {
     })
   }
 
+  checkError = (error, column) => {
+    if (error.graphQLErrors[0].functionError[column].length !== 0) {
+      return "is-danger"
+    }
+    return ""
+  }
+
   render () {
     return (
       <React.Fragment>
@@ -36,6 +43,7 @@ class CountryCreateMutation extends React.Component {
           initializeState={this.initializeState}
           title="CREATE COUNTRY"
           message="Country is Successfully created."
+          checkError={this.checkError}
           {...this.props}
         />
       </React.Fragment>

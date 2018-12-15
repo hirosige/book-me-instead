@@ -26,6 +26,7 @@ export async function getGraphcoolUser() {
       id
       email
       role
+      omiseCustomerId
     }
   }`
 

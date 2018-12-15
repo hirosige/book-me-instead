@@ -7,27 +7,28 @@ import Success from '../Notification/Success'
 const CountryMutationForm = props => (
   <React.Fragment>
     {props.country && (
-      <Mutation
-        mutation={props.mutation}
-      >
+      <Mutation mutation={props.mutation}>
         {(mutate, { data, loading, error }) => (
           <React.Fragment>
             <form onSubmit={e => {
               e.preventDefault();
+
               mutate({
-                variables: props.country
+                variables: {
+                  ...props.country,
+                  locale: "en"
+                }
               }).then(() => {
                 props.initializeState()
                 props.makeCompleted()
-              });
-
+              })
             }}>
               <header className="modal-card-head u-no-br u-bk-primary">
                 <p className="modal-card-title u-txt-white">{props.title}</p>
                 <div className="delete" aria-label="close" onClick={props.switchModal}></div>
               </header>
-              {error && (
-                <Danger message={error.message} />
+              {error && error.graphQLErrors[0].functionError && (
+                <Danger messages={error.graphQLErrors[0].functionError.errorMessages} />
               )}
               {props.isCompleted && (
                 <Success
@@ -38,11 +39,10 @@ const CountryMutationForm = props => (
               <section className="modal-card-body u-txt-gray">
                 <HorizontalInputBoxFrame
                   columnName="Name"
-                  notice="Do not enter the first zero"
                 >
                   <input
                     name="name"
-                    className="input"
+                    className={`input ${error && props.checkError(error, 'name')}`}
                     type="text"
                     placeholder="Name"
                     value={props.country.name}
@@ -51,11 +51,10 @@ const CountryMutationForm = props => (
                 </HorizontalInputBoxFrame>
                 <HorizontalInputBoxFrame
                   columnName="Code"
-                  notice="Do not enter the first zero"
                 >
                   <input
                     name="code"
-                    className="input"
+                    className={`input ${error && props.checkError(error, 'code')}`}
                     type="text"
                     placeholder="Code"
                     value={props.country.code}
@@ -64,11 +63,10 @@ const CountryMutationForm = props => (
                 </HorizontalInputBoxFrame>
                 <HorizontalInputBoxFrame
                   columnName="Slug"
-                  notice="Do not enter the first zero"
                 >
                   <input
                     name="slug"
-                    className="input"
+                    className={`input ${error && props.checkError(error, 'slug')}`}
                     type="text"
                     placeholder="Slug"
                     value={props.country.slug}

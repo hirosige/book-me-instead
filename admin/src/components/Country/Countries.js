@@ -84,6 +84,7 @@ export default compose(
       { id: 2, type: "code", name: "Code" },
       { id: 3, type: "slug", name: "Slug" },
     ],
+    'name',
   ),
   withPagination(GET_COUNTRY_COUNT),
   hasLogger(false),

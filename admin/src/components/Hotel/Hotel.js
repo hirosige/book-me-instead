@@ -2,11 +2,26 @@ import React from 'react'
 import HotelEditMutation from './HotelEditMutation'
 import DeleteMutation from '../Shared/DeleteMutation'
 import { DELETE_AN_HOTEL } from '../../queries/Hotel'
+import AddFavoriteButton from './AddFavoriteButton';
+import PublishHotelButton from './PublishHotelButton';
+import MakePrivateHotelButton from './MakePrivateHotelButton';
 // import ImageModal from '../Shared/ImageModal';
 
-const Hotel = ({ hotel }) => (
+const Hotel = ({ hotel, me }) => (
   <tr>
     <td>{hotel.name}</td>
+    <td>
+      {hotel.rooms ? (
+        <div className="control">
+          <div className="tags has-addons">
+            <span className="tag is-info u-no-br">{hotel.rooms.length}</span>
+            <span className="tag is-dark u-no-br">Rooms</span>
+          </div>
+        </div>
+      ) : (
+        <div>No Images</div>
+      )}
+    </td>
     <td>
       {hotel.photos ? (
         <div className="control">
@@ -20,6 +35,37 @@ const Hotel = ({ hotel }) => (
       )}
     </td>
     <td>
+      {hotel.photos ? (
+        <div className="control">
+          <div className="tags has-addons">
+            <span className="tag is-info u-no-br">{hotel.advantages.length}</span>
+            <span className="tag is-dark u-no-br">Advantages</span>
+          </div>
+        </div>
+      ) : (
+        <div>No Images</div>
+      )}
+    </td>
+    <td>
+        {hotel.isPublished ? (
+          <React.Fragment>
+            <div className="tags has-addons" style={{ marginBottom: 0 }}>
+              <span className="tag">Currently</span>
+              <span className="tag is-primary">{`People can see`}</span>
+            </div>
+            <MakePrivateHotelButton hotel={hotel} />
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <div className="tags has-addons" style={{ marginBottom: 0 }}>
+              <span className="tag">Currently</span>
+              <span className="tag is-warning">{`People cannot see`}</span>
+            </div>
+            <PublishHotelButton hotel={hotel} />
+          </React.Fragment>
+        )}
+      </td>
+    <td>
       <div className="field has-addons">
         <div className="control">
           <HotelEditMutation editItem={hotel} />
@@ -27,9 +73,14 @@ const Hotel = ({ hotel }) => (
         <div className="control">
           <DeleteMutation
             deleteId={hotel.id}
-            title="DELETE HOTEL"
-            message="Are you sure to delete ?"
+            title="Are you sure to delete ?"
             mutation={DELETE_AN_HOTEL}
+          />
+        </div>
+        <div className="control">
+          <AddFavoriteButton
+            hotel={hotel}
+            me={me}
           />
         </div>
       </div>

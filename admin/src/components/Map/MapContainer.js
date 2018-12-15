@@ -41,8 +41,6 @@ export class MapContainer extends React.Component {
     const newMarkers = this.state.markers
     newMarkers.push(newMarker)
 
-    console.log(newMarkers)
-
     this.setState({
       markers: newMarkers
     })

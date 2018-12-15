@@ -4,11 +4,8 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
-  split,
 } from 'apollo-boost'
 import { setContext } from 'apollo-link-context';
-import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
 import AppRoutes from './AppRoutes'
 
 import {
@@ -19,16 +16,6 @@ const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT
 })
 
-const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_GRAPHCOOL_SUBSCRIPTION_ENDPOINT,
-  options: {
-    reconnect: true,
-    connectionParams: {
-        Authorization: getGraphCoolToken() ? `Bearer ${getGraphCoolToken()}` : "",
-    },
-  }
-});
-
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
@@ -38,18 +25,8 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
-const link = split(
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === 'OperationDefinition' &&
-           operation === 'subscription';
-  },
-  wsLink,
-  authLink.concat(httpLink),
-);
-
 const client = new ApolloClient({
-  link,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 })
 

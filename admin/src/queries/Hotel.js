@@ -37,6 +37,22 @@ const GET_HOTELS = gql`
         uuid
         size
       }
+      rooms {
+        id
+        name
+        price
+        people
+        roomType
+      }
+      advantages {
+        id
+        name
+      }
+      favorites {
+        user {
+          id
+        }
+      }
     }
   }
 `
@@ -49,6 +65,25 @@ const GET_HOTEL_COUNT = gql`
       filter: $searchFilter
     ) {
       count
+    }
+  }
+`
+
+const ADD_TO_HOTEL_ADVANTAGE = gql`
+  mutation AddToHotelsAdvantages(
+    $hotelsHotelId: ID!
+    $advantagesAdvantageId: ID!
+  ) {
+    addToHotelsAdvantages(
+      hotelsHotelId: $hotelsHotelId
+      advantagesAdvantageId: $advantagesAdvantageId
+    ) {
+      advantagesAdvantage {
+        id
+      }
+      hotelsHotel {
+        id
+      }
     }
   }
 `
@@ -72,6 +107,7 @@ const CREATE_HOTEL = gql`
     $photoGrpCount: Int!
     $photoGrpUuid: String!
     $photoGrpSize: Int!
+    $rooms: [HotelroomsRoom!]!
   ) {
     createHotel(
       name: $name
@@ -94,6 +130,7 @@ const CREATE_HOTEL = gql`
         uuid: $photoGrpUuid
         size: $photoGrpSize
       }
+      rooms: $rooms
     ) {
       id
     }
@@ -151,6 +188,20 @@ const UPDATE_HOTEL = gql`
   }
 `;
 
+const UPDATE_IS_PUBLISHED = gql`
+  mutation UpdateHotel(
+    $id: ID!
+    $isPublished: Boolean!
+  ) {
+    updateHotel(
+      id: $id
+      isPublished: $isPublished
+    ) {
+      id
+    }
+  }
+`;
+
 
 const DELETE_AN_HOTEL = gql`
   mutation DeleteHotel($id: ID!) {
@@ -163,7 +214,9 @@ const DELETE_AN_HOTEL = gql`
 export {
   GET_HOTELS,
   GET_HOTEL_COUNT,
+  ADD_TO_HOTEL_ADVANTAGE,
   CREATE_HOTEL,
   UPDATE_HOTEL,
+  UPDATE_IS_PUBLISHED,
   DELETE_AN_HOTEL,
 }

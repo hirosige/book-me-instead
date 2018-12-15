@@ -35,8 +35,7 @@ const Advantage = ({ advantage }) => (
         <div className="control">
           <DeleteMutation
             deleteId={advantage.id}
-            title="DELETE ADVANTAGE"
-            message="Are you sure to delete ?"
+            title="Are you sure to delete ?"
             mutation={DELETE_AN_ADVANTAGE}
           />
         </div>

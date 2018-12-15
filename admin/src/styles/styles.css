@@ -1,3 +1,6 @@
+@import '../../node_modules/bulma/css/bulma.min';
+@import '../../node_modules/bulma-extensions/dist/css/bulma-extensions.min';
+
 @import 'objects/utilities/_color';
 
 /* Foundations */

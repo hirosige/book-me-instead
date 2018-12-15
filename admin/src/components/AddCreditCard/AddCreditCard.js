@@ -31,10 +31,6 @@ class AddCreditCard extends React.Component {
 
         if (statusCode === 200) {
           const cardToken = response.id
-          console.log(cardToken)
-
-        } else {
-          console.log(response.message)
         }
       })
   }

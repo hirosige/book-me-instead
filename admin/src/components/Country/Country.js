@@ -2,6 +2,7 @@ import React from 'react'
 import DeleteMutation from '../Shared/DeleteMutation';
 import CountryEditMutation from './CountryEditMutation';
 import { DELETE_A_COUNTRY } from '../../queries/Country'
+import ManageArea from './ManageArea';
 
 const Country = ({ country }) => (
   <tr>
@@ -10,16 +11,19 @@ const Country = ({ country }) => (
     <td>{country.slug}</td>
     <td>
       {country.areas.length !== 0 ? (
-        <div className="c-tag-cloud">
-          {country.areas.map(area => (
-            <span
-              key={area.id}
-              className="tag is-danger"
-            >{area.name}</span>
-          ))}
-        </div>
+        <React.Fragment>
+          <div className="c-tag-cloud" style={{ marginBottom: "10px" }}>
+            {country.areas.map(area => (
+              <span
+                key={area.id}
+                className="tag is-danger"
+              >{area.name}</span>
+            ))}
+          </div>
+          <ManageArea country={country} />
+        </React.Fragment>
       ) : (
-        <div>エリアなし</div>
+        <ManageArea country={country} />
       )}
     </td>
     <td>
@@ -38,8 +42,7 @@ const Country = ({ country }) => (
         <div className="control">
           <DeleteMutation
             deleteId={country.id}
-            title="DELETE COUNTRY"
-            message="Are you sure to delete ?"
+            title="Are you sure to delete ?"
             mutation={DELETE_A_COUNTRY}
           />
         </div>

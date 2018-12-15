@@ -3,12 +3,14 @@ import SearchForm from '../components/Shared/SearchForm';
 
 const withSearchBox = (
   CreateModalComponent,
-  columnTypes
+  columnTypes,
+  defaultSearchColumn
 ) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       tmpSearchKeywords: {
-        column: "name",
+        defaultColumn: defaultSearchColumn,
+        column: defaultSearchColumn,
         condition: "",
         keyword: ""
       },
@@ -30,7 +32,9 @@ const withSearchBox = (
     makeSearchObject = ({ condition, column, keyword }) => {
       if (!keyword) {
         this.setState({
-          searchCondition: { name_contains: "" }
+          searchCondition: {
+            [`${this.state.tmpSearchKeywords.defaultColumn}_contains`]: ""
+          }
         })
       } else {
         this.setState({
@@ -61,7 +65,9 @@ const withSearchBox = (
               </div>
               <div className="level-right">
                 <div className="level-item">
-                  <CreateModalComponent {...this.props} />
+                  {CreateModalComponent && (
+                    <CreateModalComponent {...this.props} />
+                  )}
                 </div>
                 <div className="level-item">
                   <SearchForm

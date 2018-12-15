@@ -79,6 +79,7 @@ export default compose(
     [
       { id: 1, type: "name", name: "Name" },
     ],
+    'name',
   ),
   withPagination(GET_ADVANTAGE_COUNT),
   hasLogger(false),

@@ -45,13 +45,20 @@ const Hotels = (props) => (
               <thead>
                 <tr>
                   <th><abbr title="Name">Name</abbr></th>
+                  <th><abbr title="Rooms">Rooms</abbr></th>
                   <th><abbr title="Photos">Photos</abbr></th>
+                  <th><abbr title="Advantages">Advantages</abbr></th>
+                  <th><abbr title="isPublished">isPublished</abbr></th>
                   <th><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>
                 {allHotels.map(hotel => (
-                  <Hotel key={hotel.id} hotel={hotel} />
+                  <Hotel
+                    key={hotel.id}
+                    hotel={hotel}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>
@@ -79,6 +86,7 @@ export default compose(
     [
       { id: 1, type: "name", name: "Name" },
     ],
+    'name',
   ),
   withPagination(GET_HOTEL_COUNT),
   hasLogger(false),

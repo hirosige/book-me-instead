@@ -60,14 +60,6 @@ const AdvantageMutationForm = props => (
                     data-crop=""
                     data-clearable=""
                     value={props.photoValue}
-                    onChange={(file) => {
-                      console.log('File changed: ', file)
-
-                      if (file) {
-                        file.progress(info => console.log('File progress: ', info.progress))
-                        file.done(info => console.log('File uploaded: ', info))
-                      }
-                    }}
                     onUploadComplete={info => props.handleChangePhoto(info)}
                   />
                 </HorizontalInputBoxFrame>

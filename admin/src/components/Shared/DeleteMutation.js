@@ -13,9 +13,6 @@ const DeleteMutation = props => (
           <p className="modal-card-title u-txt-white">{props.title}</p>
           <div className="delete" aria-label="close" onClick={props.switchModal}></div>
         </header>
-        <section className="modal-card-body">
-          {props.message}
-        </section>
         <footer className="modal-card-foot u-no-br">
           <button
             className="button is-danger u-no-br"

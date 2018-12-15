@@ -1,15 +1,18 @@
 import React from 'react'
-import { Mutation } from "react-apollo";
+import { compose } from 'recompose'
+import { Mutation, Query, graphql } from "react-apollo";
 import HorizontalDoubleInputBody from '../Shared/HorizontalDoubleInputBody'
 import HorizontalDoubleInputBox from '../Shared/HorizontalDoubleInputBox'
 import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame'
 import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
-import { Query } from "react-apollo";
 import {
   GET_COUNTRIES,
   GET_AREAS_BY_COUNTRY,
 } from '../../queries/Country'
+import { GET_ADVANTAGES } from '../../queries/Advantage'
+import { ADD_TO_HOTEL_ADVANTAGE } from '../../queries/Hotel'
+import { ROOM_TYPE_ENUM } from '../../queries/Enum'
 import Uploader from '../Upload/Uploader'
 import MapModal from '../Map/MapModal'
 
@@ -23,14 +26,33 @@ const HotelMutationForm = props => (
           <React.Fragment>
             <form onSubmit={e => {
               e.preventDefault();
-              console.log(props.hotel)
+
+              const newRooms = props.hotel.rooms.map(room => {
+                return {
+                  name: room.name,
+                  roomType: room.roomType,
+                  price: parseInt(room.price),
+                  people: parseInt(room.price),
+                }
+              })
               mutate({
                 variables: {
                   ...props.hotel,
                   latitude: parseFloat(props.hotel.lat),
                   longitude: parseFloat(props.hotel.lng),
+                  rooms: newRooms
                 }
-              }).then(() => {
+              }).then(result => {
+                const { createHotel } = result.data
+
+                props.hotel.advantages.forEach(advantage => {
+                  props.addToHotelAdvantages({
+                    variables: {
+                      hotelsHotelId: createHotel.id,
+                      advantagesAdvantageId: advantage
+                    }
+                  })
+                })
                 props.initializeState()
                 props.makeCompleted()
               });
@@ -249,42 +271,98 @@ const HotelMutationForm = props => (
                     data-clearable=""
                     value={props.photoValue}
                     data-multiple
-                    // onChange={(file) => {
-                    //   console.log('File changed: ', file)
-
-                    //   if (file) {
-                    //     file.progress(info => console.log('File progress: ', info.progress))
-                    //     file.done(info => console.log('File uploaded: ', info))
-                    //   }
-                    // }}
-                    onUploadComplete={info => props.handleChangePhoto.bind(this, info)}
+                    onUploadComplete={info => props.handleChangePhoto(info)}
                   />
                 </HorizontalInputBoxFrame>
                 <HorizontalInputBoxFrame
                   columnName="Rooms"
                   notice="Do not enter the first zero"
                 >
-                  <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                  <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                     <thead>
                       <tr>
-                        <th><abbr title="ID">ID</abbr></th>
-                        <th><abbr title="NAME">Name</abbr></th>
-                        <th><abbr title="ROOM_TYPE">Room Type</abbr></th>
-                        <th><abbr title="PRICE">Price</abbr></th>
-                        <th><abbr title="PEOPLE">People</abbr></th>
-                        <th><abbr title="PHOTOS">Photos</abbr></th>
-                        <th><abbr title="CONTROLS">Controls</abbr></th>
+                        <th className="c-table-cell u-w100"><abbr title="ID">ID</abbr></th>
+                        <th className="c-table-cell u-w200"><abbr title="NAME">Name</abbr></th>
+                        <th className="c-table-cell u-w200"><abbr title="ROOM_TYPE">Room Type</abbr></th>
+                        <th className="c-table-cell u-w100"><abbr title="PRICE">Price</abbr></th>
+                        <th className="c-table-cell u-w100"><abbr title="PEOPLE">People</abbr></th>
+                        <th className="c-table-cell u-w100"><abbr title="PHOTOS">Photos</abbr></th>
+                        <th className="c-table-cell u-w100"><abbr title="CONTROLS">Controls</abbr></th>
                       </tr>
                     </thead>
                     <tbody>
                       {props.hotel.rooms && props.hotel.rooms.map(room => (
                         <tr key={room.id}>
                           <td>{room.id}</td>
-                          <td>{room.name}</td>
-                          <td>{room.roomType}</td>
-                          <td>{room.price}</td>
-                          <td>{room.people}</td>
-                          <td>{room.photos}</td>
+                          <td>
+                            <input
+                              id={room.id}
+                              name="name"
+                              className="input"
+                              type="text"
+                              placeholder="Room Name"
+                              value={room.name}
+                              onChange={props.handleRoomChange}
+                            />
+                          </td>
+                          <td>
+                            <span className="select">
+                              <select
+                                id={room.id}
+                                className="u-no-br"
+                                name="roomType"
+                                onChange={props.handleRoomChange}
+                                defaultValue={room.roomType}
+                              >
+                                <Query query={ROOM_TYPE_ENUM}>
+                                  {({ data, loading, error }) => {
+                                    if (loading) return 'loading'
+                                    if (error) return <div>Error {JSON.stringify(error)}</div>;
+
+                                    const { __type } = data
+
+                                    if (__type.enumValues.length === 0) {
+                                      return 'no data'
+                                    }
+
+                                    return (
+                                      <React.Fragment>
+                                        {__type.enumValues.map((enu, i) => (
+                                          <option
+                                            key={i}
+                                            value={enu.name}
+                                          >{enu.name}</option>
+                                        ))}
+                                      </React.Fragment>
+                                    )
+                                  }}
+                                </Query>
+                              </select>
+                            </span>
+                          </td>
+                          <td>
+                            <input
+                              id={room.id}
+                              name="price"
+                              className="input"
+                              type="text"
+                              placeholder="Price"
+                              value={room.price}
+                              onChange={props.handleRoomChange}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={room.id}
+                              name="people"
+                              className="input"
+                              type="text"
+                              placeholder="People"
+                              value={room.people}
+                              onChange={props.handleRoomChange}
+                            />
+                          </td>
+                          <td>[画像ボタン]</td>
                           <td>
                             <div
                               className="button is-danger is-small"
@@ -304,6 +382,53 @@ const HotelMutationForm = props => (
                     ADD
                   </div>
                 </HorizontalInputBoxFrame>
+                <HorizontalInputBoxFrame
+                  columnName="Advantages"
+                >
+                  <Query
+                    query={GET_ADVANTAGES}
+                    variables={{
+                      first: 100,
+                      skip: 0,
+                      searchFilter: {},
+                    }}
+                  >
+                    {({ data, loading, error }) => {
+                      if (loading) return 'loading'
+                      if (error) return <div>Error {JSON.stringify(error)}</div>;
+
+                      const { allAdvantages } = data
+
+                      if (allAdvantages.length === 0) {
+                        return (
+                          <span className="tag is-danger is-medium" style={{ display: "inline-block", padding: "5px 10px" }}>
+                            Any area not yet registered for this country
+                          </span>
+                        )
+                      }
+
+                      return (
+                        <React.Fragment>
+                          {allAdvantages.map(advantage => {
+
+                            return (
+                              <div key={advantage.id} className="field">
+                                <input
+                                  onChange={props.handleCheckBox}
+                                  id={advantage.id}
+                                  type="checkbox"
+                                  name={advantage.id}
+                                  checked={props.hotel.advantages.includes(advantage.id)}
+                                />
+                                <label htmlFor={advantage.id}>{advantage.name}</label>
+                              </div>
+                            )
+                          })}
+                        </React.Fragment>
+                      )
+                    }}
+                  </Query>
+                </HorizontalInputBoxFrame>
 
                 <div style={{ height: "10px" }} />
               </section>
@@ -319,4 +444,6 @@ const HotelMutationForm = props => (
   </React.Fragment>
 )
 
-export default HotelMutationForm
+export default compose(
+  graphql(ADD_TO_HOTEL_ADVANTAGE, { name: "addToHotelAdvantages" }),
+)(HotelMutationForm)

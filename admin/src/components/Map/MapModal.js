@@ -71,7 +71,7 @@ class MapModal extends React.Component {
 export default compose(
   withModal({
     button: 'FIND PLACE',
-    size: '',
+    size: 'is-small',
     color: 'is-primary',
     type: 'card',
   })

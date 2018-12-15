@@ -18,18 +18,6 @@ const withAdminLayout = () => WrappedComponent => {
               </div>
             </div>
             <div className="navbar-menu">
-              <div className="navbar-start">
-                <div className="navbar-item">
-                  <nav className="breadcrumb is-centered" aria-label="breadcrumbs">
-                    <ul>
-                      <li><div>Bulma</div></li>
-                      <li><div>Documentation</div></li>
-                      <li><div>Components</div></li>
-                      <li className="is-active"><div aria-current="page">Breadcrumb</div></li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
               <div className="navbar-end">
                 {(isLoggedIn()) ? (
                   <LoggedInMenu {...this.props} />

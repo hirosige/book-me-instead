@@ -2,6 +2,10 @@ import React from 'react'
 import { compose } from 'recompose'
 import { Link } from 'react-router-dom'
 import withActiveDropdown from '../../hocs/WithActiveDropdown';
+import MyPaymentsModal from './MyPaymentsModal';
+import MyProfileModal from './MyProfileModal';
+import MyFavoritesModal from './MyFavoritesModal';
+import MyBookingsModal from './MyBookingsModal';
 
 const LoggedInMenu = props => (
   <React.Fragment>
@@ -34,9 +38,10 @@ const LoggedInMenu = props => (
         </div>
         <div className="dropdown-menu u-no-br" id="dropdown-menu" role="menu">
           <div className="dropdown-content u-no-br">
-            <div className="dropdown-item">
-              MY PROFILE
-            </div>
+            <MyProfileModal {...props} />
+            <MyPaymentsModal {...props} />
+            <MyFavoritesModal {...props} />
+            <MyBookingsModal {...props} />
             <hr className="dropdown-divider" />
             <Link
               className="dropdown-item u-no-br"

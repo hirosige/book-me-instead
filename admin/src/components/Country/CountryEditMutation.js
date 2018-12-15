@@ -21,6 +21,13 @@ class CountryEditMutation extends React.Component {
     })
   }
 
+  checkError = (error, column) => {
+    if (error.graphQLErrors[0].functionError[column].length !== 0) {
+      return "is-danger"
+    }
+    return ""
+  }
+
   render () {
     return (
       <React.Fragment>
@@ -30,6 +37,7 @@ class CountryEditMutation extends React.Component {
           handleChange={this.handleChange}
           initializeState={this.initializeState}
           title="UPDATE COUNTRY"
+          checkError={this.checkError}
           message="Country is Successfully updated."
           {...this.props}
         />

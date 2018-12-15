@@ -2,6 +2,7 @@ type Profile @model {
   id: ID! @isUnique
   firstName: String
   lastName: String
+  passportNo: String!
   address: String
   tel: String
   subscriptionEmail: String

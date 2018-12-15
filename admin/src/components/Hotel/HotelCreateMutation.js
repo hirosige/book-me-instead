@@ -16,7 +16,8 @@ class HotelCreateMutation extends React.Component {
     email: "",
     countryId: "",
     areaId: "",
-    rooms: []
+    rooms: [],
+    advantages: [],
   }
 
   initializeState = () => {
@@ -31,15 +32,48 @@ class HotelCreateMutation extends React.Component {
       email: "",
       countryId: "",
       areaId: "",
-      rooms: []
+      rooms: [],
+      advantages: [],
+    })
+  }
+
+  handleRoomChange = e => {
+    const newRooms = this.state.rooms
+      .map(room => {
+        if (room.id === e.target.id) {
+          return {
+            ...room,
+            [e.target.name]: e.target.value,
+          }
+        }
+        return room
+      })
+
+    this.setState({
+      ...this.state,
+      rooms: newRooms
     })
   }
 
   handleChange = (e) => {
     this.setState({
       ...this.state,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
+  }
+
+  handleCheckBox = e => {
+    if (e.target.checked) {
+      this.setState({
+        advantages: this.state.advantages.concat(e.target.id)
+      })
+    } else {
+      this.setState({
+        advantages: this.state.advantages.filter(advantage => {
+          return e.target.id !== advantage
+        })
+      })
+    }
   }
 
   setLatLng = ({ lat, lng }) => {
@@ -71,8 +105,8 @@ class HotelCreateMutation extends React.Component {
     this.setState({
       rooms: rooms.concat({
         id: `tmpId-${count + 1}`,
-        name: "fakeName1",
-        roomType: "fakeRoomType1",
+        name: "",
+        roomType: "SUPERIOR",
         price: 0,
         people: 0,
         photos: []
@@ -81,7 +115,6 @@ class HotelCreateMutation extends React.Component {
   }
 
   handleChangePhoto = filesInfo => {
-    console.log(filesInfo)
 
     this.setState({
       ...this.state,
@@ -109,6 +142,8 @@ class HotelCreateMutation extends React.Component {
           setLatLng={this.setLatLng}
           addRoomToState={this.addRoomToState}
           deleteRoomFromState={this.deleteRoomFromState}
+          handleRoomChange={this.handleRoomChange}
+          handleCheckBox={this.handleCheckBox}
           {...this.props}
         />
       </React.Fragment>

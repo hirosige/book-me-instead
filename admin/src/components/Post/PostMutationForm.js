@@ -57,6 +57,7 @@ const PostMutationForm = props => (
                 <HorizontalInputBoxFrame columnName="Markdown Contents">
                   <MarkdownEditor
                     setMdContents={props.setMdContents}
+                    handleChangePhotos={props.handleChangePhotos}
                   />
                   &nbsp;&nbsp;{props.post.mdContents && (
                     <span className="tag is-warning">

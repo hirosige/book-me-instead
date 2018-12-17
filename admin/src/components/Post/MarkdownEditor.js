@@ -17,6 +17,7 @@ import stringify from 'rehype-stringify'
 import Prism from 'prismjs'
 
 import Clipboard from 'react-clipboard.js';
+import Uploader from '../Upload/Uploader'
 
 import 'prismjs/themes/prism.css'
 
@@ -178,18 +179,100 @@ class MarkdownEditor extends React.Component {
               <p style={{ marginLeft: "10px" }}>
                 {`入力文字数：${this.state.mdContents.trim().length}`}
               </p>
-              <button
-                className="button is-primary is-small"
-              　style={{
+              {this.state.isImageOpen ? (
+                <div className="box" style={{
+                  width: "60%",
                   position: "absolute",
-                  top: 10,
+                  top: 20,
                   right: 0,
                   borderRadius: 0
-                }}
-                onClick={this.toggleImages}
-              >
-                Images
-              </button>
+                }}>
+                  <article className="media">
+                    <div className="media-left">
+                      Tools
+                    </div>
+                    <div className="media-content">
+                      <div className="content">
+                        <button
+                          className="button is-primary is-small"
+                          style={{ borderRadius: 0, marginRight: "10px" }}
+                          onClick={this.toggleImages}
+                        >
+                          Close Image
+                        </button>
+                        <Uploader
+                          id='images'
+                          name='images'
+                          data-images-only
+                          data-multiple
+                          onChange={(file) => {
+                            console.log('File changed: ', file)
+
+                            if (file) {
+                              file.progress(info => console.log('File progress: ', info.progress))
+                              file.done(info => console.log('File uploaded: ', info))
+                            }
+                          }}
+                          onUploadComplete={info => {
+                            this.props.handleChangePhotos(info)
+                            this.onUploadFileCompleted(info)
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </article>
+                  {this.state.images.length === 0 && (
+                    <article className="media">
+                      <div className="media-left">
+                        <div>No Images uploaded</div>
+                      </div>
+                    </article>
+                  )}
+                  {this.state.images.map(image => (
+                    <article className="media">
+                      <div className="media-left">
+                        <figure className="image is-128x128">
+                          <img src={image.url} alt="Sample" />
+                        </figure>
+                      </div>
+                      <div className="media-content">
+                        <div className="content">
+                          <textarea
+                            name="image2"
+                            className="textarea"
+                            style={{ marginBottom: "10px" }}
+                            value={image.md}
+                            onChange={this.changeClipboard}
+                          >
+                          </textarea>
+                          <Clipboard
+                            data-clipboard-text={image.md}
+                            button-title="I'm a tooltip"
+                            className="button is-primary"
+                            style={{ width: "100%", borderRadius: 0 }}
+                            onSuccess={this.onSuccess}
+                          >
+                            copy to clipboard
+                          </Clipboard>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <button
+                  className="button is-primary is-small"
+                　style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 0,
+                    borderRadius: 0
+                  }}
+                  onClick={this.toggleImages}
+                >
+                  Images
+                </button>
+              )}
             </div>
             <div className="column">
               <div className="content" style={{ padding: "20px" }}>

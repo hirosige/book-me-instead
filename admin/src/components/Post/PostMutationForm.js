@@ -75,17 +75,6 @@ const PostMutationForm = props => (
                     onUploadComplete={info => props.handleChangeHero(info)}
                   />
                 </HorizontalInputBoxFrame>
-                <HorizontalInputBoxFrame columnName="Phosts">
-                  <Uploader
-                    id='file'
-                    name='content'
-                    data-crop
-                    data-clearable
-                    value={props.photosValue}
-                    data-multiple
-                    onUploadComplete={info => props.handleChangePhotos(info)}
-                  />
-                </HorizontalInputBoxFrame>
                 <HorizontalInputBoxFrame columnName="Post Category">
                   <span className="select" style={{ marginRight: "10px", paddingRight: "10px", }} >
                     <Query

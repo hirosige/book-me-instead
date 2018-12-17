@@ -1,6 +1,7 @@
 types:
   - ./types/post.graphql
-  - ./types/post_photo.graphql
+  - ./types/post_hero.graphql
+  - ./types/post_photos.graphql
   - ./types/user.graphql
   - ./types/user_photo.graphql
   - ./types/file.graphql
@@ -703,14 +704,24 @@ permissions:
   - operation: Post.delete
     authenticated: true
 
+  # PostHero
+  - operation: PostHero.read
+    authenticated: true
+  - operation: PostHero.create
+    authenticated: true
+  - operation: PostHero.update
+    authenticated: true
+  - operation: PostHero.delete
+    authenticated: true
+
   # PostPhoto
-  - operation: PostPhoto.read
+  - operation: PostPhotos.read
     authenticated: true
-  - operation: PostPhoto.create
+  - operation: PostPhotos.create
     authenticated: true
-  - operation: PostPhoto.update
+  - operation: PostPhotos.update
     authenticated: true
-  - operation: PostPhoto.delete
+  - operation: PostPhotos.delete
     authenticated: true
 
   # Profile
@@ -891,20 +902,26 @@ permissions:
   - operation: UserPosts.disconnect
     authenticated: true
 
-  # PostHero
-  - operation: PostHero.connect
+  # PostAndHero
+  - operation: PostAndHero.connect
     authenticated: true
-  - operation: PostHero.disconnect
+  - operation: PostAndHero.disconnect
     authenticated: true
 
-  # PostPhotos
-  - operation: PostPhotos.connect
+  # PostAndPhotos
+  - operation: PostAndPhotos.connect
     authenticated: true
-  - operation: PostPhotos.disconnect
+  - operation: PostAndPhotos.disconnect
     authenticated: true
 
   # PostAndPostCategory
   - operation: PostAndPostCategory.connect
     authenticated: true
   - operation: PostAndPostCategory.disconnect
+    authenticated: true
+
+  # Children
+  - operation: Children.connect
+    authenticated: true
+  - operation: Children.disconnect
     authenticated: true

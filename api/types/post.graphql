@@ -1,15 +1,15 @@
 type Post @model {
   id: ID! @isUnique
   title: String! @isUnique
-  description: String!
-  imageUrl: String!
+  mdContents: String!
 
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  hero: PostPhoto! @relation(name: "PostHero")
-  photos: [PostPhoto!]! @relation(name: "PostPhotos")
   author: User! @relation(name: "UserPosts")
   category: PostCategory @relation(name: "PostAndPostCategory")
   tags: [Tag!]! @relation(name: "PostTags")
+
+  hero: PostHero @relation(name: "PostAndHero")
+  photos: PostPhotos @relation(name: "PostAndPhotos")
 }

@@ -35,7 +35,43 @@ const ADD_CARD_TO_CUSTOMER = gql`
   }
 `
 
+const PAY_BY_DEFAULT_CARD = gql`
+  mutation PayByDefaultCard(
+    $amount: Int!
+    $currency: String!
+    $customerId: String!
+    $description: String!
+  ) {
+    payByDefaultCard(
+      amount: $amount
+      currency: $currency
+      customerId: $customerId
+      description: $description
+    ) {
+      id
+    }
+  }
+`
+
+const GET_TRANSACTIONS = gql`
+  query GetTransactions {
+    getTransactions {
+      id
+      object
+      amount
+      created
+      currency
+      source
+      transferable
+      location
+      type
+    }
+  }
+`
+
 export {
   GET_CUSTOMER,
-  ADD_CARD_TO_CUSTOMER
+  ADD_CARD_TO_CUSTOMER,
+  PAY_BY_DEFAULT_CARD,
+  GET_TRANSACTIONS
 }

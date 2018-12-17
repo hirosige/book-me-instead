@@ -1,0 +1,15 @@
+type PostHero @model {
+  id: ID! @isUnique
+  name: String
+  cdnUrl: String
+  uuid: String
+  isImage: Boolean
+  isStored: Boolean
+  mimeType: String
+  size: Int
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  post: Post @relation(name: "PostAndHero")
+}

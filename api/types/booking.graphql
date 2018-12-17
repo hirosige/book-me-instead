@@ -4,6 +4,9 @@ type Booking @model {
   isConfirmed: Boolean! @defaultValue(value: "false")
   checkIn: DateTime!
   checkOut: DateTime!
+  qty: Int!
+  nights: Int!
+  totalAmount: Int!
 
   createdAt: DateTime!
   updatedAt: DateTime!

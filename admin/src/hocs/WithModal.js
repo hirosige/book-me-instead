@@ -4,7 +4,8 @@ const withModal = ({
   button,
   size,
   color,
-  type
+  type,
+  style
 }) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
@@ -44,7 +45,7 @@ const withModal = ({
           >{button}</div>
           <div className={`modal ${this.state.isActive}`}>
             <div className="modal-background"></div>
-            <div className={`modal-${type}`} style={{ width: "80%" }}>
+            <div className={`modal-${type}`} style={style}>
               <WrappedComponent
                 {...this.props}
                 {...this.state}

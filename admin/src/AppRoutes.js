@@ -11,8 +11,11 @@ import Forbidden from './components/Error/Forbidden';
 import AddCreditCard from './components/AddCreditCard/AddCreditCard';
 import Advantages from './components/Advantage/Advantages';
 import Hotels from './components/Hotel/Hotels';
-import Maps from './components/Maps/Maps';
 import Users from './components/User/Users';
+import Bookings from './components/Booking/Bookings';
+import Posts from './components/Post/Posts';
+import PostCategories from './components/PostCategory/PostCategories';
+import Transactions from './components/Transaction/Transactions';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -26,7 +29,10 @@ const AppRoutes = () => (
       <Route exact path='/countries' component={Countries} />
       <Route exact path='/advantages' component={Advantages} />
       <Route exact path='/hotels' component={Hotels} />
-      <Route exact path='/maps' component={Maps} />
+      <Route exact path='/bookings' component={Bookings} />
+      <Route exact path='/posts' component={Posts} />
+      <Route exact path='/post_categories' component={PostCategories} />
+      <Route exact path='/transactions' component={Transactions} />
       <Route exact path='/credit' component={AddCreditCard} />
       <Route exact path='/forbidden' component={Forbidden} />
       <Route component={NotFound} />

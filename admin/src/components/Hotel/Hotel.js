@@ -5,21 +5,21 @@ import { DELETE_AN_HOTEL } from '../../queries/Hotel'
 import AddFavoriteButton from './AddFavoriteButton';
 import PublishHotelButton from './PublishHotelButton';
 import MakePrivateHotelButton from './MakePrivateHotelButton';
+import Rooms from './Rooms';
 // import ImageModal from '../Shared/ImageModal';
 
 const Hotel = ({ hotel, me }) => (
   <tr>
     <td>{hotel.name}</td>
     <td>
-      {hotel.rooms ? (
-        <div className="control">
-          <div className="tags has-addons">
-            <span className="tag is-info u-no-br">{hotel.rooms.length}</span>
-            <span className="tag is-dark u-no-br">Rooms</span>
-          </div>
-        </div>
+      {hotel.rooms.length !== 0 ? (
+        <Rooms
+          me={me}
+          hotel={hotel}
+          rooms={hotel.rooms}
+        />
       ) : (
-        <div>No Images</div>
+        <span className="tag is-warning">No Room Registered</span>
       )}
     </td>
     <td>

@@ -28,13 +28,21 @@ const SideMenu = (props) => (
       <ul className="menu-list">
         <li><Link className={props.activate(props.componentName, 'Hotel')} to="/hotels">HOTELS</Link></li>
         <li><Link className={props.activate(props.componentName, 'Advantage')} to="/advantages">ADVANTAGES</Link></li>
+        <li><Link className={props.activate(props.componentName, 'Booking')} to="/bookings">BOOKINGS</Link></li>
       </ul>
       <p className="menu-label">
         ACCOUNTING
       </p>
+      <ul className="menu-list">
+        <li><Link className={props.activate(props.componentName, 'Transaction')} to="/transactions">TRANSACTIONS</Link></li>
+      </ul>
       <p className="menu-label">
         ARTICLES
       </p>
+      <ul className="menu-list">
+        <li><Link className={props.activate(props.componentName, 'Post')} to="/posts">POSTS</Link></li>
+        <li><Link className={props.activate(props.componentName, 'PostCategories')} to="/post_categories">POST CATEGORIES</Link></li>
+      </ul>
     </aside>
   </React.Fragment>
 )

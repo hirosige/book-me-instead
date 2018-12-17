@@ -157,5 +157,8 @@ export default compose(
     size: '',
     color: 'is-primary',
     type: 'card',
+    style: {
+      width: "90%"
+    },
   })
 )(HotelCreateMutation)

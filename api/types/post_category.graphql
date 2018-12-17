@@ -1,9 +1,11 @@
 type PostCategory @model {
   id: ID! @isUnique
   name: String! @isUnique
+  isRoot: Boolean!
 
   createdAt: DateTime!
   updatedAt: DateTime!
 
   posts: [Post!]! @relation(name: "PostAndPostCategory")
+  children: [PostCategory!]! @relation(name: "Children")
 }

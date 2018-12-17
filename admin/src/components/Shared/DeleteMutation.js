@@ -35,5 +35,8 @@ export default compose(
     button: 'DELETE',
     size: 'is-small',
     color: 'is-danger',
+    style: {
+      width: "30%"
+    }
   })
 )(DeleteMutation)

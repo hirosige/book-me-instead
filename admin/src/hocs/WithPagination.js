@@ -1,7 +1,7 @@
 import React from 'react'
 import Pagination from '../components/Shared/Pagination'
 
-const withPagination = pageQuery => WrappedComponent => {
+const withPagination = (pageQuery, filterOption) => WrappedComponent => {
   return class HOC extends React.Component {
     state = {
       currentPage: 1,
@@ -34,7 +34,10 @@ const withPagination = pageQuery => WrappedComponent => {
             changeRecordPerPage={this.changeRecordPerPage}
             query={pageQuery}
             variables={{
-              searchFilter: this.props.searchCondition
+              searchFilter: {
+                ...this.props.searchCondition,
+                ...filterOption,
+              }
             }}
             {...this.state}
           >

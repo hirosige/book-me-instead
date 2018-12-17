@@ -6,7 +6,7 @@ import Logout from './components/Auth/Logout';
 import Callback from './components/Auth/Callback';
 import NotFound from './components/Error/NotFound';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import Forbidden from './components/Error/Forbidden';
 import Advantages from './components/Advantage/Advantages';
 import Hotels from './components/Hotel/Hotels';
@@ -19,7 +19,7 @@ import Contacts from './components/Contact/Contacts';
 import Reviews from './components/Review/Reviews';
 
 const AppRoutes = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Switch>
       <Route exact path='/' component={Dashboard} />
       <Route path='/dashboard' component={Dashboard} />
@@ -39,7 +39,7 @@ const AppRoutes = () => (
       <Route exact path='/forbidden' component={Forbidden} />
       <Route component={NotFound} />
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 )
 
 export default AppRoutes

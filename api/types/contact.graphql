@@ -4,9 +4,10 @@ type Contact @model {
   email: String!
   tel: String!
   title: String!
-  reference: String!
+  reference: String
   description: String!
   isReplied: Boolean! @defaultValue(value: "false")
+  replyMessage: String
 
   createdAt: DateTime!
   updatedAt: DateTime!

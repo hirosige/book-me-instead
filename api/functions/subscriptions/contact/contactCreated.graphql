@@ -1,0 +1,12 @@
+subscription {
+  Contact(filter: { mutation_in: [CREATED]}) {
+    node {
+      id
+      name
+      email
+      tel
+      title
+      description
+    }
+  }
+}

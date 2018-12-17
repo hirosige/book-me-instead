@@ -12,7 +12,7 @@ import { GET_TRANSACTIONS } from '../../queries/OmiseCustomer'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import Transaction from './Transaction';
-import OneDayTodo from '../Shared/OneDayTodo';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
 
 const Transactions = (props) => (
   <div className=".l-main__content">
@@ -65,8 +65,8 @@ const Transactions = (props) => (
           )
         }}
       </Query>
-      <OneDayTodo todo="ページネーション作る" /><br />
-      <OneDayTodo todo="To/Fromの検索を作る" />
+      {props.onedayTodoHere('ページネーションを作る')}<br />
+      {props.onedayTodoHere('To/Fromの検索を作る')}
     </React.Fragment>
   </div>
 )
@@ -78,6 +78,7 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
   withAdminLayout(),

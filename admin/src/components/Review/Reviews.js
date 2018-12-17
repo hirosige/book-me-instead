@@ -8,20 +8,19 @@ import withAuthorization from '../../hocs/WithAuthorization';
 import withAdminLayout from '../../hocs/WithAdminLayout';
 import withUser from '../../hocs/WithUser';
 import withSearchBox from '../../hocs/WithSearchBox';
-import HotelCreateMutation from './HotelCreateMutation';
-import Hotel from './Hotel';
+import Review from './Review';
 import withPagination from '../../hocs/WithPagination';
 import {
-  GET_HOTELS,
-  GET_HOTEL_COUNT
-} from '../../queries/Hotel'
+  GET_REVIEWS,
+  GET_REVIEW_COUNT
+} from '../../queries/Review'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 
-const Hotels = (props) => (
+const Reviews = (props) => (
   <div className=".l-main__content">
     <Query
-      query={GET_HOTELS}
+      query={GET_REVIEWS}
       variables={{
         first: props.recordPerPage,
         skip: (props.currentPage - 1) * props.recordPerPage,
@@ -33,31 +32,27 @@ const Hotels = (props) => (
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
-        const { allHotels } = data
+        const { allReviews } = data
 
-        if (allHotels.length === 0) {
+        if (allReviews.length === 0) {
           return <NoDataFound />
         }
 
         return (
           <div>
-            <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
               <thead>
                 <tr>
-                  <th><abbr title="Name">Name</abbr></th>
-                  <th><abbr title="Rooms">Rooms</abbr></th>
-                  <th><abbr title="Relations">Relations</abbr></th>
-                  <th><abbr title="isPublished">isPublished</abbr></th>
-                  <th><abbr title="Controls">Controls</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Rating">Rating</abbr></th>
+                  <th className="c-table-cell u-w200"><abbr title="Description">Description</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Reviewer">Reviewer</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Hotel">Target Hotel</abbr></th>
+                  <th className="c-table-cell u-w100"><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>
-                {allHotels.map(hotel => (
-                  <Hotel
-                    key={hotel.id}
-                    hotel={hotel}
-                    {...props}
-                  />
+                {allReviews.map(review => (
+                  <Review key={review.id} review={review} />
                 ))}
               </tbody>
             </table>
@@ -70,7 +65,7 @@ const Hotels = (props) => (
 
 export default compose(
   defaultProps({
-    componentName: 'Hotel',
+    componentName: 'Review',
     transactionType: 'List',
   }),
   withRouter, // via react-router
@@ -80,13 +75,13 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    HotelCreateMutation,
+    null,
     /* for search columns */
     [
-      { id: 1, type: "name", name: "Name" },
+      { id: 1, type: "rating", name: "Rating" },
     ],
-    'name',
+    'rating',
   ),
-  withPagination(GET_HOTEL_COUNT),
+  withPagination(GET_REVIEW_COUNT),
   hasLogger(false),
-)(Hotels)
+)(Reviews)

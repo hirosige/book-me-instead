@@ -13,7 +13,7 @@ const Transaction = ({ transaction }) => (
       <span className="tag is-warning">{transaction.type}</span>
       </td>
       <td style={{ wordBreak: "break-all" }}>
-        <span className="tag is-danger">{transaction.currency}</span>
+        <span className="tag is-danger">{transaction.currency.toUpperCase()}</span>
       </td>
       <td style={{ wordBreak: "break-all" }}>{`
         ${transaction.amount.toString().substr(0, transaction.amount.toString().length - 2)}

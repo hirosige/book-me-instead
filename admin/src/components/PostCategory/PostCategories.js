@@ -16,6 +16,7 @@ import {
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import PostCategory from './PostCategory';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
@@ -57,6 +58,7 @@ const PostCategories = (props) => (
                 ))}
               </tbody>
             </table>
+            {props.onedayTodoHere('トップカテゴリの作成ボタンを作る')}
           </div>
         )
       }}
@@ -71,6 +73,7 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
   withAdminLayout(),

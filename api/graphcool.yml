@@ -93,6 +93,15 @@ functions:
           ALGOLIA_APP_ID: ${env:ALGOLIA_APP_ID}
           ALGOLIA_API_KEY: ${env:ALGOLIA_API_KEY}
 
+  contactCreated:
+    type: subscription
+    query: functions/subscriptions/contact/contactCreated.graphql
+    handler:
+      code:
+        src: ./functions/subscriptions/contact/contactCreated.js
+        environment:
+          MAILGUN_API_KEY: ${env:MAILGUN_API_KEY}
+
   validateProfile:
     type: operationBefore
     operation: Profile.create

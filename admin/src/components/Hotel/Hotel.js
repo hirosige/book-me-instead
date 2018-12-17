@@ -6,6 +6,7 @@ import AddFavoriteButton from './AddFavoriteButton';
 import PublishHotelButton from './PublishHotelButton';
 import MakePrivateHotelButton from './MakePrivateHotelButton';
 import Rooms from './Rooms';
+import ReviewButton from './ReviewButton';
 // import ImageModal from '../Shared/ImageModal';
 
 const Hotel = ({ hotel, me }) => (
@@ -33,9 +34,7 @@ const Hotel = ({ hotel, me }) => (
       ) : (
         <div>No Images</div>
       )}
-    </td>
-    <td>
-      {hotel.photos ? (
+      {hotel.advantages ? (
         <div className="control">
           <div className="tags has-addons">
             <span className="tag is-info u-no-br">{hotel.advantages.length}</span>
@@ -44,6 +43,26 @@ const Hotel = ({ hotel, me }) => (
         </div>
       ) : (
         <div>No Images</div>
+      )}
+      {hotel.favorites ? (
+        <div className="control">
+          <div className="tags has-addons">
+            <span className="tag is-info u-no-br">{hotel.favorites.length}</span>
+            <span className="tag is-dark u-no-br">Users Love This</span>
+          </div>
+        </div>
+      ) : (
+        <div>No Reviews</div>
+      )}
+      {hotel.reviews ? (
+        <div className="control">
+          <div className="tags has-addons">
+            <span className="tag is-info u-no-br">{hotel.reviews.length}</span>
+            <span className="tag is-dark u-no-br">Reviews</span>
+          </div>
+        </div>
+      ) : (
+        <div>No Reviews</div>
       )}
     </td>
     <td>
@@ -81,6 +100,12 @@ const Hotel = ({ hotel, me }) => (
           <AddFavoriteButton
             hotel={hotel}
             me={me}
+          />
+        </div>
+        <div className="control">
+          <ReviewButton
+            hotel={hotel}
+            user={me}
           />
         </div>
       </div>

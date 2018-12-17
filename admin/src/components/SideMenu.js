@@ -21,6 +21,7 @@ const SideMenu = (props) => (
         <li><Link className={props.activate(props.componentName, 'Dashboard')} to="/dashboard">DASHBOARD</Link></li>
         <li><Link className={props.activate(props.componentName, 'Country')} to="/countries">COUNTRIES</Link></li>
         <li><Link className={props.activate(props.componentName, 'User')} to="/users">USERS</Link></li>
+        <li><Link className={props.activate(props.componentName, 'Contact')} to="/contacts">CONTACTS</Link></li>
       </ul>
       <p className="menu-label">
         ACCOMMODATION
@@ -29,6 +30,7 @@ const SideMenu = (props) => (
         <li><Link className={props.activate(props.componentName, 'Hotel')} to="/hotels">HOTELS</Link></li>
         <li><Link className={props.activate(props.componentName, 'Advantage')} to="/advantages">ADVANTAGES</Link></li>
         <li><Link className={props.activate(props.componentName, 'Booking')} to="/bookings">BOOKINGS</Link></li>
+        <li><Link className={props.activate(props.componentName, 'Review')} to="/reviews">REVIEWS</Link></li>
       </ul>
       <p className="menu-label">
         ACCOUNTING

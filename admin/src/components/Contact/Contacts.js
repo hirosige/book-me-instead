@@ -8,20 +8,20 @@ import withAuthorization from '../../hocs/WithAuthorization';
 import withAdminLayout from '../../hocs/WithAdminLayout';
 import withUser from '../../hocs/WithUser';
 import withSearchBox from '../../hocs/WithSearchBox';
-import HotelCreateMutation from './HotelCreateMutation';
-import Hotel from './Hotel';
+import ContactCreateMutation from './ContactCreateMutation';
+import Contact from './Contact';
 import withPagination from '../../hocs/WithPagination';
 import {
-  GET_HOTELS,
-  GET_HOTEL_COUNT
-} from '../../queries/Hotel'
+  GET_CONTACTS,
+  GET_CONTACT_COUNT
+} from '../../queries/Contact'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 
-const Hotels = (props) => (
+const Contacts = (props) => (
   <div className=".l-main__content">
     <Query
-      query={GET_HOTELS}
+      query={GET_CONTACTS}
       variables={{
         first: props.recordPerPage,
         skip: (props.currentPage - 1) * props.recordPerPage,
@@ -33,31 +33,28 @@ const Hotels = (props) => (
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
-        const { allHotels } = data
+        const { allContacts } = data
 
-        if (allHotels.length === 0) {
+        if (allContacts.length === 0) {
           return <NoDataFound />
         }
 
         return (
           <div>
-            <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
               <thead>
                 <tr>
-                  <th><abbr title="Name">Name</abbr></th>
-                  <th><abbr title="Rooms">Rooms</abbr></th>
-                  <th><abbr title="Relations">Relations</abbr></th>
-                  <th><abbr title="isPublished">isPublished</abbr></th>
-                  <th><abbr title="Controls">Controls</abbr></th>
+                  <th className="u-w150"><abbr title="Inquery ID">Inquery ID</abbr></th>
+                  <th className="u-w150"><abbr title="Title">Title</abbr></th>
+                  <th className="u-w150"><abbr title="Description">Description</abbr></th>
+                  <th className="u-w50"><abbr title="IsReplied">Is Replied</abbr></th>
+                  <th className="u-w50"><abbr title="Reply">Reply</abbr></th>
+                  <th className="u-w100"><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>
-                {allHotels.map(hotel => (
-                  <Hotel
-                    key={hotel.id}
-                    hotel={hotel}
-                    {...props}
-                  />
+                {allContacts.map(contact => (
+                  <Contact key={contact.id} contact={contact} />
                 ))}
               </tbody>
             </table>
@@ -70,7 +67,7 @@ const Hotels = (props) => (
 
 export default compose(
   defaultProps({
-    componentName: 'Hotel',
+    componentName: 'Contact',
     transactionType: 'List',
   }),
   withRouter, // via react-router
@@ -80,13 +77,13 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    HotelCreateMutation,
+    ContactCreateMutation,
     /* for search columns */
     [
       { id: 1, type: "name", name: "Name" },
     ],
     'name',
   ),
-  withPagination(GET_HOTEL_COUNT),
+  withPagination(GET_CONTACT_COUNT),
   hasLogger(false),
-)(Hotels)
+)(Contacts)

@@ -8,7 +8,6 @@ import NotFound from './components/Error/NotFound';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Forbidden from './components/Error/Forbidden';
-import AddCreditCard from './components/AddCreditCard/AddCreditCard';
 import Advantages from './components/Advantage/Advantages';
 import Hotels from './components/Hotel/Hotels';
 import Users from './components/User/Users';
@@ -16,6 +15,8 @@ import Bookings from './components/Booking/Bookings';
 import Posts from './components/Post/Posts';
 import PostCategories from './components/PostCategory/PostCategories';
 import Transactions from './components/Transaction/Transactions';
+import Contacts from './components/Contact/Contacts';
+import Reviews from './components/Review/Reviews';
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -33,7 +34,8 @@ const AppRoutes = () => (
       <Route exact path='/posts' component={Posts} />
       <Route exact path='/post_categories' component={PostCategories} />
       <Route exact path='/transactions' component={Transactions} />
-      <Route exact path='/credit' component={AddCreditCard} />
+      <Route exact path='/contacts' component={Contacts} />
+      <Route exact path='/reviews' component={Reviews} />
       <Route exact path='/forbidden' component={Forbidden} />
       <Route component={NotFound} />
     </Switch>

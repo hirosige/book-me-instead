@@ -53,6 +53,9 @@ const GET_HOTELS = gql`
           id
         }
       }
+      reviews {
+        id
+      }
     }
   }
 `

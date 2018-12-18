@@ -16,7 +16,11 @@ class Lock extends Component {
     },
     auth: {
       responseType: 'token id_token',
-      redirectUrl: 'http://cranky-noyce-c16529.netlify.com/callback',
+      redirectUrl: process.env.NODE_ENV === 'production' ?
+        // production
+        'https://cranky-noyce-c16529.netlify.com/' :
+        // development
+        'http://localhost:8080/callback',
       sso: false,
       params: {
         scope: 'openid email',

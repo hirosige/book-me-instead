@@ -11,7 +11,7 @@ const withAdminLayout = () => WrappedComponent => {
     render () {
       return (
         <React.Fragment>
-          <nav className="navbar" role="navigation" aria-label="main navigation" style={{ background: "#007bff", fontSize: "1.2rem" }}>
+          <nav className="navbar" style={{ background: "#007bff", fontSize: "1.2rem" }}>
             <div className="navbar-brand">
               <div className="navbar-item" style={{ color: "#ffffff" }}>
                 BOOK ME INSTEAD.ADMIN HOME
@@ -34,7 +34,7 @@ const withAdminLayout = () => WrappedComponent => {
               </div>
             </div>
           </nav>
-          <div className="columns is-gapless is-multiline is-mobile" style={{ margin: 0 }}>
+          <div className="columns is-gapless is-multiline" style={{ margin: 0 }}>
             <div className="column is-2 u-txt-white">
               <SideMenu {...this.props} />
             </div>

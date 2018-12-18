@@ -18,7 +18,7 @@ class Lock extends Component {
       responseType: 'token id_token',
       redirectUrl: process.env.NODE_ENV === 'production' ?
         // production
-        'https://cranky-noyce-c16529.netlify.com/callback' :
+        'http://testing.admin.book.suneikii.com/callback' :
         // development
         'http://localhost:8080/callback',
       sso: false,

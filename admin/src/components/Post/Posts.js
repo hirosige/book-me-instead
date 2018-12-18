@@ -17,6 +17,8 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import Post from './Post';
 import PostCreateMutation from './PostCreateMutation';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Posts = (props) => (
   <div className=".l-main__content">
@@ -55,7 +57,7 @@ const Posts = (props) => (
               </thead>
               <tbody>
                 {allPosts.map(post => (
-                  <Post key={post.id} post={post} me={props.me} />
+                  <Post key={post.id} post={post} me={props.me} {...props} />
                 ))}
               </tbody>
             </table>
@@ -73,8 +75,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

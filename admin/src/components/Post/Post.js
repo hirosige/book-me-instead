@@ -5,7 +5,7 @@ import PostEditMutation from './PostEditMutation';
 import ManageTag from './ManageTag';
 import MarkdownPreview from './MarkdownPreview';
 
-const Post = ({ post, me }) => (
+const Post = ({ post, me, onedayTodoHere }) => (
   <tr>
     <td>{post.title}</td>
     <td>
@@ -44,7 +44,8 @@ const Post = ({ post, me }) => (
           >{tag.name}</span>
         ))}
       </div>
-      <ManageTag post={post} />
+      <ManageTag post={post} />&nbsp;&nbsp;
+      {onedayTodoHere('既存のタグ選択可能にする')}
     </td>
     <td>
       <div className="field has-addons">

@@ -17,6 +17,8 @@ import {
 } from '../../queries/Advantage'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Advantages = (props) => (
   <div className=".l-main__content">
@@ -51,7 +53,7 @@ const Advantages = (props) => (
               </thead>
               <tbody>
                 {allAdvantages.map(advantage => (
-                  <Advantage key={advantage.id} advantage={advantage} />
+                  <Advantage key={advantage.id} advantage={advantage} {...props} />
                 ))}
               </tbody>
             </table>
@@ -69,8 +71,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

@@ -10,6 +10,7 @@ const GET_POSTS = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       title
@@ -34,6 +35,8 @@ const GET_POSTS = gql`
         id
         name
       }
+      createdAt
+      updatedAt
     }
   }
 `

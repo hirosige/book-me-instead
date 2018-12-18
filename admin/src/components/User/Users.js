@@ -16,6 +16,8 @@ import {
 } from '../../queries/User'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Countries = (props) => (
   <div className=".l-main__content">
@@ -53,7 +55,7 @@ const Countries = (props) => (
               </thead>
               <tbody>
                 {allUsers.map(user => (
-                  <User key={user.id} user={user} {...props} />
+                  <User key={user.id} user={user} {...props} {...props} />
                 ))}
               </tbody>
             </table>
@@ -71,8 +73,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

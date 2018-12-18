@@ -17,6 +17,7 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import PostCategory from './PostCategory';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
@@ -54,7 +55,7 @@ const PostCategories = (props) => (
               </thead>
               <tbody>
                 {allPostCategories.map(postCategory => (
-                  <PostCategory key={postCategory.id} postCategory={postCategory} />
+                  <PostCategory key={postCategory.id} postCategory={postCategory} {...props} />
                 ))}
               </tbody>
             </table>
@@ -76,6 +77,7 @@ export default compose(
   withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     null,

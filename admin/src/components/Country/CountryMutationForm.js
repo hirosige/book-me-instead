@@ -19,8 +19,9 @@ const CountryMutationForm = props => (
                   locale: "en"
                 }
               }).then(() => {
+                props.notifyUser({ type: "is-success", message: "Country is successfully created" })
                 props.initializeState()
-                props.makeCompleted()
+                props.switchModal()
               })
             }}>
               <header className="modal-card-head u-no-br u-bk-primary">

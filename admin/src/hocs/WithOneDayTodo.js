@@ -4,7 +4,8 @@ import OneDayTodo from '../components/Shared/OneDayTodo';
 const withOneDayTodo = () => WrappedComponent => {
   return class HOC extends React.Component {
     onedayTodoHere = todo => {
-      return <OneDayTodo todo={todo} />
+      if (process.env.NODE_ENV !== 'production') return <OneDayTodo todo={todo} />
+      return
     }
 
     render () {

@@ -13,6 +13,7 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import Transaction from './Transaction';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Transactions = (props) => (
   <div className=".l-main__content">
@@ -57,7 +58,7 @@ const Transactions = (props) => (
                 </thead>
                 <tbody>
                   {getTransactions.map(transaction => (
-                    <Transaction key={transaction.id} transaction={transaction} />
+                    <Transaction key={transaction.id} transaction={transaction} {...props} />
                   ))}
                 </tbody>
               </table>
@@ -81,6 +82,7 @@ export default compose(
   withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withStatelessToolHeader("TRANSACTIONS"),
   // withPagination(

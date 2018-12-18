@@ -17,6 +17,8 @@ import {
 } from '../../queries/Hotel'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Hotels = (props) => (
   <div className=".l-main__content">
@@ -75,8 +77,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

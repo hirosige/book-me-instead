@@ -70,7 +70,7 @@ export default compose(
     color: 'is-primary',
     type: 'card',
     style: {
-      width: "90%"
+      width: "60%"
     }
   })
 )(ContactCreateMutation)

@@ -18,8 +18,9 @@ const ProfileMutationForm = props => (
               mutate({
                 variables: props.profile
               }).then(() => {
+                props.notifyUser({ type: "is-success", message: "Profile is successfully updated" })
                 props.initializeState()
-                props.makeCompleted()
+                props.switchModal()
               });
 
             }}>

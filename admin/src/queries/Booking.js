@@ -10,6 +10,7 @@ const GET_BOOKINGS = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       isPaid
@@ -24,6 +25,8 @@ const GET_BOOKINGS = gql`
         id
         email
       }
+      createdAt
+      updatedAt
     }
   }
 `

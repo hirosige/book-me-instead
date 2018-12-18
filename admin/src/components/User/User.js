@@ -3,7 +3,7 @@ import ProfileCreateMutation from './ProfileCreateMutation';
 import ProfileEditMutation from './ProfileEditMutation';
 import ChangeRole from './ChangeRole';
 
-const User = ({ user, me }) => {
+const User = ({ user, me, notifyUser }) => {
   const { auth0UserId } = user
   const provider = auth0UserId.split('|')[0]
   const clientId = auth0UserId.split('|')[1]
@@ -30,6 +30,7 @@ const User = ({ user, me }) => {
         {me.role === 'ADMIN' && (
           <ChangeRole
             user={user}
+            notifyUser={notifyUser}
           />
         )}
       </td>
@@ -49,11 +50,11 @@ const User = ({ user, me }) => {
         <div className="field has-addons">
         {user.profile ? (
           <div className="control">
-            <ProfileEditMutation editItem={user} />
+            <ProfileEditMutation editItem={user} notifyUser={notifyUser} />
           </div>
         ) : (
           <div className="control">
-            <ProfileCreateMutation user={user} />
+            <ProfileCreateMutation user={user} notifyUser={notifyUser} />
           </div>
         )}
         </div>

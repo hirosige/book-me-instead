@@ -10,6 +10,7 @@ const GET_USERS = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       auth0UserId
@@ -32,6 +33,8 @@ const GET_USERS = gql`
           name
         }
       }
+      createdAt
+      updatedAt
     }
   }
 `

@@ -10,6 +10,7 @@ const GET_REVIEWS = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       rating
@@ -22,6 +23,8 @@ const GET_REVIEWS = gql`
         id
         name
       }
+      createdAt
+      updatedAt
     }
   }
 `

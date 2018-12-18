@@ -18,10 +18,10 @@ const AdvantageMutationForm = props => (
               mutate({
                 variables: props.advantage
               }).then(() => {
+                props.notifyUser({ type: "is-success", message: "Advantage is successfully created" })
                 props.initializeState()
-                props.makeCompleted()
+                props.switchModal()
               });
-
             }}>
               <header className="modal-card-head u-no-br u-bk-primary">
                 <p className="modal-card-title u-txt-white">{props.title}</p>

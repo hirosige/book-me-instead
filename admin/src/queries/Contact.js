@@ -10,6 +10,7 @@ const GET_CONTACTS = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       name
@@ -19,6 +20,8 @@ const GET_CONTACTS = gql`
       reference
       description
       isReplied
+      createdAt
+      updatedAt
     }
   }
 `

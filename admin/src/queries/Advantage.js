@@ -10,6 +10,7 @@ const GET_ADVANTAGES = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       name
@@ -25,6 +26,8 @@ const GET_ADVANTAGES = gql`
       hotels {
         name
       }
+      createdAt
+      updatedAt
     }
   }
 `

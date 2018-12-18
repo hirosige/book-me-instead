@@ -53,6 +53,7 @@ class ChangeRole extends React.Component {
                                   role: e.target.value
                                 }
                               }).then(result => {
+                                this.props.notifyUser({ type: "is-success", message: "Role has been successfully changed" })
                                 this.toggleOpen()
                               });
                             }}

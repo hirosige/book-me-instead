@@ -16,6 +16,8 @@ import {
 } from '../../queries/Review'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Reviews = (props) => (
   <div className=".l-main__content">
@@ -52,7 +54,7 @@ const Reviews = (props) => (
               </thead>
               <tbody>
                 {allReviews.map(review => (
-                  <Review key={review.id} review={review} />
+                  <Review key={review.id} review={review} {...props} />
                 ))}
               </tbody>
             </table>
@@ -70,8 +72,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

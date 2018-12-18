@@ -17,6 +17,8 @@ import {
 } from '../../queries/Contact'
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Contacts = (props) => (
   <div className=".l-main__content">
@@ -54,7 +56,7 @@ const Contacts = (props) => (
               </thead>
               <tbody>
                 {allContacts.map(contact => (
-                  <Contact key={contact.id} contact={contact} />
+                  <Contact key={contact.id} contact={contact} {...props} />
                 ))}
               </tbody>
             </table>
@@ -72,8 +74,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

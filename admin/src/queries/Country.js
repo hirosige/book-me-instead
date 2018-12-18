@@ -10,6 +10,7 @@ const GET_COUNTRIES = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       name
@@ -25,6 +26,8 @@ const GET_COUNTRIES = gql`
         id
         name
       }
+      createdAt
+      updatedAt
     }
   }
 `

@@ -60,6 +60,7 @@ const ADD_TO_CHILDREN = gql`
     addToChildren(
       children1PostCategoryId: $children1PostCategoryId
       children2PostCategoryId: $children2PostCategoryId
+      orderBy: updatedAt_DESC
     ) {
       children2PostCategory {
         id
@@ -67,6 +68,8 @@ const ADD_TO_CHILDREN = gql`
       children1PostCategory {
         id
       }
+      createdAt
+      updatedAt
     }
   }
 `;

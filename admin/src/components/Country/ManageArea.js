@@ -53,6 +53,7 @@ class ManageArea extends React.Component {
                     }
                   }).then(result => {
                     this.initializeState()
+                    this.props.notifyUser({ type: "is-success", message: "Area is successfully created" })
                   })
                 }}>
                   {error && (

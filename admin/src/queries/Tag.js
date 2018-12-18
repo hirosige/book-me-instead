@@ -22,6 +22,7 @@ const ADD_TO_POST_TAGS = gql`
     addToPostTags(
       tagsTagId: $tagsTagId
       postsPostId: $postsPostId
+      orderBy: updatedAt_DESC
     ) {
       tagsTag {
         id
@@ -29,6 +30,8 @@ const ADD_TO_POST_TAGS = gql`
       postsPost {
         id
       }
+      createdAt
+      updatedAt
     }
   }
 `;

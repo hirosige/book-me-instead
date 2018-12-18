@@ -4,7 +4,7 @@ import DeleteMutation from '../Shared/DeleteMutation'
 import { DELETE_AN_ADVANTAGE } from '../../queries/Advantage'
 import ImageModal from '../Shared/ImageModal';
 
-const Advantage = ({ advantage }) => (
+const Advantage = ({ advantage, notifyUser }) => (
   <tr>
     <td>{advantage.name}</td>
     <td>
@@ -37,6 +37,7 @@ const Advantage = ({ advantage }) => (
             deleteId={advantage.id}
             title="Are you sure to delete ?"
             mutation={DELETE_AN_ADVANTAGE}
+            notifyUser={notifyUser}
           />
         </div>
       </div>

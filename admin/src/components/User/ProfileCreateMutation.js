@@ -56,5 +56,8 @@ export default compose(
     size: 'is-small',
     color: 'is-primary',
     type: 'card',
+    style: {
+      width: "60%"
+    },
   })
 )(ProfileCreateMutation)

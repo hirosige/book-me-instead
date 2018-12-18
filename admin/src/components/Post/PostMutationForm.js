@@ -87,7 +87,7 @@ const PostMutationForm = props => (
                         },
                       }}
                     >
-                      {({ data, loading, error }) => {
+                      {({ data, loading, error, refetch }) => {
                         if (loading) return 'loading'
                         if (error) return <div>Error {JSON.stringify(error)}</div>;
 

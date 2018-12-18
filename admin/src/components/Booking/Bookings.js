@@ -17,6 +17,8 @@ import {
 import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import Booking from './Booking';
+import withOneDayTodo from '../../hocs/WithOneDayTodo';
+import withMessageable from '../../hocs/WithMessageable'
 
 const Bookings = (props) => (
   <div className=".l-main__content">
@@ -56,7 +58,7 @@ const Bookings = (props) => (
               </thead>
               <tbody>
                 {allBookings.map(booking => (
-                  <Booking key={booking.id} booking={booking} />
+                  <Booking key={booking.id} booking={booking} {...props} />
                 ))}
               </tbody>
             </table>
@@ -74,8 +76,10 @@ export default compose(
   }),
   withRouter, // via react-router
   withAuthentication(),
+  withOneDayTodo(),
   withUser(),
   withAuthorization(),
+  withMessageable(),
   withAdminLayout(),
   withSearchBox(
     /* for create button */

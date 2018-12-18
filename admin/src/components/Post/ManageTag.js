@@ -5,7 +5,6 @@ import {
   CREATE_TAG,
   ADD_TO_POST_TAGS,
 } from '../../queries/Tag'
-import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
 
 class ManageTag extends React.Component {
   state = {

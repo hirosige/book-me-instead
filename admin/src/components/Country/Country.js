@@ -4,7 +4,7 @@ import CountryEditMutation from './CountryEditMutation';
 import { DELETE_A_COUNTRY } from '../../queries/Country'
 import ManageArea from './ManageArea';
 
-const Country = ({ country }) => (
+const Country = ({ country, notifyUser }) => (
   <tr>
     <td>{country.name}</td>
     <td>{country.code}</td>
@@ -20,10 +20,16 @@ const Country = ({ country }) => (
               >{area.name}</span>
             ))}
           </div>
-          <ManageArea country={country} />
+          <ManageArea
+            country={country}
+            notifyUser={notifyUser}
+          />
         </React.Fragment>
       ) : (
-        <ManageArea country={country} />
+        <ManageArea
+          country={country}
+          notifyUser={notifyUser}
+        />
       )}
     </td>
     <td>
@@ -37,13 +43,17 @@ const Country = ({ country }) => (
     <td>
       <div className="field has-addons">
         <div className="control">
-          <CountryEditMutation editItem={country} />
+          <CountryEditMutation
+            editItem={country}
+            notifyUser={notifyUser}
+          />
         </div>
         <div className="control">
           <DeleteMutation
             deleteId={country.id}
             title="Are you sure to delete ?"
             mutation={DELETE_A_COUNTRY}
+            notifyUser={notifyUser}
           />
         </div>
       </div>

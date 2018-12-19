@@ -13,12 +13,24 @@ const GET_POST_CATEGORIES = gql`
     ) {
       id
       name
+      posts {
+        id
+        title
+      }
       children {
         id
         name
+        posts {
+          id
+          title
+        }
         children {
           id
           name
+          posts {
+            id
+            title
+          }
           isRoot
         }
       }

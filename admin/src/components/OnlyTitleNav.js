@@ -13,6 +13,7 @@ class OnlyTitleNav extends Component {
         <div className="navbar-brand">
           <div className="navbar-item" style={{
             color: "#ffffff",
+            fontSize: "1rem",
           }}>
             {this.props.title}
           </div>

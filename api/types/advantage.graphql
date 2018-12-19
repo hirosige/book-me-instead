@@ -1,6 +1,7 @@
 type Advantage @model {
   id: ID! @isUnique
   name: String! @isUnique
+  iconName: String! @migrationValue(value: "far fas-bomb")
 
   createdAt: DateTime!
   updatedAt: DateTime!

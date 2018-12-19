@@ -54,13 +54,13 @@ const AdvantageMutationForm = props => (
                   columnName="Icon"
                   notice="Do not enter the first zero"
                 >
-                  <Uploader
-                    id='file'
-                    name='content'
-                    data-crop=""
-                    data-clearable=""
-                    value={props.photoValue}
-                    onUploadComplete={info => props.handleChangePhoto(info)}
+                  <input
+                    name="name"
+                    className="input"
+                    type="text"
+                    placeholder="Name"
+                    value={props.advantage.name}
+                    onChange={props.handleChange}
                   />
                 </HorizontalInputBoxFrame>
               </section>

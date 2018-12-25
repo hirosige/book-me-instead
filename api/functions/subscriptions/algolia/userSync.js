@@ -24,8 +24,6 @@ export default event => {
     }
   })
 
-  console.log(event.data.User.node)
-
   return {
     event
   }

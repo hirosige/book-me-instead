@@ -6,8 +6,10 @@ const CREATE_FAVORITE = gql`
     $userId: ID!
   ) {
     createFavorite(
-      userId: $userId
-      hotelsId: $hotelsId
+      input: {
+        userId: $userId
+        hotelsId: $hotelsId
+      }
     ) {
       id
     }

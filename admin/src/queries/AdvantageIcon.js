@@ -11,13 +11,15 @@ const CREATE_ADVANTAGE_ICON = gql`
     $uuid: String!
   ) {
     createAdvantageIcon(
-      cdnUrl: "teat"
-      isImage: true
-      isStored: true
-      mimeType: "test"
-      size: 100
-      name: "test"
-      uuid: "test"
+      input: {
+        cdnUrl: "teat"
+        isImage: true
+        isStored: true
+        mimeType: "test"
+        size: 100
+        name: "test"
+        uuid: "test"
+      }
     ) {
       id
       name
@@ -33,8 +35,10 @@ const UPDATE_ADVANTAGE = gql`
     $slug: String!
   ) {
     updateAdvantage(
-      id: $id
-      name: $name
+      input: {
+        id: $id
+        name: $name
+      }
     ) {
       id
       name
@@ -48,10 +52,13 @@ const UPDATE_ADVANTAGE = gql`
   }
 `;
 
-
 const DELETE_AN_ADVANTAGE = gql`
   mutation DeleteAdvantage($id: ID!) {
-    deleteAdvantage(id: $id) {
+    deleteAdvantage(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

@@ -54,12 +54,14 @@ const CREATE_BOOKING = gql`
     $userId: ID!
   ) {
     createBooking(
-      isPaid: $isPaid
-      isConfirmed: $isConfirmed
-      checkIn: $checkIn
-      checkOut: $checkOut
-      hotelId: $hotelId
-      userId: $userId
+      input: {
+        isPaid: $isPaid
+        isConfirmed: $isConfirmed
+        checkIn: $checkIn
+        checkOut: $checkOut
+        hotelId: $hotelId
+        userId: $userId
+      }
     ) {
       id
     }

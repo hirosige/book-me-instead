@@ -56,8 +56,10 @@ const CREATE_POST_CATEGORY = gql`
     $isRoot: Boolean!
   ) {
     createPostCategory(
-      name: $name
-      isRoot: $isRoot
+      input: {
+        name: $name
+        isRoot: $isRoot
+      }
     ) {
       id
     }
@@ -70,9 +72,10 @@ const ADD_TO_CHILDREN = gql`
     $children2PostCategoryId: ID!
   ) {
     addToChildren(
-      children1PostCategoryId: $children1PostCategoryId
-      children2PostCategoryId: $children2PostCategoryId
-      orderBy: updatedAt_DESC
+      input: {
+        children1PostCategoryId: $children1PostCategoryId
+        children2PostCategoryId: $children2PostCategoryId
+      }
     ) {
       children2PostCategory {
         id
@@ -88,7 +91,11 @@ const ADD_TO_CHILDREN = gql`
 
 const DELETE_A_POST_CATEGORY = gql`
   mutation DeletePostCategory($id: ID!) {
-    deletePostCategory(id: $id) {
+    deletePostCategory(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

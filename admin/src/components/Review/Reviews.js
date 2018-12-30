@@ -28,7 +28,6 @@ const Reviews = (props) => (
         skip: (props.currentPage - 1) * props.recordPerPage,
         searchFilter: props.searchCondition,
       }}
-      pollInterval={500}
     >
       {({ data, loading, error }) => {
         if (loading) return <TableContentsLoading />;

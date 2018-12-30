@@ -18,7 +18,6 @@ const MyPaymentsModal = props => (
                   variables={{
                     customerId: props.me.omiseCustomerId,
                   }}
-                  pollInterval={500}
                 >
                   {({ data, loading, error }) => {
                     if (loading) return <div>Loading</div>;

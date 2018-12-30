@@ -6,8 +6,10 @@ const CREATE_TAG = gql`
     $color: String!
   ) {
     createTag(
-      name: $name
-      color: $color
+      input: {
+        name: $name
+        color: $color
+      }
     ) {
       id
     }
@@ -20,9 +22,10 @@ const ADD_TO_POST_TAGS = gql`
     $postsPostId: ID!
   ) {
     addToPostTags(
-      tagsTagId: $tagsTagId
-      postsPostId: $postsPostId
-      orderBy: updatedAt_DESC
+      input: {
+        tagsTagId: $tagsTagId
+        postsPostId: $postsPostId
+      }
     ) {
       tagsTag {
         id

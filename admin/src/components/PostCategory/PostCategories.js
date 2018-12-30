@@ -31,7 +31,6 @@ const PostCategories = (props) => (
           isRoot: true,
         },
       }}
-      pollInterval={500}
     >
       {({ data, loading, error }) => {
         if (loading) return <TableContentsLoading />;

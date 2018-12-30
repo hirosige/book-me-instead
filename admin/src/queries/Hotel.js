@@ -81,8 +81,10 @@ const ADD_TO_HOTEL_ADVANTAGE = gql`
     $advantagesAdvantageId: ID!
   ) {
     addToHotelsAdvantages(
-      hotelsHotelId: $hotelsHotelId
-      advantagesAdvantageId: $advantagesAdvantageId
+      input: {
+        hotelsHotelId: $hotelsHotelId
+        advantagesAdvantageId: $advantagesAdvantageId
+      }
     ) {
       advantagesAdvantage {
         id
@@ -116,27 +118,29 @@ const CREATE_HOTEL = gql`
     $rooms: [HotelroomsRoom!]!
   ) {
     createHotel(
-      name: $name
-      address: $address
-      latitude: $latitude
-      longitude: $longitude
-      appliances: $appliances
-      tel: $tel
-      fax: $fax
-      email: $email
-      isPublished: false
-      countryId: $countryId
-      areaId: $areaId
-      photos: {
-        name: $photoGrpName
-        cdnUrl: $photoGrpCdnUrl
-        isImage: $photoGrpIsImage
-        isStored: $photoGrpIsStored
-        count: $photoGrpCount
-        uuid: $photoGrpUuid
-        size: $photoGrpSize
+      input: {
+        name: $name
+        address: $address
+        latitude: $latitude
+        longitude: $longitude
+        appliances: $appliances
+        tel: $tel
+        fax: $fax
+        email: $email
+        isPublished: false
+        countryId: $countryId
+        areaId: $areaId
+        photos: {
+          name: $photoGrpName
+          cdnUrl: $photoGrpCdnUrl
+          isImage: $photoGrpIsImage
+          isStored: $photoGrpIsStored
+          count: $photoGrpCount
+          uuid: $photoGrpUuid
+          size: $photoGrpSize
+        }
+        rooms: $rooms
       }
-      rooms: $rooms
     ) {
       id
     }
@@ -166,27 +170,29 @@ const UPDATE_HOTEL = gql`
     $photoGrpSize: Int!
   ) {
     updateHotel(
-      id: $id
-      name: $name
-      address: $address
-      latitude: $latitude
-      longitude: $longitude
-      appliances: $appliances
-      tel: $tel
-      fax: $fax
-      email: $email
-      isPublished: false
-      countryId: $countryId
-      areaId: $areaId
-      photosId: $photoGrpId
-      photos: {
-        name: $photoGrpName
-        cdnUrl: $photoGrpCdnUrl
-        isImage: $photoGrpIsImage
-        isStored: $photoGrpIsStored
-        count: $photoGrpCount
-        uuid: $photoGrpUuid
-        size: $photoGrpSize
+      input: {
+        id: $id
+        name: $name
+        address: $address
+        latitude: $latitude
+        longitude: $longitude
+        appliances: $appliances
+        tel: $tel
+        fax: $fax
+        email: $email
+        isPublished: false
+        countryId: $countryId
+        areaId: $areaId
+        photosId: $photoGrpId
+        photos: {
+          name: $photoGrpName
+          cdnUrl: $photoGrpCdnUrl
+          isImage: $photoGrpIsImage
+          isStored: $photoGrpIsStored
+          count: $photoGrpCount
+          uuid: $photoGrpUuid
+          size: $photoGrpSize
+        }
       }
     ) {
       id
@@ -200,18 +206,23 @@ const UPDATE_IS_PUBLISHED = gql`
     $isPublished: Boolean!
   ) {
     updateHotel(
-      id: $id
-      isPublished: $isPublished
+      input: {
+        id: $id
+        isPublished: $isPublished
+      }
     ) {
       id
     }
   }
 `;
 
-
 const DELETE_AN_HOTEL = gql`
   mutation DeleteHotel($id: ID!) {
-    deleteHotel(id: $id) {
+    deleteHotel(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

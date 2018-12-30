@@ -8,10 +8,12 @@ const CREATE_AREA = gql`
     $slug: String!
   ) {
     createArea(
-      name: $name
-      code: $code
-      slug: $slug
-      countryId: $countryId
+      input: {
+        name: $name
+        code: $code
+        slug: $slug
+        countryId: $countryId
+      }
     ) {
       id
       name

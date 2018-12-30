@@ -6,11 +6,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const GRAPHCOOL_ACCESS_TOKEN = 'graphcool_access_token';
 const GRAPHCOOL_USER = 'graphcool_user';
 
-const client = new GraphQLClient(process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT, {
-  headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_GRAPHCOOL_API_KEY}`,
-  },
-})
+const client = new GraphQLClient('http://localhost:3001')
 
 export function logout() {
   clearIdToken();
@@ -20,6 +16,7 @@ export function logout() {
 
 export async function getGraphcoolUser() {
   const { userId } = getDecodedGraphcoolToken()
+  console.log('decoded', getDecodedGraphcoolToken())
 
   const userQuery = `{
     User(id: "${ userId }") {

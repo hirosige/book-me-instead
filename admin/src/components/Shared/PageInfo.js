@@ -15,18 +15,6 @@ const PageInfo = ({ count, totalAmount, current, keyword }) => (
       </div>
       <div className="level-item has-text-centered">
         <div>
-          <p className="heading">Total Page Amount</p>
-          <p className="title" style={{ fontSize: "1rem" }}>{totalAmount}</p>
-        </div>
-      </div>
-      <div className="level-item has-text-centered">
-        <div>
-          <p className="heading">Current Page</p>
-          <p className="title" style={{ fontSize: "1rem" }}>{current}</p>
-        </div>
-      </div>
-      <div className="level-item has-text-centered">
-        <div>
           <div className="heading">Current Search Keyword</div>
           <div className="title" style={{ fontSize: "1rem" }}>
             { Object.keys(keyword.searchFilter).length ? (

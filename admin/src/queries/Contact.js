@@ -49,13 +49,15 @@ const CREATE_CONTACT = gql`
     $isReplied: Boolean!
   ) {
     createContact(
-      name: $name
-      email: $email
-      tel: $tel
-      title: $title
-      description: $description
-      reference: $reference
-      isReplied: $isReplied
+      input: {
+        name: $name
+        email: $email
+        tel: $tel
+        title: $title
+        description: $description
+        reference: $reference
+        isReplied: $isReplied
+      }
     ) {
       id
     }
@@ -74,14 +76,16 @@ const UPDATE_CONTACT = gql`
     $isReplied: Boolean!
   ) {
     updateContact(
-      id: $id
-      name: $name
-      email: $email
-      tel: $tel
-      title: $title
-      description: $description
-      reference: $reference
-      isReplied: $isReplied
+      input: {
+        id: $id
+        name: $name
+        email: $email
+        tel: $tel
+        title: $title
+        description: $description
+        reference: $reference
+        isReplied: $isReplied
+      }
     ) {
       id
     }
@@ -90,7 +94,11 @@ const UPDATE_CONTACT = gql`
 
 const DELETE_A_CONTACT = gql`
   mutation DeleteContact($id: ID!) {
-    deleteContact(id: $id) {
+    deleteContact(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

@@ -56,15 +56,17 @@ const CREATE_ADVANTAGE = gql`
     $iconSize: Int!
   ) {
     createAdvantage(
-      name: $name
-      icon: {
-        name: $iconName
-        cdnUrl: $iconCdnUrl
-        isImage: $iconIsImage
-        isStored: $iconIsStored
-        mimeType: $iconMimeType
-        uuid: $iconUuid
-        size: $iconSize
+      input: {
+        name: $name
+        icon: {
+          name: $iconName
+          cdnUrl: $iconCdnUrl
+          isImage: $iconIsImage
+          isStored: $iconIsStored
+          mimeType: $iconMimeType
+          uuid: $iconUuid
+          size: $iconSize
+        }
       }
     ) {
       id
@@ -85,16 +87,18 @@ const UPDATE_ADVANTAGE = gql`
     $iconSize: Int!
   ) {
     updateAdvantage(
-      id: $id
-      name: $name
-      icon: {
-        name: $iconName
-        cdnUrl: $iconCdnUrl
-        isImage: $iconIsImage
-        isStored: $iconIsStored
-        mimeType: $iconMimeType
-        uuid: $iconUuid
-        size: $iconSize
+      input: {
+        id: $id
+        name: $name
+        icon: {
+          name: $iconName
+          cdnUrl: $iconCdnUrl
+          isImage: $iconIsImage
+          isStored: $iconIsStored
+          mimeType: $iconMimeType
+          uuid: $iconUuid
+          size: $iconSize
+        }
       }
     ) {
       id
@@ -105,7 +109,11 @@ const UPDATE_ADVANTAGE = gql`
 
 const DELETE_AN_ADVANTAGE = gql`
   mutation DeleteAdvantage($id: ID!) {
-    deleteAdvantage(id: $id) {
+    deleteAdvantage(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

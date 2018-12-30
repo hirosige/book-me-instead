@@ -13,7 +13,9 @@ import {
 } from './utils/AuthService';
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_GRAPHCOOL_SIMPLE_ENDPOINT
+  uri: process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3001'
+    : 'https://4au0qh23r4.execute-api.ap-northeast-1.amazonaws.com/staging/'
 })
 
 const authLink = setContext((_, { headers }) => {

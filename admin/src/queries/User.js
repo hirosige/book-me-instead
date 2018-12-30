@@ -62,13 +62,15 @@ const CREATE_PROFILE = gql`
     $userId: ID!
   ) {
     createProfile(
-      firstName: $firstName
-      lastName: $lastName
-      passportNo: $passportNo
-      address: $address
-      tel: $tel
-      subscriptionEmail: $subscriptionEmail
-      userId: $userId
+      input: {
+        firstName: $firstName
+        lastName: $lastName
+        passportNo: $passportNo
+        address: $address
+        tel: $tel
+        subscriptionEmail: $subscriptionEmail
+        userId: $userId
+      }
     ) {
       id
     }
@@ -87,14 +89,16 @@ const UPDATE_PROFILE = gql`
     $userId: ID!
   ) {
     updateProfile(
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      passportNo: $passportNo
-      address: $address
-      tel: $tel
-      subscriptionEmail: $subscriptionEmail
-      userId: $userId
+      input: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+        passportNo: $passportNo
+        address: $address
+        tel: $tel
+        subscriptionEmail: $subscriptionEmail
+        userId: $userId
+      }
     ) {
       id
     }
@@ -107,8 +111,10 @@ const CHANGE_ROLE = gql`
     $role: ROLE
   ) {
     updateUser(
-      id: $id
-      role: $role
+      input: {
+        id: $id
+        role: $role
+      }
     ) {
       id
     }

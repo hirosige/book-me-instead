@@ -64,14 +64,28 @@ const CREATE_COUNTRY = gql`
     $slug: String!
   ) {
     createCountry(
-      name: $name
-      code: $code
-      slug: $slug
+      input: {
+        name: $name
+        code: $code
+        slug: $slug
+      }
     ) {
       id
       name
       code
       slug
+      areas {
+        id
+        name
+        code
+        slug
+      }
+      hotels {
+        id
+        name
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -84,15 +98,29 @@ const UPDATE_COUNTRY = gql`
     $slug: String!
   ) {
     updateCountry(
-      id: $id
-      name: $name
-      code: $code
-      slug: $slug
+      input: {
+        id: $id
+        name: $name
+        code: $code
+        slug: $slug
+      }
     ) {
       id
       name
       code
       slug
+      areas {
+        id
+        name
+        code
+        slug
+      }
+      hotels {
+        id
+        name
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -100,7 +128,11 @@ const UPDATE_COUNTRY = gql`
 
 const DELETE_A_COUNTRY = gql`
   mutation DeleteCountry($id: ID!) {
-    deleteCountry(id: $id) {
+    deleteCountry(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

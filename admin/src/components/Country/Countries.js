@@ -19,9 +19,18 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ReadMoreButton from '../Shared/ReadMoreButton';
+import ToolBox from '../Shared/ToolBox';
 
 const Countries = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      <CountryCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: props.searchCondition,
+      }} />
+    </ToolBox>
     <Query
       query={GET_COUNTRIES}
       variables={{
@@ -29,9 +38,8 @@ const Countries = (props) => (
         skip: (props.currentPage - 1) * props.recordPerPage,
         searchFilter: props.searchCondition,
       }}
-      pollInterval={500}
     >
-      {({ data, loading, error }) => {
+      {({ data, loading, error, fetchMore }) => {
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -56,10 +64,26 @@ const Countries = (props) => (
               </thead>
               <tbody>
                 {allCountries.map(country => (
-                  <Country key={country.id} country={country} {...props} />
+                  <Country
+                    key={country.id}
+                    country={country}
+                    indexQuery={GET_COUNTRIES}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>
+
+            <ReadMoreButton
+              fetchMore={fetchMore}
+              modelName={`allCountries`}
+              modelData={allCountries}
+            />
           </div>
         )
       }}
@@ -81,7 +105,7 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    CountryCreateMutation,
+    null,
     /* for search columns */
     [
       { id: 1, type: "name", name: "Name" },

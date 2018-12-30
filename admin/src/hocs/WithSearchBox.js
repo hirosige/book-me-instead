@@ -60,7 +60,7 @@ const withSearchBox = (
             <div className="level">
               <div className="level-left">
                 <div className="level-item">
-                  TOOLBOX
+                  SERACH BOX
                 </div>
               </div>
               <div className="level-right">

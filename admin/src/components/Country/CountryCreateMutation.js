@@ -1,54 +1,83 @@
 import React from 'react'
 import { compose } from 'recompose'
 import withModal from '../../hocs/WithModal';
-import { CREATE_COUNTRY } from '../../queries/Country'
-import CountryMutationForm from './CountryMutationForm'
+import {
+  CREATE_COUNTRY,
+  GET_COUNTRIES,
+} from '../../queries/Country'
 
-class CountryCreateMutation extends React.Component {
-  state = {
-    name: "",
-    code: "",
-    slug: "",
-  }
+import { Mutation } from "react-apollo";
+import { Formik } from 'formik'
+import { produce } from 'immer';
+import CountryMutationForm from './CountryMutationForm';
 
-  initializeState = () => {
-    this.setState({
-      name: "",
-      code: "",
-      slug: "",
-    })
-  }
+const CountryCreateMutation = props => {
+  return (
+    <React.Fragment>
+      <Mutation mutation={CREATE_COUNTRY}>
+        {(mutate, { data, loading, error }) => (
+          <React.Fragment>
+            <Formik
+              initialValues={{
+                name: '',
+                code: '',
+                slug: '',
+              }}
+              validate={values => {
+                let errors = {};
+                if (!values.name) errors.name = 'Name is equired';
+                if (!values.code) errors.code = 'Code is equired';
+                if (!values.slug) errors.slug = 'Slug is equired';
 
-  handleChange = (e) => {
-    this.setState({
-      ...this.state,
-      [e.target.name]: e.target.value,
-    })
-  }
+                return errors;
+              }}
+              onSubmit={ async (formProps, { resetForm }) => {
+                const response = await mutate({
+                  variables: {
+                    ...formProps
+                  },
+                  update: (store, { data }) => {
+                    if (!data || !data.createCountry) {
+                      return;
+                    }
 
-  checkError = (error, column) => {
-    if (error.graphQLErrors[0].functionError[column].length !== 0) {
-      return "is-danger"
-    }
-    return ""
-  }
+                    const countries = store.readQuery({
+                      query: GET_COUNTRIES,
+                      variables: props.indexVariables
+                    })
 
-  render () {
-    return (
-      <React.Fragment>
-        <CountryMutationForm
-          mutation={CREATE_COUNTRY}
-          country={this.state}
-          handleChange={this.handleChange}
-          initializeState={this.initializeState}
-          title="CREATE COUNTRY"
-          message="Country is Successfully created."
-          checkError={this.checkError}
-          {...this.props}
-        />
-      </React.Fragment>
-    )
-  }
+                    store.writeQuery({
+                      data: produce(countries, ds => {
+                        ds.allCountries.unshift(
+                          data.createCountry
+                        )
+                      }),
+                      query: GET_COUNTRIES,
+                      variables: props.indexVariables,
+                    })
+                  },
+                })
+
+                resetForm()
+                props.notifyUser({ type: "is-success", message: "Country is successfully created" })
+                props.switchModal()
+              }}
+            >
+              {({ errors, touched }) => (
+                <CountryMutationForm
+                  title="UPDATE COUNTRY"
+                  message="Country is Successfully updated."
+                  errors={errors}
+                  touched={touched}
+                  switchModal={props.switchModal}
+                />
+              )}
+            </Formik>
+          </React.Fragment>
+        )}
+      </Mutation>
+    </React.Fragment>
+  )
 }
 
 export default compose(

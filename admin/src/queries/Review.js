@@ -49,10 +49,12 @@ const CREATE_REVIEW = gql`
     $hotelId: ID!
   ) {
     createReview(
-      rating: $rating
-      description: $description
-      userId: $userId
-      hotelId: $hotelId
+      input: {
+        rating: $rating
+        description: $description
+        userId: $userId
+        hotelId: $hotelId
+      }
     ) {
       id
     }
@@ -68,11 +70,13 @@ const UPDATE_REVIEW = gql`
     $hotelId: ID!
   ) {
     updateReview(
-      id: $id
-      rating: $rating
-      description: $description
-      userId: $userId
-      hotelId: $hotelId
+      input: {
+        id: $id
+        rating: $rating
+        description: $description
+        userId: $userId
+        hotelId: $hotelId
+      }
     ) {
       id
     }
@@ -82,7 +86,11 @@ const UPDATE_REVIEW = gql`
 
 const DELETE_A_REVIEW = gql`
   mutation DeleteReview($id: ID!) {
-    deleteReview(id: $id) {
+    deleteReview(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

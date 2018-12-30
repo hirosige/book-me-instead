@@ -1,13 +1,11 @@
 import React from 'react'
 import { Query } from "react-apollo";
 import PageInfo from './PageInfo';
-import PaginationPlane from './PaginationPlane';
 
 const Pagination = (props) => (
   <Query
     query={props.query}
     variables={props.variables}
-    pollInterval={500}
   >
     {({ data, loading, error }) => {
       if (loading) return <div>Loading...</div>;
@@ -25,7 +23,7 @@ const Pagination = (props) => (
             keyword={props.variables}
           />
           {props.children}
-          <PaginationPlane {...props} lastPage={lastPage} />
+          {/* <PaginationPlane {...props} lastPage={lastPage} /> */}
         </React.Fragment>
       )
     }}

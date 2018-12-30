@@ -1,39 +1,18 @@
 import React from 'react'
 import { Mutation } from 'react-apollo';
 import { CREATE_AREA } from '../../queries/Area'
-import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
+import { GET_COUNTRIES } from '../../queries/Country'
+import { Formik } from 'formik'
+import { produce } from 'immer';
+import AreaMutationForm from './AreaMutationForm';
 
 class ManageArea extends React.Component {
   state = {
     isOpen: false,
-    area: {
-      name: "",
-      code: "",
-      slug: "",
-    },
   }
 
   toggleOpen = () => {
     this.setState({ isOpen: !this.state.isOpen })
-  }
-
-  initializeState = () => {
-    this.setState({
-      area: {
-        name: "",
-        code: "",
-        slug: "",
-      },
-    })
-  }
-
-  handleChange = e => {
-    this.setState({
-      area: {
-        ...this.state.area,
-        [e.target.name]: e.target.value
-      }
-    })
   }
 
   render () {
@@ -42,67 +21,72 @@ class ManageArea extends React.Component {
         {this.state.isOpen ? (
           <Mutation mutation={CREATE_AREA}>
             {(mutate, { data, loading, error }) => (
-              <React.Fragment>
-                <form onSubmit={e => {
-                  e.preventDefault();
+              <div style={{ background: "rgb(237, 242, 247)", padding: 10 }}>
+                <Formik
+                  initialValues={{
+                    name: '',
+                    code: '',
+                    slug: '',
+                    countryId: this.props.country.id
+                  }}
+                  validate={values => {
+                    let errors = {};
+                    if (!values.name) errors.name = 'Name is equired';
+                    if (!values.code) errors.code = 'Code is equired';
+                    if (!values.slug) errors.slug = 'Slug is equired';
 
-                  mutate({
-                    variables: {
-                      countryId: this.props.country.id,
-                      ...this.state.area,
-                    }
-                  }).then(result => {
-                    this.initializeState()
+                    return errors;
+                  }}
+                  onSubmit={ async (formProps, { resetForm }) => {
+                    const response = await mutate({
+                      variables: {
+                        ...formProps
+                      },
+                      optimisticResponse: {
+                        createArea: {
+                          __typename: 'Area',
+                          id: '-1',
+                          ...formProps,
+                        }
+                      },
+                      update: (store, { data }) => {
+                        console.log('data', data)
+                        console.log('variable', this.props.indexVariables)
+                        if (!data || !data.createArea) {
+                          return;
+                        }
+
+                        const countries = store.readQuery({
+                          query: GET_COUNTRIES,
+                          variables: this.props.indexVariables
+                        })
+
+                        store.writeQuery({
+                          data: produce(countries, ds => {
+                            ds.allCountries[ds.allCountries.findIndex(country => country.id === this.props.country.id)]
+                              .areas
+                              .push(data.createArea)
+                          }),
+                          query: GET_COUNTRIES,
+                          variables: this.props.indexVariables,
+                        })
+                      },
+                    })
+
+                    resetForm()
                     this.props.notifyUser({ type: "is-success", message: "Area is successfully created" })
-                  })
-                }}>
-                  {error && (
-                    <div>{error.message}</div>
+                    this.toggleOpen()
+                  }}
+                >
+                  {({ errors, touched }) => (
+                    <AreaMutationForm
+                      errors={errors}
+                      touched={touched}
+                      toggleOpen={this.toggleOpen}
+                    />
                   )}
-                  <HorizontalInputBoxFrame
-                    columnName="Name"
-                  >
-                    <input
-                      name="name"
-                      className={`input`}
-                      type="text"
-                      placeholder="Name"
-                      value={this.state.area.name}
-                      onChange={this.handleChange}
-                    />
-                  </HorizontalInputBoxFrame>
-                  <HorizontalInputBoxFrame
-                    columnName="Code"
-                  >
-                    <input
-                      name="code"
-                      className={`input`}
-                      type="text"
-                      placeholder="Code"
-                      value={this.state.area.code}
-                      onChange={this.handleChange}
-                    />
-                  </HorizontalInputBoxFrame>
-                  <HorizontalInputBoxFrame
-                    columnName="Slug"
-                  >
-                    <input
-                      name="slug"
-                      className={`input`}
-                      type="text"
-                      placeholder="Slug"
-                      value={this.state.area.slug}
-                      onChange={this.handleChange}
-                    />
-                  </HorizontalInputBoxFrame>
-                  <button className="button is-small">
-                    SUBMIT
-                  </button>
-                  <div className="button is-small" onClick={this.toggleOpen}>
-                    CANCEL
-                  </div>
-                </form>
-              </React.Fragment>
+                </Formik>
+              </div>
             )}
           </Mutation>
         ) : (

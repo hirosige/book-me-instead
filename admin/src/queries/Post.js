@@ -75,28 +75,30 @@ const CREATE_POST = gql`
     $photoGrpSize: Int
   ) {
     createPost(
-      title: $title
-      mdContents: $mdContents
-      categoryId: $categoryId
-      hero: {
-        name: $heroName
-        cdnUrl: $heroCdnUrl
-        isImage: $heroIsImage
-        isStored: $heroIsStored
-        mimeType: $heroMimeType
-        uuid: $heroUuid
-        size: $heroSize
+      input: {
+        title: $title
+        mdContents: $mdContents
+        categoryId: $categoryId
+        hero: {
+          name: $heroName
+          cdnUrl: $heroCdnUrl
+          isImage: $heroIsImage
+          isStored: $heroIsStored
+          mimeType: $heroMimeType
+          uuid: $heroUuid
+          size: $heroSize
+        }
+        photos: {
+          name: $photoGrpName
+          cdnUrl: $photoGrpCdnUrl
+          isImage: $photoGrpIsImage
+          isStored: $photoGrpIsStored
+          count: $photoGrpCount
+          uuid: $photoGrpUuid
+          size: $photoGrpSize
+        }
+        authorId: $authorId
       }
-      photos: {
-        name: $photoGrpName
-        cdnUrl: $photoGrpCdnUrl
-        isImage: $photoGrpIsImage
-        isStored: $photoGrpIsStored
-        count: $photoGrpCount
-        uuid: $photoGrpUuid
-        size: $photoGrpSize
-      }
-      authorId: $authorId
     ) {
       id
     }
@@ -126,29 +128,31 @@ const UPDATE_POST = gql`
     $photoGrpSize: Int
   ) {
     updatePost(
-      id: $id
-      title: $title
-      mdContents: $mdContents
-      categoryId: $categoryId
-      hero: {
-        name: $heroName
-        cdnUrl: $heroCdnUrl
-        isImage: $heroIsImage
-        isStored: $heroIsStored
-        mimeType: $heroMimeType
-        uuid: $heroUuid
-        size: $heroSize
+      input: {
+        id: $id
+        title: $title
+        mdContents: $mdContents
+        categoryId: $categoryId
+        hero: {
+          name: $heroName
+          cdnUrl: $heroCdnUrl
+          isImage: $heroIsImage
+          isStored: $heroIsStored
+          mimeType: $heroMimeType
+          uuid: $heroUuid
+          size: $heroSize
+        }
+        photos: {
+          name: $photoGrpName
+          cdnUrl: $photoGrpCdnUrl
+          isImage: $photoGrpIsImage
+          isStored: $photoGrpIsStored
+          count: $photoGrpCount
+          uuid: $photoGrpUuid
+          size: $photoGrpSize
+        }
+        authorId: $authorId
       }
-      photos: {
-        name: $photoGrpName
-        cdnUrl: $photoGrpCdnUrl
-        isImage: $photoGrpIsImage
-        isStored: $photoGrpIsStored
-        count: $photoGrpCount
-        uuid: $photoGrpUuid
-        size: $photoGrpSize
-      }
-      authorId: $authorId
     ) {
       id
     }
@@ -157,7 +161,11 @@ const UPDATE_POST = gql`
 
 const DELETE_A_POST = gql`
   mutation DeletePost($id: ID!) {
-    deletePost(id: $id) {
+    deletePost(
+      input: {
+        id: $id
+      }
+    ) {
       id
     }
   }

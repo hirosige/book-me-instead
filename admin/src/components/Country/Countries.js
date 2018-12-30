@@ -21,6 +21,7 @@ import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ReadMoreButton from '../Shared/ReadMoreButton';
 import ToolBox from '../Shared/ToolBox';
+import CountryTableLoading from './CountryTableLoading';
 
 const Countries = (props) => (
   <div className=".l-main__content">
@@ -40,7 +41,7 @@ const Countries = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <CountryTableLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allCountries } = data

@@ -16,7 +16,6 @@ import {
   GET_COUNTRY_COUNT
 } from '../../queries/Country'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ReadMoreButton from '../Shared/ReadMoreButton';

@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentLoader from "react-content-loader"
+import TableContentsLoading from '../Shared/TableContentsLoading';
 
 const CountryTableLoading = props => {
   return (
@@ -17,66 +17,12 @@ const CountryTableLoading = props => {
       <tbody>
         {[...Array(5)].map((_, i) => (
           <tr>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="40" /> 
-              </ContentLoader>
-            </td>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="40" />
-              </ContentLoader>
-            </td>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="40" />
-              </ContentLoader>
-            </td>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="20" />
-              </ContentLoader>
-            </td>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="40" />
-              </ContentLoader>
-            </td>
-            <td>
-              <ContentLoader
-                speed={1}
-                primaryColor="#dbdaea"
-                secondaryColor="#ecebeb"
-                {...props}
-              >
-                <rect x="0" y="0" rx="1" ry="1" width="350" height="40" />
-              </ContentLoader>
-            </td>
+            <td><TableContentsLoading /></td>
+            <td><TableContentsLoading /></td>
+            <td><TableContentsLoading /></td>
+            <td><TableContentsLoading /></td>
+            <td><TableContentsLoading /></td>
+            <td><TableContentsLoading /></td>
           </tr>
         ))}
       </tbody>

@@ -3,7 +3,7 @@ import React from 'react'
 const ToolBox = props => {
   return (
     <div style={{
-      background: "rgb(136, 225, 239)",
+      background: "#17A2B8",
       color: "#ffffff",
       fontSize: "1.2rem",
       height: "45.5px",

@@ -19,9 +19,13 @@ import TableContentsLoading from '../Shared/TableContentsLoading';
 import Booking from './Booking';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Bookings = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      ToolBox
+    </ToolBox>
     <Query
       query={GET_BOOKINGS}
       variables={{

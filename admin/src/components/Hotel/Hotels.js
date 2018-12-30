@@ -19,9 +19,17 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Hotels = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      <HotelCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: props.searchCondition,
+      }} />
+    </ToolBox>
     <Query
       query={GET_HOTELS}
       variables={{
@@ -83,7 +91,7 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    HotelCreateMutation,
+    null,
     /* for search columns */
     [
       { id: 1, type: "name", name: "Name" },

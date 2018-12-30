@@ -19,9 +19,17 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Contacts = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      <ContactCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: props.searchCondition,
+      }} />
+    </ToolBox>
     <Query
       query={GET_CONTACTS}
       variables={{
@@ -80,7 +88,7 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    ContactCreateMutation,
+    null,
     /* for search columns */
     [
       { id: 1, type: "name", name: "Name" },

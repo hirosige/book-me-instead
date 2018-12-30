@@ -18,9 +18,13 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Reviews = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      TOOL BOX
+    </ToolBox>
     <Query
       query={GET_REVIEWS}
       variables={{

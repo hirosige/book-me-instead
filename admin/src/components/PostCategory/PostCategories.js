@@ -18,9 +18,13 @@ import TableContentsLoading from '../Shared/TableContentsLoading';
 import PostCategory from './PostCategory';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      TOOL BOX
+    </ToolBox>
     <Query
       query={GET_POST_CATEGORIES}
       variables={{

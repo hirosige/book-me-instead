@@ -19,9 +19,17 @@ import NoDataFound from '../Shared/NoDataFound';
 import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Advantages = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      <AdvantageCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: props.searchCondition,
+      }} />
+    </ToolBox>
     <Query
       query={GET_ADVANTAGES}
       variables={{
@@ -77,7 +85,7 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    AdvantageCreateMutation,
+    null,
     /* for search columns */
     [
       { id: 1, type: "name", name: "Name" },

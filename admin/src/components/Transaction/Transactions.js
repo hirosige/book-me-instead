@@ -20,14 +20,6 @@ const Transactions = (props) => (
     <React.Fragment>
       <Query
         query={GET_TRANSACTIONS}
-        // variables={{
-        //   first: props.recordPerPage,
-        //   skip: (props.currentPage - 1) * props.recordPerPage,
-        //   searchFilter: {
-        //     ...props.searchCondition,
-        //     isRoot: true,
-        //   },
-        // }}
       >
         {({ data, loading, error }) => {
           if (loading) return <TableContentsLoading />;

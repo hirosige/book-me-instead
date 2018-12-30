@@ -19,9 +19,17 @@ import Post from './Post';
 import PostCreateMutation from './PostCreateMutation';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import ToolBox from '../Shared/ToolBox';
 
 const Posts = (props) => (
   <div className=".l-main__content">
+    <ToolBox>
+      <PostCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: props.searchCondition,
+      }} />
+    </ToolBox>
     <Query
       query={GET_POSTS}
       variables={{
@@ -81,7 +89,7 @@ export default compose(
   withAdminLayout(),
   withSearchBox(
     /* for create button */
-    PostCreateMutation,
+    null,
     /* for search columns */
     [
       { id: 1, type: "title", name: "Title" },

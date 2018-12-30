@@ -20,6 +20,7 @@ import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
+import ReadMoreButton from '../Shared/ReadMoreButton';
 
 const Contacts = (props) => (
   <div className=".l-main__content">
@@ -38,7 +39,7 @@ const Contacts = (props) => (
         searchFilter: props.searchCondition,
       }}
     >
-      {({ data, loading, error }) => {
+      {({ data, loading, error, fetchMore }) => {
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -67,6 +68,12 @@ const Contacts = (props) => (
                 ))}
               </tbody>
             </table>
+
+            <ReadMoreButton
+              fetchMore={fetchMore}
+              modelName={`allContacts`}
+              modelData={allContacts}
+            />
           </div>
         )
       }}

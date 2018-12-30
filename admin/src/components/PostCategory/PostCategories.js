@@ -19,6 +19,7 @@ import PostCategory from './PostCategory';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
+import ReadMoreButton from '../Shared/ReadMoreButton';
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
@@ -36,7 +37,7 @@ const PostCategories = (props) => (
         },
       }}
     >
-      {({ data, loading, error }) => {
+      {({ data, loading, error, fetchMore }) => {
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -64,6 +65,13 @@ const PostCategories = (props) => (
                 ))}
               </tbody>
             </table>
+
+            <ReadMoreButton
+              fetchMore={fetchMore}
+              modelName={`allPostCategories`}
+              modelData={allPostCategories}
+            />
+
             {props.onedayTodoHere('トップカテゴリの作成ボタンを作る')}
           </div>
         )

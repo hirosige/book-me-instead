@@ -20,6 +20,7 @@ import PostCreateMutation from './PostCreateMutation';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
+import ReadMoreButton from '../Shared/ReadMoreButton';
 
 const Posts = (props) => (
   <div className=".l-main__content">
@@ -38,7 +39,7 @@ const Posts = (props) => (
         searchFilter: props.searchCondition,
       }}
     >
-      {({ data, loading, error }) => {
+      {({ data, loading, error, fetchMore }) => {
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -68,6 +69,12 @@ const Posts = (props) => (
                 ))}
               </tbody>
             </table>
+
+            <ReadMoreButton
+              fetchMore={fetchMore}
+              modelName={`allPosts`}
+              modelData={allPosts}
+            />
           </div>
         )
       }}

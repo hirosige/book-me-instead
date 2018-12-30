@@ -20,6 +20,7 @@ import Booking from './Booking';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
+import ReadMoreButton from '../Shared/ReadMoreButton';
 
 const Bookings = (props) => (
   <div className=".l-main__content">
@@ -34,7 +35,7 @@ const Bookings = (props) => (
         searchFilter: props.searchCondition,
       }}
     >
-      {({ data, loading, error }) => {
+      {({ data, loading, error, fetchMore }) => {
         if (loading) return <TableContentsLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -65,6 +66,12 @@ const Bookings = (props) => (
                 ))}
               </tbody>
             </table>
+
+            <ReadMoreButton
+              fetchMore={fetchMore}
+              modelName={`allBookings`}
+              modelData={allBookings}
+            />
           </div>
         )
       }}

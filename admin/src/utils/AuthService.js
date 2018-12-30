@@ -6,7 +6,11 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const GRAPHCOOL_ACCESS_TOKEN = 'graphcool_access_token';
 const GRAPHCOOL_USER = 'graphcool_user';
 
-const client = new GraphQLClient('http://localhost:3001')
+const PRISMA_ENDPOINT = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3001'
+        : 'https://4au0qh23r4.execute-api.ap-northeast-1.amazonaws.com/staging/'
+
+const client = new GraphQLClient(PRISMA_ENDPOINT)
 
 export function logout() {
   clearIdToken();

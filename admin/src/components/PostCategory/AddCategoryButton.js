@@ -70,17 +70,17 @@ class AddCategoryButton extends React.Component {
                   {error && (
                     <div>{error.message}</div>
                   )}
-                  <div class="field has-addons" style={{ marginBottom: 0 }}>
-                    <div class="control">
-                      <div class="button is-static is-small">
+                  <div className="field has-addons" style={{ marginBottom: 0 }}>
+                    <div className="control">
+                      <div className="button is-static is-small">
                         Category Name
                       </div>
                     </div>
-                    <div class="control">
+                    <div className="control">
                       <input
                         name="name"
                         sytle={{ width: "50px" }}
-                        class="input is-small"
+                        className="input is-small"
                         type="text"
                         placeholder="Category Name"
                         value={this.state.category.name}
@@ -88,14 +88,14 @@ class AddCategoryButton extends React.Component {
                       />
                     </div>
                   </div>
-                  <div class="field has-addons">
-                    <div class="control">
-                      <button class="button is-primary is-small">
+                  <div className="field has-addons">
+                    <div className="control">
+                      <button className="button is-primary is-small">
                         SUBMIT
                       </button>
                     </div>
-                    <div class="control">
-                      <div class="button is-small" onClick={this.toggleOpen}>
+                    <div className="control">
+                      <div className="button is-small" onClick={this.toggleOpen}>
                         CANCEL
                       </div>
                     </div>

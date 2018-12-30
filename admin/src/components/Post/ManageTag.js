@@ -69,17 +69,17 @@ class ManageTag extends React.Component {
                   {error && (
                     <div>{error.message}</div>
                   )}
-                  <div class="field has-addons" style={{ marginBottom: 0 }}>
-                    <div class="control">
-                      <div class="button is-static is-small">
+                  <div className="field has-addons" style={{ marginBottom: 0 }}>
+                    <div className="control">
+                      <div className="button is-static is-small">
                         Tag Name
                       </div>
                     </div>
-                    <div class="control">
+                    <div className="control">
                       <input
                         name="name"
                         sytle={{ width: "50px" }}
-                        class="input is-small"
+                        className="input is-small"
                         type="text"
                         placeholder="Tag Name"
                         value={this.state.tag.name}
@@ -87,16 +87,16 @@ class ManageTag extends React.Component {
                       />
                     </div>
                   </div>
-                  <div class="field has-addons" style={{ marginBottom: 0, marginTop: 0 }}>
-                    <div class="control">
-                      <div class="button is-static is-small">
+                  <div className="field has-addons" style={{ marginBottom: 0, marginTop: 0 }}>
+                    <div className="control">
+                      <div className="button is-static is-small">
                         Color
                       </div>
                     </div>
-                    <p class="control">
+                    <p className="control">
                       <input
                         name="color"
-                        class="input is-small"
+                        className="input is-small"
                         type="text"
                         placeholder="Color"
                         value={this.state.tag.color}
@@ -104,14 +104,14 @@ class ManageTag extends React.Component {
                       />
                     </p>
                   </div>
-                  <div class="field has-addons">
-                    <div class="control">
-                      <button class="button is-primary is-small">
+                  <div className="field has-addons">
+                    <div className="control">
+                      <button className="button is-primary is-small">
                         SUBMIT
                       </button>
                     </div>
-                    <div class="control">
-                      <div class="button is-small" onClick={this.toggleOpen}>
+                    <div className="control">
+                      <div className="button is-small" onClick={this.toggleOpen}>
                         CANCEL
                       </div>
                     </div>

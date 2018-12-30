@@ -1,12 +1,7 @@
 import React from 'react'
-import AddCategoryButton from './AddCategoryButton';
-import DeleteTagMutation from '../Shared/DeleteTagMutation';
-import {
-  DELETE_A_POST_CATEGORY,
-} from '../../queries/PostCategory'
 import CategoryRow from './CategoryRow';
 
-const PostCategory = ({ postCategory, me }) => (
+const PostCategory = ({ postCategory }) => (
   <React.Fragment>
     <CategoryRow
       post={postCategory}

@@ -1,39 +1,39 @@
 import React from 'react'
 import {
-  GET_COUNTRIES,
-  DELETE_A_COUNTRY,
-} from '../../queries/Country'
+  GET_ADVANTAGES,
+  DELETE_AN_ADVANTAGE,
+} from '../../queries/Advantage'
 import { Mutation } from 'react-apollo';
 import { produce } from 'immer';
 
-const CountryDeleteMutation = ({ country, indexVariables }) => {
+const AdvantageDeleteMutation = ({ advantage, indexVariables }) => {
   return (
-    <Mutation mutation={DELETE_A_COUNTRY}>
+    <Mutation mutation={DELETE_AN_ADVANTAGE}>
       {mutation => (
         <button
           className="button is-danger is-small"
           onClick={ async () => {
             await mutation({
               variables: {
-                id: country.id,
+                id: advantage.id,
               },
               update: (store, { data }) => {
-                if (!data || !data.deleteCountry) {
+                if (!data || !data.deleteAdvantage) {
                   return;
                 }
 
-                const countries = store.readQuery({
-                  query: GET_COUNTRIES,
+                const advantages = store.readQuery({
+                  query: GET_ADVANTAGES,
                   variables: indexVariables
                 })
 
                 store.writeQuery({
-                  data: produce(countries, ds => {
-                    ds.allCountries.splice(
-                      ds.allCountries.findIndex(country => country.id === data.deleteCountry.id
+                  data: produce(advantages, ds => {
+                    ds.allAdvantages.splice(
+                      ds.allAdvantages.findIndex(advantage => advantage.id === data.deleteAdvantage.id
                     ), 1)
                   }),
-                  query: GET_COUNTRIES,
+                  query: GET_ADVANTAGES,
                   variables: indexVariables,
                 })
               },
@@ -47,4 +47,4 @@ const CountryDeleteMutation = ({ country, indexVariables }) => {
   )
 }
 
-export default CountryDeleteMutation
+export default AdvantageDeleteMutation

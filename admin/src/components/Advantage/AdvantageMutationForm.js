@@ -3,7 +3,6 @@ import { Mutation } from "react-apollo";
 import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
 import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
-import Uploader from '../Upload/Uploader'
 
 const AdvantageMutationForm = props => (
   <React.Fragment>

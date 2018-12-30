@@ -31,10 +31,12 @@ const CountryCreateMutation = props => {
 
                 return errors;
               }}
-              onSubmit={ async (formProps, { resetForm }) => {
-                const response = await mutate({
+              onSubmit={ async ({ name, code, slug }, { resetForm }) => {
+                await mutate({
                   variables: {
-                    ...formProps
+                    name,
+                    code,
+                    slug
                   },
                   update: (store, { data }) => {
                     if (!data || !data.createCountry) {

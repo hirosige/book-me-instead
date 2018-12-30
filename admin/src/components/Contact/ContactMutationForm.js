@@ -1,6 +1,5 @@
 import React from 'react'
 import { Mutation } from "react-apollo";
-import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
 import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
 import HorizontalDoubleInputBody from '../Shared/HorizontalDoubleInputBody'

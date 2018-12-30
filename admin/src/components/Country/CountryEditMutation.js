@@ -29,7 +29,7 @@ const CountryEditMutation = props => {
                 return errors;
               }}
               onSubmit={ async (formProps, { resetForm }) => {
-                const response = await mutate({
+                await mutate({
                   variables: {
                     ...formProps
                   },

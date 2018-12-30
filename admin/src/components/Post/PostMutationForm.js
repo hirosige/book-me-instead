@@ -4,7 +4,6 @@ import {
   GET_POST_CATEGORIES,
 } from '../../queries/PostCategory'
 import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame';
-import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
 import Uploader from '../Upload/Uploader'
 import MarkdownEditor from './MarkdownEditor';

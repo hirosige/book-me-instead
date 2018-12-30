@@ -30,7 +30,7 @@ const withMessageable = () => WrappedComponent => {
               class={`notification ${this.state.type} u-no-br`}
               style={{ marginBottom: 0, fontSize: "1rem" }}
             >
-              <button class="delete" onClick={this.closeNotification}></button>
+              <button className="delete" onClick={this.closeNotification}></button>
               {this.state.message}
             </div>
           )}

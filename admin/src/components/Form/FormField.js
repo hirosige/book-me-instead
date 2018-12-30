@@ -3,9 +3,9 @@ import { Field } from 'formik'
 
 const FormField = ({ errors, touched, columnName }) => {
   return (
-    <div class="field">
-      <label class="label" style={{ color: errors[columnName] && "red" }}>{columnName.toUpperCase()}</label>
-      <div class="control is-expanded">
+    <div className="field">
+      <label className="label" style={{ color: errors[columnName] && "red" }}>{columnName.toUpperCase()}</label>
+      <div className="control is-expanded">
         <Field
           className={`input ${errors[columnName] && "is-danger"}`}
           type="text"

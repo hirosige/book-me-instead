@@ -6,13 +6,13 @@ import { GET_CUSTOMER } from '../../queries/OmiseCustomer'
 
 const MyPaymentsModal = props => (
   <React.Fragment>
-    <div class="modal is-active">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="box">
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
+    <div className="modal is-active">
+      <div className="modal-background"></div>
+      <div className="modal-content">
+        <div className="box">
+          <article className="media">
+            <div className="media-content">
+              <div className="content">
                 <Query
                   query={GET_CUSTOMER}
                   variables={{
@@ -37,9 +37,9 @@ const MyPaymentsModal = props => (
               </div>
             </div>
           </article>
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
+          <article className="media">
+            <div className="media-content">
+              <div className="content">
                 <button className="button is-primary">
                   クレジットカードを登録する
                 </button>
@@ -49,7 +49,7 @@ const MyPaymentsModal = props => (
         </div>
       </div>
       <button
-        class="modal-close is-large"
+        className="modal-close is-large"
         aria-label="close"
         onClick={() => {
           props.toggleIsActive()

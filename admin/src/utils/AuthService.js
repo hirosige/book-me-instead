@@ -20,7 +20,6 @@ export function logout() {
 
 export async function getGraphcoolUser() {
   const { userId } = getDecodedGraphcoolToken()
-  console.log('decoded', getDecodedGraphcoolToken())
 
   const userQuery = `{
     User(id: "${ userId }") {

@@ -18,7 +18,7 @@ class MyPaymentsModal extends React.PureComponent {
     return (
       <React.Fragment>
         {this.props.isActive === "is-active" && (
-          <div class="box">
+          <div className="box">
             <Query
               query={GET_CUSTOMER}
               variables={{
@@ -46,11 +46,11 @@ class MyPaymentsModal extends React.PureComponent {
                 return (
                   <React.Fragment>
                     {getCustomer.cards.data.map(card => (
-                      <article class="media">
-                        <div class="media-content">
-                          <div class="content">
-                            <div class="box">
-                              <div class="content">
+                      <article className="media">
+                        <div className="media-content">
+                          <div className="content">
+                            <div className="box">
+                              <div className="content">
                                 <p>
                                   <strong>{card.bank}</strong> <small>{card.brand}</small> <small>{card.last_digits}</small>
                                   <br />
@@ -69,9 +69,9 @@ class MyPaymentsModal extends React.PureComponent {
                 )
               }}
             </Query>
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
+            <article className="media">
+              <div className="media-content">
+                <div className="content">
                   <AddCreditCardButton
                     setCardToken={this.setCardToken}
                     {...this.props}

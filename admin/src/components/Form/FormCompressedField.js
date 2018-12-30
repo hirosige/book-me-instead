@@ -3,14 +3,14 @@ import { Field } from 'formik'
 
 const FormCompressedField = ({ errors, touched, columnName }) => {
   return (
-    <div class="field is-expanded">
-      <div class="field has-addons">
-        <div class="control">
-          <div class="button is-static is-small">
+    <div className="field is-expanded">
+      <div className="field has-addons">
+        <div className="control">
+          <div className="button is-static is-small">
             {columnName.toUpperCase()}
           </div>
         </div>
-        <div class="control is-expanded">
+        <div className="control is-expanded">
           <Field
             className={`input is-small ${errors[columnName] && "is-danger"}`}
             type="text"

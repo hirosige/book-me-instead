@@ -16,7 +16,7 @@ const CategoryRow = ({
     <td>
       {hierarchy && (
         <React.Fragment>
-          {[...Array(hierarchy)].map((_, i) => <i key={i} class="fas fa-angle-double-right"></i>)}
+          {[...Array(hierarchy)].map((_, i) => <i key={i} className="fas fa-angle-double-right"></i>)}
           &nbsp;
         </React.Fragment>
       )}
@@ -33,9 +33,9 @@ const CategoryRow = ({
       </span>
     </td>
     <td>
-      <span class="tags has-addons">
-        <span class="tag is-dark">Posts</span>
-        <span class="tag is-info">{post.posts.length}</span>
+      <span className="tags has-addons">
+        <span className="tag is-dark">Posts</span>
+        <span className="tag is-info">{post.posts.length}</span>
       </span>
     </td>
     <td>
@@ -46,13 +46,13 @@ const CategoryRow = ({
       )}
     </td>
     <td>
-      <nav class="breadcrumb" aria-label="breadcrumbs" style={{ fontSize: "0.8rem" }}>
+      <nav className="breadcrumb" aria-label="breadcrumbs" style={{ fontSize: "0.8rem" }}>
         <ul>
-          <li><a href="#">Book Me Instead</a></li>
-          <li><a href="#">Blog</a></li>
-          {grandParent && (<li><a href="#">{grandParent.name}</a></li>)}
-          {parent && (<li><a href="#">{parent.name}</a></li>)}
-          <li class="is-active"><a href="#" aria-current="page">{post.name}</a></li>
+          <li><a href="/#">Book Me Instead</a></li>
+          <li><a href="/#">Blog</a></li>
+          {grandParent && (<li><a href="/#">{grandParent.name}</a></li>)}
+          {parent && (<li><a href="/#">{parent.name}</a></li>)}
+          <li className="is-active"><a href="/#" aria-current="page">{post.name}</a></li>
         </ul>
       </nav>
     </td>

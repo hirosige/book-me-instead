@@ -78,8 +78,6 @@ class PostCreateMutation extends React.Component {
   }
 
   render () {
-    const { hero } = this.state
-
     return (
       <React.Fragment>
         <PostMutationForm

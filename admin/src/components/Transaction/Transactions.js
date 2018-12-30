@@ -31,8 +31,6 @@ const Transactions = (props) => (
             return <NoDataFound />
           }
 
-          console.log(getTransactions)
-
           return (
             <div>
               <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">

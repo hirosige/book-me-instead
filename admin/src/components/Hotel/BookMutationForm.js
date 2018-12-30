@@ -3,8 +3,6 @@ import { compose } from 'recompose'
 import { Mutation, graphql } from "react-apollo";
 import HorizontalDoubleInputBody from '../Shared/HorizontalDoubleInputBody'
 import HorizontalDoubleInputBox from '../Shared/HorizontalDoubleInputBox'
-import HorizontalInputBoxFrame from '../Shared/HorizontalInputBoxFrame'
-import Danger from '../Notification/Danger'
 import Success from '../Notification/Success'
 import { PAY_BY_DEFAULT_CARD } from '../../queries/OmiseCustomer'
 

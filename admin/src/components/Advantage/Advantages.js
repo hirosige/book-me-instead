@@ -61,7 +61,17 @@ const Advantages = (props) => (
               </thead>
               <tbody>
                 {allAdvantages.map(advantage => (
-                  <Advantage key={advantage.id} advantage={advantage} {...props} />
+                  <Advantage
+                    key={advantage.id}
+                    advantage={advantage}
+                    indexQuery={GET_ADVANTAGES}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

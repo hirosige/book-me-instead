@@ -153,7 +153,7 @@ class MarkdownEditor extends React.Component {
     const { cdnUrl, count } = info
 
     const numbers = [...Array(count)]
-    numbers.map((_, i) => {
+    numbers.forEach((_, i) => {
       this.setState({
         images: this.state.images.concat({
           url: `${cdnUrl}/nth/${i}/`,

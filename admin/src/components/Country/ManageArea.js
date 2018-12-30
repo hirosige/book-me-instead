@@ -38,7 +38,7 @@ class ManageArea extends React.Component {
                     return errors;
                   }}
                   onSubmit={ async (formProps, { resetForm }) => {
-                    const response = await mutate({
+                    await mutate({
                       variables: {
                         ...formProps
                       },
@@ -50,8 +50,6 @@ class ManageArea extends React.Component {
                         }
                       },
                       update: (store, { data }) => {
-                        console.log('data', data)
-                        console.log('variable', this.props.indexVariables)
                         if (!data || !data.createArea) {
                           return;
                         }

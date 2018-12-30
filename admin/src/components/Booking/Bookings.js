@@ -62,7 +62,17 @@ const Bookings = (props) => (
               </thead>
               <tbody>
                 {allBookings.map(booking => (
-                  <Booking key={booking.id} booking={booking} {...props} />
+                  <Booking
+                    key={booking.id}
+                    booking={booking}
+                    indexQuery={GET_BOOKINGS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

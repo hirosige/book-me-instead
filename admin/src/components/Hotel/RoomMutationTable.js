@@ -19,7 +19,7 @@ const RoomMutationTable = props => (
       <tbody>
         {props.hotel.rooms.length === 0 ? (
           <tr>
-            <td colspan="7">
+            <td colSpan="7">
               <span className="tag is-warning" style={{ width: "100%" }}>
                 No Rooms Added
               </span>

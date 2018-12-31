@@ -14,12 +14,12 @@ import {
   GET_POST_CATEGORY_COUNT
 } from '../../queries/PostCategory'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import PostCategory from './PostCategory';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import PostCategoryTableLoading from './PostCategoryTableLoading';
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
@@ -38,7 +38,7 @@ const PostCategories = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <PostCategoryTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allPostCategories } = data

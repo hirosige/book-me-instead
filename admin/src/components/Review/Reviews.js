@@ -15,11 +15,11 @@ import {
   GET_REVIEW_COUNT
 } from '../../queries/Review'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import ReviewTableLoading from './ReviewTableLoading';
 
 const Reviews = (props) => (
   <div className=".l-main__content">
@@ -35,7 +35,7 @@ const Reviews = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <ReviewTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allReviews } = data

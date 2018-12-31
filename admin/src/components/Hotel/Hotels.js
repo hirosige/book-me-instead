@@ -16,11 +16,11 @@ import {
   GET_HOTEL_COUNT
 } from '../../queries/Hotel'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import HotelTableLoading from './HotelTableLoading';
 
 const Hotels = (props) => (
   <div className=".l-main__content">
@@ -40,7 +40,7 @@ const Hotels = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <HotelTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allHotels } = data

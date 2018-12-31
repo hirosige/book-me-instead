@@ -10,10 +10,10 @@ import withUser from '../../hocs/WithUser';
 import withStatelessToolHeader from '../../hocs/WithStatelessToolHeader';
 import { GET_TRANSACTIONS } from '../../queries/OmiseCustomer'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import Transaction from './Transaction';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
+import TransactionTableLoading from './TransactionTableLoading';
 
 const Transactions = (props) => (
   <div className=".l-main__content">
@@ -22,7 +22,7 @@ const Transactions = (props) => (
         query={GET_TRANSACTIONS}
       >
         {({ data, loading, error }) => {
-          if (loading) return <TableContentsLoading />;
+          if (loading) return <TransactionTableLoading />
           if (error) return <div>Error {JSON.stringify(error)}</div>;
 
           const { getTransactions } = data

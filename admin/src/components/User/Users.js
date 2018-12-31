@@ -15,11 +15,11 @@ import {
   GET_USER_COUNT
 } from '../../queries/User'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import UserTableLoading from './UserTableLoading';
 
 const Countries = (props) => (
   <div className=".l-main__content">
@@ -35,7 +35,7 @@ const Countries = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <UserTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allUsers } = data

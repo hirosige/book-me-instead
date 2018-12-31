@@ -15,12 +15,12 @@ import {
   GET_BOOKING_COUNT
 } from '../../queries/Booking'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import Booking from './Booking';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import BookingTableLoading from './BookingTableLoading';
 
 const Bookings = (props) => (
   <div className=".l-main__content">
@@ -36,7 +36,7 @@ const Bookings = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <BookingTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allBookings } = data

@@ -16,11 +16,11 @@ import {
   GET_CONTACT_COUNT
 } from '../../queries/Contact'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import ContactTableLoading from './ContactTableLoading';
 
 const Contacts = (props) => (
   <div className=".l-main__content">
@@ -40,7 +40,7 @@ const Contacts = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <ContactTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allContacts } = data

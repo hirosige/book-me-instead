@@ -6,12 +6,12 @@ const ContactTableLoading = props => {
     <table style={{ tableLayout: "fixed" }} className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th className="c-table-cell u-w100"><abbr title="Name">Name</abbr></th>
-          <th className="c-table-cell u-w100"><abbr title="Breed">Code</abbr></th>
-          <th className="c-table-cell u-w100"><abbr title="Slug">Slug</abbr></th>
-          <th className="c-table-cell u-w250"><abbr title="Areas">Areas</abbr></th>
-          <th className="c-table-cell u-w100"><abbr title="Hotels">Hotels</abbr></th>
-          <th className="c-table-cell u-w100"><abbr title="Controls">Controls</abbr></th>
+          <th className="u-w150"><abbr title="Inquery ID">Inquery ID</abbr></th>
+          <th className="u-w150"><abbr title="Title">Title</abbr></th>
+          <th className="u-w150"><abbr title="Description">Description</abbr></th>
+          <th className="u-w50"><abbr title="IsReplied">Is Replied</abbr></th>
+          <th className="u-w50"><abbr title="Reply">Reply</abbr></th>
+          <th className="u-w100"><abbr title="Controls">Controls</abbr></th>
         </tr>
       </thead>
       <tbody>

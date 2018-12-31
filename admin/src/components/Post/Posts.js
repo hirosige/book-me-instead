@@ -14,13 +14,13 @@ import {
   GET_POST_COUNT
 } from '../../queries/Post'
 import NoDataFound from '../Shared/NoDataFound';
-import TableContentsLoading from '../Shared/TableContentsLoading';
 import Post from './Post';
 import PostCreateMutation from './PostCreateMutation';
 import withOneDayTodo from '../../hocs/WithOneDayTodo';
 import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
+import PostTableLoading from './PostTableLoading';
 
 const Posts = (props) => (
   <div className=".l-main__content">
@@ -40,7 +40,7 @@ const Posts = (props) => (
       }}
     >
       {({ data, loading, error, fetchMore }) => {
-        if (loading) return <TableContentsLoading />;
+        if (loading) return <PostTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
         const { allPosts } = data

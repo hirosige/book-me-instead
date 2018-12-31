@@ -6,7 +6,8 @@ import ImageModal from '../Shared/ImageModal';
 const Advantage = ({
   advantage,
   notifyUser,
-  indexVariables
+  indexVariables,
+  onedayTodoHere,
 }) => {
 
   return (

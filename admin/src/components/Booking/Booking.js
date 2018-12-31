@@ -4,7 +4,8 @@ import moment from 'moment'
 const Booking = ({
   booking,
   notifyUser,
-  indexVariables
+  indexVariables,
+  onedayTodoHere,
 }) => {
   moment.locale('en')
 

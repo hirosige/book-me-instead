@@ -3,7 +3,8 @@ import React from 'react'
 const Contact = ({
   contact,
   notifyUser,
-  indexVariables
+  indexVariables,
+  onedayTodoHere,
 }) => {
 
   return (

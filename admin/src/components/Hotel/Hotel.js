@@ -12,7 +12,8 @@ const Hotel = ({
   hotel,
   me,
   notifyUser,
-  indexVariables
+  indexVariables,
+  onedayTodoHere,
 }) => {
 
   return (

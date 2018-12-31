@@ -6,7 +6,8 @@ import CountryDeleteMutation from './CountryDeleteMutation';
 const Country = ({
   country,
   notifyUser,
-  indexVariables
+  indexVariables,
+  onedayTodoHere,
 }) => {
 
   return (

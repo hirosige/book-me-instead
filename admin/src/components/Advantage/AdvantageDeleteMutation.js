@@ -5,12 +5,17 @@ import {
 } from '../../queries/Advantage'
 import { Mutation } from 'react-apollo';
 import { produce } from 'immer';
+import ButtonHasLoading from '../Shared/ButtonHasLoading';
 
-const AdvantageDeleteMutation = ({ advantage, indexVariables }) => {
+const AdvantageDeleteMutation = ({
+  advantage,
+  indexVariables
+}) => {
   return (
     <Mutation mutation={DELETE_AN_ADVANTAGE}>
       {mutation => (
-        <button
+        <ButtonHasLoading
+          caption="DELETE"
           className="button is-danger is-small"
           onClick={ async () => {
             await mutation({
@@ -39,9 +44,7 @@ const AdvantageDeleteMutation = ({ advantage, indexVariables }) => {
               },
             })
           }}
-        >
-          DELETE
-        </button>
+        />
       )}
     </Mutation>
   )

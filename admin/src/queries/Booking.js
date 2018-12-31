@@ -68,8 +68,23 @@ const CREATE_BOOKING = gql`
   }
 `
 
+const DELETE_A_BOOKING = gql`
+  mutation DeleteBooking(
+    $id: ID!
+  ) {
+    deleteBooking(
+      input: {
+        id: $id
+      }
+    ) {
+      id
+    }
+  }
+`
+
 export {
   GET_BOOKINGS,
   GET_BOOKING_COUNT,
   CREATE_BOOKING,
+  DELETE_A_BOOKING,
 }

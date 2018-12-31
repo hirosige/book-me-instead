@@ -66,6 +66,12 @@ const Hotels = (props) => (
                   <Hotel
                     key={hotel.id}
                     hotel={hotel}
+                    indexQuery={GET_HOTELS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
                     {...props}
                   />
                 ))}

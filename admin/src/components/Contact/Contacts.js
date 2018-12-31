@@ -64,7 +64,17 @@ const Contacts = (props) => (
               </thead>
               <tbody>
                 {allContacts.map(contact => (
-                  <Contact key={contact.id} contact={contact} {...props} />
+                  <Contact
+                    key={contact.id}
+                    contact={contact}
+                    indexQuery={GET_CONTACTS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

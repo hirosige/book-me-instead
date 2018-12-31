@@ -58,7 +58,17 @@ const Reviews = (props) => (
               </thead>
               <tbody>
                 {allReviews.map(review => (
-                  <Review key={review.id} review={review} {...props} />
+                  <Review
+                    key={review.id}
+                    review={review}
+                    indexQuery={GET_REVIEWS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

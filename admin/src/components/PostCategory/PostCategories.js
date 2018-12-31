@@ -61,7 +61,17 @@ const PostCategories = (props) => (
               </thead>
               <tbody>
                 {allPostCategories.map(postCategory => (
-                  <PostCategory key={postCategory.id} postCategory={postCategory} {...props} />
+                  <PostCategory
+                    key={postCategory.id}
+                    postCategory={postCategory}
+                    indexQuery={GET_POST_CATEGORIES}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

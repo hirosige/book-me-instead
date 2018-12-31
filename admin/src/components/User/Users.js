@@ -59,7 +59,17 @@ const Countries = (props) => (
               </thead>
               <tbody>
                 {allUsers.map(user => (
-                  <User key={user.id} user={user} {...props} {...props} />
+                  <User
+                    key={user.id}
+                    user={user}
+                    indexQuery={GET_USERS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

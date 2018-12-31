@@ -65,7 +65,17 @@ const Posts = (props) => (
               </thead>
               <tbody>
                 {allPosts.map(post => (
-                  <Post key={post.id} post={post} me={props.me} {...props} />
+                  <Post
+                    key={post.id}
+                    post={post}
+                    indexQuery={GET_POSTS}
+                    indexVariables={{
+                      first: props.recordPerPage,
+                      skip: (props.currentPage - 1) * props.recordPerPage,
+                      searchFilter: props.searchCondition,
+                    }}
+                    {...props}
+                  />
                 ))}
               </tbody>
             </table>

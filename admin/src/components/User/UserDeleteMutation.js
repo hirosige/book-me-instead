@@ -45,11 +45,16 @@ const UserDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
-            })
-
-            notifyUser({
-              type: "is-success",
-              message: "User is successfully deleted"
+            }).then(_ => {
+              notifyUser({
+                type: "is-success",
+                message: "User is successfully deleted"
+              })
+            }).catch(error => {
+              notifyUser({
+                type: "is-danger",
+                message: error.message
+              })
             })
           }}
         />

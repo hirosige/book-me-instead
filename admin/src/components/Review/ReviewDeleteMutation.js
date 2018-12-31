@@ -45,11 +45,16 @@ const ReviewDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
-            })
-
-            notifyUser({
-              type: "is-success",
-              message: "Review is successfully deleted"
+            }).then(_ => {
+              notifyUser({
+                type: "is-success",
+                message: "Review is successfully deleted"
+              })
+            }).catch(error => {
+              notifyUser({
+                type: "is-danger",
+                message: error.message
+              })
             })
           }}
         />

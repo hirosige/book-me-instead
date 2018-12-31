@@ -45,11 +45,16 @@ const PostCategoryDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
-            })
-
-            notifyUser({
-              type: "is-success",
-              message: "Post Category is successfully deleted"
+            }).then(_ => {
+              notifyUser({
+                type: "is-success",
+                message: "Post Category is successfully deleted"
+              })
+            }).catch(error => {
+              notifyUser({
+                type: "is-danger",
+                message: error.message
+              })
             })
           }}
         />

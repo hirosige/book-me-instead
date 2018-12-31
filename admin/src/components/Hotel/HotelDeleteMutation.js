@@ -45,11 +45,16 @@ const HotelDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
-            })
-
-            notifyUser({
-              type: "is-success",
-              message: "Hotel is successfully deleted"
+            }).then(_ => {
+              notifyUser({
+                type: "is-success",
+                message: "Hotel is successfully deleted"
+              })
+            }).catch(error => {
+              notifyUser({
+                type: "is-danger",
+                message: error.message
+              })
             })
           }}
         />

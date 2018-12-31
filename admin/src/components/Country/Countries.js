@@ -39,7 +39,7 @@ const Countries = (props) => (
         searchFilter: props.searchCondition,
       }}
     >
-      {({ data, loading, error, fetchMore }) => {
+      {({ data, loading, error, fetchMore, networkStatus }) => {
         if (loading) return <CountryTableLoading />;
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 

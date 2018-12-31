@@ -16,7 +16,7 @@ const ContactTableLoading = props => {
       </thead>
       <tbody>
         {[...Array(5)].map((_, i) => (
-          <tr>
+          <tr key={`contact-${i}`}>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>

@@ -18,7 +18,7 @@ const TransactionTableLoading = props => {
       </thead>
       <tbody>
         {[...Array(5)].map((_, i) => (
-          <tr>
+          <tr key={`transaction-${i}`}>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>

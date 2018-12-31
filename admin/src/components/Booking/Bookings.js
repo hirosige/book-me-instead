@@ -25,7 +25,7 @@ import BookingTableLoading from './BookingTableLoading';
 const Bookings = (props) => (
   <div className=".l-main__content">
     <ToolBox>
-      ToolBox
+      TOOL BOX
     </ToolBox>
     <Query
       query={GET_BOOKINGS}

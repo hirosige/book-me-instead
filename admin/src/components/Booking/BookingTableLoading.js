@@ -18,7 +18,7 @@ const BookingTableLoading = props => {
       </thead>
       <tbody>
         {[...Array(5)].map((_, i) => (
-          <tr>
+          <tr key={`booking-${i}`}>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>

@@ -27,7 +27,7 @@ const withMessageable = () => WrappedComponent => {
         <React.Fragment>
           {this.state.isOpen && (
             <div
-              class={`notification ${this.state.type} u-no-br`}
+              className={`notification ${this.state.type} u-no-br`}
               style={{ marginBottom: 0, fontSize: "1rem" }}
             >
               <button className="delete" onClick={this.closeNotification}></button>

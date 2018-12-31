@@ -1,7 +1,5 @@
 import React from 'react'
 import HotelEditMutation from './HotelEditMutation'
-import DeleteMutation from '../Shared/DeleteMutation'
-import { DELETE_AN_HOTEL } from '../../queries/Hotel'
 import AddFavoriteButton from './AddFavoriteButton';
 import PublishHotelButton from './PublishHotelButton';
 import MakePrivateHotelButton from './MakePrivateHotelButton';

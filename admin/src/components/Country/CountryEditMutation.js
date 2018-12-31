@@ -28,7 +28,7 @@ const CountryEditMutation = props => {
 
                 return errors;
               }}
-              onSubmit={ async (formProps, { resetForm }) => {
+              onSubmit={ async (formProps, { resetForm, setSubmitting }) => {
                 await mutate({
                   variables: {
                     ...formProps
@@ -55,18 +55,26 @@ const CountryEditMutation = props => {
                     })
                   },
                 })
-
-                resetForm()
-                props.notifyUser({ type: "is-success", message: "Country is successfully updated" })
-                props.switchModal()
+                .then(_ => {
+                  setSubmitting(false)
+                  resetForm()
+                  props.notifyUser({ type: "is-success", message: "Country is successfully updated" })
+                  props.switchModal()
+                })
+                .catch(_ => setSubmitting(false))
               }}
             >
-              {({ errors, touched }) => (
+              {({
+                errors,
+                touched,
+                isSubmitting,
+              }) => (
                 <CountryMutationForm
                   title="UPDATE COUNTRY"
                   message="Country is Successfully updated."
                   errors={errors}
                   touched={touched}
+                  isSubmitting={isSubmitting}
                   switchModal={props.switchModal}
                 />
               )}

@@ -15,7 +15,7 @@ const CountryCreateMutation = props => {
   return (
     <React.Fragment>
       <Mutation mutation={CREATE_COUNTRY}>
-        {(mutate, { data, loading, error }) => (
+        {(mutate, {loading, data, error}) => (
           <React.Fragment>
             <Formik
               initialValues={{
@@ -31,7 +31,7 @@ const CountryCreateMutation = props => {
 
                 return errors;
               }}
-              onSubmit={ async ({ name, code, slug }, { resetForm }) => {
+              onSubmit={ async ({ name, code, slug }, { resetForm, setSubmitting }) => {
                 await mutate({
                   variables: {
                     name,
@@ -59,20 +59,31 @@ const CountryCreateMutation = props => {
                     })
                   },
                 })
-
-                resetForm()
-                props.notifyUser({ type: "is-success", message: "Country is successfully created" })
-                props.switchModal()
+                .then(_ => {
+                  setSubmitting(false)
+                  resetForm()
+                  props.notifyUser({ type: "is-success", message: "Country is successfully created" })
+                  props.switchModal()
+                })
+                .catch(_ => setSubmitting(false))
               }}
             >
-              {({ errors, touched }) => (
-                <CountryMutationForm
-                  title="UPDATE COUNTRY"
-                  message="Country is Successfully updated."
-                  errors={errors}
-                  touched={touched}
-                  switchModal={props.switchModal}
-                />
+              {({
+                errors,
+                touched,
+                isSubmitting
+              }) => (
+                <React.Fragment>
+                  <CountryMutationForm
+                    title="CREATE COUNTRY"
+                    message="Country is Successfully updated."
+                    errors={errors}
+                    graphqlErrors={error && JSON.parse(error.graphQLErrors[0].message)}
+                    touched={touched}
+                    isSubmitting={isSubmitting}
+                    switchModal={props.switchModal}
+                  />
+                </React.Fragment>
               )}
             </Formik>
           </React.Fragment>

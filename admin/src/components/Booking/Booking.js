@@ -1,7 +1,11 @@
 import React from 'react'
 import moment from 'moment'
 
-const Booking = ({ booking }) => {
+const Booking = ({
+  booking,
+  notifyUser,
+  indexVariables
+}) => {
   moment.locale('en')
 
   return (

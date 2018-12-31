@@ -3,7 +3,14 @@ import ProfileCreateMutation from './ProfileCreateMutation';
 import ProfileEditMutation from './ProfileEditMutation';
 import ChangeRole from './ChangeRole';
 
-const User = ({ user, me, notifyUser }) => {
+const User = ({
+  me,
+  user,
+  notifyUser,
+  indexVariables,
+  onedayTodoHere,
+}) => {
+
   const { auth0UserId } = user
   const provider = auth0UserId.split('|')[0]
   const clientId = auth0UserId.split('|')[1]

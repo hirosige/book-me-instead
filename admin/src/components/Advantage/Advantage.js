@@ -3,8 +3,11 @@ import AdvantageEditMutation from './AdvantageEditMutation'
 import AdvantageDeleteMutation from './AdvantageDeleteMutation';
 import ImageModal from '../Shared/ImageModal';
 
-const Advantage = props => {
-  const { advantage } = props
+const Advantage = ({
+  advantage,
+  notifyUser,
+  indexVariables
+}) => {
 
   return (
     <tr>
@@ -37,7 +40,7 @@ const Advantage = props => {
           <div className="control">
             <AdvantageDeleteMutation
               advantage={advantage}
-              indexVariables={props.indexVariables}
+              indexVariables={indexVariables}
             />
           </div>
         </div>

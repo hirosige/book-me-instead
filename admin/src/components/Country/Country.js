@@ -3,8 +3,11 @@ import CountryEditMutation from './CountryEditMutation';
 import ManageArea from './ManageArea';
 import CountryDeleteMutation from './CountryDeleteMutation';
 
-const Country = props => {
-  const { country } = props
+const Country = ({
+  country,
+  notifyUser,
+  indexVariables
+}) => {
 
   return (
     <tr>
@@ -21,8 +24,8 @@ const Country = props => {
           )}
           <ManageArea
             country={country}
-            notifyUser={props.notifyUser}
-            indexVariables={props.indexVariables}
+            notifyUser={notifyUser}
+            indexVariables={indexVariables}
           />
       </td>
       <td>
@@ -38,14 +41,14 @@ const Country = props => {
           <div className="control">
             <CountryEditMutation
               editItem={country}
-              notifyUser={props.notifyUser}
-              indexVariables={props.indexVariables}
+              notifyUser={notifyUser}
+              indexVariables={indexVariables}
             />
           </div>
           <div className="control">
             <CountryDeleteMutation
               country={country}
-              indexVariables={props.indexVariables}
+              indexVariables={indexVariables}
             />
           </div>
         </div>

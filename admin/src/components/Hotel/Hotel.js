@@ -7,6 +7,7 @@ import PublishHotelButton from './PublishHotelButton';
 import MakePrivateHotelButton from './MakePrivateHotelButton';
 import Rooms from './Rooms';
 import ReviewButton from './ReviewButton';
+import HotelDeleteMutation from './HotelDeleteMutation';
 
 const Hotel = ({
   hotel,
@@ -97,10 +98,10 @@ const Hotel = ({
             <HotelEditMutation editItem={hotel} />
           </div>
           <div className="control">
-            <DeleteMutation
-              deleteId={hotel.id}
-              title="Are you sure to delete ?"
-              mutation={DELETE_AN_HOTEL}
+            <HotelDeleteMutation
+              hotel={hotel}
+              notifyUser={notifyUser}
+              indexVariables={indexVariables}
             />
           </div>
           <div className="control">

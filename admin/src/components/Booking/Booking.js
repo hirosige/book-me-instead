@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import BookingDeleteMutation from './BookingDeleteMutation';
 
 const Booking = ({
   booking,
@@ -30,6 +31,20 @@ const Booking = ({
       <td>{moment(booking.checkOut).format('LL')}</td>
       <td>{booking.hotel.name}</td>
       <td>{booking.user.email}</td>
+      <td>
+        <div className="field has-addons">
+          <div className="control">
+            EDIT
+          </div>
+          <div className="control">
+            <BookingDeleteMutation
+              booking={booking}
+              notifyUser={notifyUser}
+              indexVariables={indexVariables}
+            />
+          </div>
+        </div>
+      </td>
     </tr>
   )
 }

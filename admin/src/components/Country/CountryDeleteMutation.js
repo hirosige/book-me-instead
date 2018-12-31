@@ -10,6 +10,7 @@ import ButtonHasLoading from '../Shared/ButtonHasLoading'
 const CountryDeleteMutation = ({
   country,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_COUNTRY}>
@@ -44,6 +45,11 @@ const CountryDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Country is successfully deleted"
             })
           }}
         />

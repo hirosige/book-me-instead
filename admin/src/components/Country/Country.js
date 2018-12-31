@@ -49,6 +49,7 @@ const Country = ({
           <div className="control">
             <CountryDeleteMutation
               country={country}
+              notifyUser={notifyUser}
               indexVariables={indexVariables}
             />
           </div>

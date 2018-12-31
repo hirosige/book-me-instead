@@ -10,6 +10,7 @@ import ButtonHasLoading from '../Shared/ButtonHasLoading'
 const PostDeleteMutation = ({
   post,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_POST}>
@@ -44,6 +45,11 @@ const PostDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Post is successfully deleted"
             })
           }}
         />

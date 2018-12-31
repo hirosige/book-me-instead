@@ -10,11 +10,14 @@ import ButtonHasLoading from '../Shared/ButtonHasLoading'
 const ContactDeleteMutation = ({
   contact,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_CONTACT}>
       {mutation => (
         <ButtonHasLoading
+          title="DELETE A CONTACT"
+          message="Are you sure to delete ?, This is irreversible!"
           caption="DELETE"
           className="button is-danger u-no-br"
           onClick={ async () => {
@@ -42,6 +45,11 @@ const ContactDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Contact is successfully deleted"
             })
           }}
         />

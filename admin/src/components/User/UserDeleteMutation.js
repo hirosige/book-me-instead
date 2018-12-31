@@ -10,6 +10,7 @@ import {
 const UserDeleteMutation = ({
   user,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_USER}>
@@ -44,6 +45,11 @@ const UserDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "User is successfully deleted"
             })
           }}
         />

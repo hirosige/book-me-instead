@@ -9,7 +9,8 @@ import ButtonHasLoading from '../Shared/ButtonHasLoading';
 
 const AdvantageDeleteMutation = ({
   advantage,
-  indexVariables
+  indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_AN_ADVANTAGE}>
@@ -44,6 +45,11 @@ const AdvantageDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Advantage is successfully deleted"
             })
           }}
         />

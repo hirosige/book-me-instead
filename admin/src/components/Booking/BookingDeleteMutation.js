@@ -10,6 +10,7 @@ import ButtonHasLoading from '../Shared/ButtonHasLoading'
 const BookingDeleteMutation = ({
   booking,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_BOOKING}>
@@ -44,6 +45,11 @@ const BookingDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Booking is successfully deleted"
             })
           }}
         />

@@ -10,6 +10,7 @@ import {
 const ReviewDeleteMutation = ({
   review,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_REVIEW}>
@@ -44,6 +45,11 @@ const ReviewDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Review is successfully deleted"
             })
           }}
         />

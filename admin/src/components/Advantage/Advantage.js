@@ -41,6 +41,7 @@ const Advantage = ({
           <div className="control">
             <AdvantageDeleteMutation
               advantage={advantage}
+              notifyUser={notifyUser}
               indexVariables={indexVariables}
             />
           </div>

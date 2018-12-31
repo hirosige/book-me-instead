@@ -10,6 +10,7 @@ import {
 const PostCategoryDeleteMutation = ({
   postCategory,
   indexVariables,
+  notifyUser,
 }) => {
   return (
     <Mutation mutation={DELETE_A_POST_CATEGORY}>
@@ -44,6 +45,11 @@ const PostCategoryDeleteMutation = ({
                   variables: indexVariables,
                 })
               },
+            })
+
+            notifyUser({
+              type: "is-success",
+              message: "Post Category is successfully deleted"
             })
           }}
         />

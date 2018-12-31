@@ -15,8 +15,10 @@ const HotelDeleteMutation = ({
     <Mutation mutation={DELETE_AN_HOTEL}>
       {mutation => (
         <ButtonHasLoading
+          title="DELETE AN HOTEL"
+          message="Are you sure to delete ?, This is irreversible!"
           caption="DELETE"
-          className={`button is-danger is-small u-no-br`}
+          className="button is-danger u-no-br"
           onClick={ async () => {
             await mutation({
               variables: {

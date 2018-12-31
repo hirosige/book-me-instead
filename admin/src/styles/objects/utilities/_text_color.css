@@ -5,3 +5,7 @@
 .u-txt-gray {
   color: var(--gray);
 }
+
+.u-txt-danger {
+  color: var(--danger);
+}

@@ -15,8 +15,10 @@ const AdvantageDeleteMutation = ({
     <Mutation mutation={DELETE_AN_ADVANTAGE}>
       {mutation => (
         <ButtonHasLoading
+          title="DELETE AN ADVANTAGE"
+          message="Are you sure to delete ?, This is irreversible!"
           caption="DELETE"
-          className="button is-danger is-small"
+          className="button is-danger u-no-br"
           onClick={ async () => {
             await mutation({
               variables: {

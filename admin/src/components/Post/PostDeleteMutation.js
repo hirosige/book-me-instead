@@ -15,8 +15,10 @@ const PostDeleteMutation = ({
     <Mutation mutation={DELETE_A_POST}>
       {mutation => (
         <ButtonHasLoading
+          title="DELETE A POST"
+          message="Are you sure to delete ?, This is irreversible!"
           caption="DELETE"
-          className={`button is-danger is-small u-no-br`}
+          className="button is-danger u-no-br"
           onClick={ async () => {
             await mutation({
               variables: {

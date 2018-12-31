@@ -5,13 +5,18 @@ import {
 } from '../../queries/Country'
 import { Mutation } from 'react-apollo';
 import { produce } from 'immer';
+import ButtonHasLoading from '../Shared/ButtonHasLoading'
 
-const CountryDeleteMutation = ({ country, indexVariables }) => {
+const CountryDeleteMutation = ({
+  country,
+  indexVariables,
+}) => {
   return (
     <Mutation mutation={DELETE_A_COUNTRY}>
       {mutation => (
-        <button
-          className="button is-danger is-small"
+        <ButtonHasLoading
+          caption="DELETE"
+          className={`button is-danger is-small u-no-br`}
           onClick={ async () => {
             await mutation({
               variables: {
@@ -39,9 +44,7 @@ const CountryDeleteMutation = ({ country, indexVariables }) => {
               },
             })
           }}
-        >
-          DELETE
-        </button>
+        />
       )}
     </Mutation>
   )

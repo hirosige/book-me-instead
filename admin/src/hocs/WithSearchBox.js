@@ -54,7 +54,7 @@ const withSearchBox = (
             background: "#17a2b8",
             color: "#ffffff",
             fontSize: "1.2rem",
-            height: "45.5px",
+            minHeight: "45.5px",
             padding: "6px",
           }}>
             <div className="level">

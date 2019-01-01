@@ -14,29 +14,19 @@ const Advantage = ({
     <tr>
       <td>{advantage.name}</td>
       <td>
-        {advantage.icon ? (
-          <div>
-            <figure className="image is-32x32 u-disp-ib">
-              <img
-                src={advantage.icon.cdnUrl}
-                alt={advantage.icon.name}
-              />
-            </figure>
-            <div className="u-mls u-disp-ib"/>
-            <ImageModal
-              className="u-disp-ib"
-              url={advantage.icon.cdnUrl}
-              alt={advantage.icon.name}
-            />
-          </div>
-        ) : (
-          <div>画像なし</div>
-        )}
+      <div class="tags has-addons">
+        <span class="tag is-danger"><i class={`${advantage.iconName}`}></i></span>
+        <div class="tag is-warning">{advantage.iconName}</div>
+      </div>
       </td>
       <td>
         <div className="field has-addons">
           <div className="control">
-            <AdvantageEditMutation editItem={advantage} />
+            <AdvantageEditMutation
+              advantage={advantage}
+              notifyUser={notifyUser}
+              indexVariables={indexVariables}
+            />
           </div>
           <div className="control">
             <AdvantageDeleteMutation

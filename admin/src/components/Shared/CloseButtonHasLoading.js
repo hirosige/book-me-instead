@@ -1,8 +1,8 @@
 import React from 'react'
 import { compose } from 'recompose'
-import withModal from '../../hocs/WithModal';
+import withCloseBtnModal from '../../hocs/WithCloseBtnModal';
 
-class ButtonHasLoading extends React.PureComponent {
+class CloseButtonHasLoading extends React.PureComponent {
   _onTransaction = false
 
   toggleOnTransaction = () => {
@@ -40,8 +40,8 @@ class ButtonHasLoading extends React.PureComponent {
 }
 
 export default compose(
-  withModal({
-    button: 'DELETE',
+  withCloseBtnModal({
+    button: '',
     size: 'is-small',
     color: 'is-danger',
     type: 'card',
@@ -49,4 +49,4 @@ export default compose(
       width: "30%"
     }
   })
-)(ButtonHasLoading)
+)(CloseButtonHasLoading)

@@ -1,71 +1,94 @@
 import React from 'react'
 import { compose } from 'recompose'
 import withModal from '../../hocs/WithModal';
-import { CREATE_ADVANTAGE } from '../../queries/Advantage'
-import AdvantageMutationForm from './AdvantageMutationForm'
+import {
+  CREATE_ADVANTAGE,
+  GET_ADVANTAGES,
+} from '../../queries/Advantage'
 
-class AdvantageCreateMutation extends React.Component {
-  state = {
-    name: "",
-    iconName: "",
-    iconCdnUrl: "",
-    iconIsImage: false,
-    iconIsStored: false,
-    iconMimeType: "",
-    iconUuid: "",
-    iconSize: 0,
-  }
+import { Mutation } from "react-apollo";
+import { Formik } from 'formik'
+import { produce } from 'immer';
+import { validateCreate } from '../../validators/Advantage'
+import AdvantageMutationForm from './AdvantageMutationForm';
 
-  initializeState = () => {
-    this.setState({
-      name: "",
-      iconName: "",
-      iconCdnUrl: "",
-      iconIsImage: false,
-      iconIsStored: false,
-      iconMimeType: "",
-      iconUuid: "",
-      iconSize: 0,
-    })
-  }
+const AdvantageCreateMutation = props => {
+  return (
+    <React.Fragment>
+      <Mutation mutation={CREATE_ADVANTAGE}>
+        {(mutate, {loading, data, error}) => (
+          <React.Fragment>
+            <Formik
+              initialValues={{
+                name: '',
+                iconName: '',
+              }}
+              validate={values => validateCreate(values)}
+              onSubmit={ async ({
+                name,
+                iconName
+              }, { resetForm, setSubmitting }) => {
+                await mutate({
+                  variables: {
+                    name,
+                    iconName
+                  },
+                  update: (store, { data }) => {
+                    if (!data || !data.createAdvantage) {
+                      return;
+                    }
 
-  handleChange = (e) => {
-    this.setState({
-      ...this.state,
-      [e.target.name]: e.target.value,
-    })
-  }
+                    const advantages = store.readQuery({
+                      query: GET_ADVANTAGES,
+                      variables: props.indexVariables
+                    })
 
-  handleChangePhoto = fileInfo => {
-
-    this.setState({
-      ...this.state,
-      iconName: fileInfo.name,
-      iconCdnUrl: fileInfo.cdnUrl,
-      iconIsImage: fileInfo.isImage,
-      iconIsStored: fileInfo.isStored,
-      iconMimeType: fileInfo.mimeType,
-      iconUuid: fileInfo.uuid,
-      iconSize: fileInfo.size,
-    })
-  }
-
-  render () {
-    return (
-      <React.Fragment>
-        <AdvantageMutationForm
-          mutation={CREATE_ADVANTAGE}
-          advantage={this.state}
-          handleChange={this.handleChange}
-          handleChangePhoto={this.handleChangePhoto}
-          initializeState={this.initializeState}
-          title="CREATE ADVANTAGE"
-          message="Advantage is Successfully created."
-          {...this.props}
-        />
-      </React.Fragment>
-    )
-  }
+                    store.writeQuery({
+                      data: produce(advantages, ds => {
+                        ds.allAdvantages.unshift(
+                          data.createAdvantage
+                        )
+                      }),
+                      query: GET_ADVANTAGES,
+                      variables: props.indexVariables,
+                    })
+                  },
+                })
+                .then(_ => {
+                  setSubmitting(false)
+                  resetForm()
+                  props.notifyUser({ type: "is-success", message: "Advantage is successfully created" })
+                  props.switchModal()
+                })
+                .catch(error => {
+                  setSubmitting(false)
+                  props.notifyUser({ type: "is-danger", message: error.message })
+                })
+              }}
+            >
+              {({
+                errors,
+                touched,
+                isSubmitting
+              }) => (
+                <React.Fragment>
+                  <AdvantageMutationForm
+                    title="CREATE ADVANTAGE"
+                    message="Advantage is Successfully created."
+                    errors={errors}
+                    graphqlErrors={error && error.graphQLErrors[0] && JSON.parse(error.graphQLErrors[0].message)}
+                    touched={touched}
+                    isSubmitting={isSubmitting}
+                    switchModal={props.switchModal}
+                  />
+                </React.Fragment>
+              )}
+            </Formik>
+          </React.Fragment>
+        )}
+      </Mutation>
+    </React.Fragment>
+  )
 }
 
 export default compose(
@@ -74,5 +97,8 @@ export default compose(
     size: '',
     color: 'is-primary',
     type: 'card',
+    style: {
+      width: "80%"
+    }
   })
 )(AdvantageCreateMutation)

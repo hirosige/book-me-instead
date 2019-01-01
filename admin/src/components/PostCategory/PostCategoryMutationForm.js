@@ -3,7 +3,7 @@ import { Form } from 'formik'
 import FormField from '../Form/FormField';
 import FormErrorNotification from '../Form/FormErrorNotification';
 
-const AdvantageMutationForm = ({
+const PostCategoryMutationForm = ({
   errors,
   graphqlErrors,
   touched,
@@ -36,11 +36,7 @@ const AdvantageMutationForm = ({
               />
             </div>
             <div className="column">
-              <FormField
-                errors={errors}
-                touched={touched}
-                columnName={`iconName`}
-              />
+              TOPICS
             </div>
           </div>
           <hr />
@@ -54,4 +50,4 @@ const AdvantageMutationForm = ({
   )
 }
 
-export default AdvantageMutationForm
+export default PostCategoryMutationForm

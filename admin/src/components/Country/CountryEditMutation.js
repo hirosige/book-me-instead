@@ -53,7 +53,10 @@ const CountryEditMutation = props => {
                   props.notifyUser({ type: "is-success", message: "Country is successfully updated" })
                   props.switchModal()
                 })
-                .catch(_ => setSubmitting(false))
+                .catch(error => {
+                  setSubmitting(false)
+                  props.notifyUser({ type: "is-danger", message: error.message })
+                })
               }}
             >
               {({

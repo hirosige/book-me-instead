@@ -55,7 +55,7 @@ const Advantages = (props) => (
               <thead>
                 <tr>
                   <th><abbr title="Name">Name</abbr></th>
-                  <th><abbr title="Icon">Icon</abbr></th>
+                  <th><abbr title="Icon">Icon Name</abbr></th>
                   <th><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>

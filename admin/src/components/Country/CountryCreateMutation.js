@@ -59,7 +59,10 @@ const CountryCreateMutation = props => {
                   props.notifyUser({ type: "is-success", message: "Country is successfully created" })
                   props.switchModal()
                 })
-                .catch(_ => setSubmitting(false))
+                .catch(error => {
+                  setSubmitting(false)
+                  props.notifyUser({ type: "is-danger", message: error.message })
+                })
               }}
             >
               {({

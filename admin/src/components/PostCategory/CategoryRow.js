@@ -1,9 +1,6 @@
 import React from 'react'
 import AddCategoryButton from './AddCategoryButton';
-import DeleteTagMutation from '../Shared/DeleteTagMutation';
-import {
-  DELETE_A_POST_CATEGORY,
-} from '../../queries/PostCategory'
+import PostCategoryDeleteMutation from './PostCategoryDeleteMutation';
 
 const CategoryRow = ({
   post,
@@ -11,6 +8,8 @@ const CategoryRow = ({
   hierarchy,
   parent,
   grandParent,
+  notifyUser,
+  indexVariables,
 }) => (
   <tr key={post.id}>
     <td>
@@ -24,10 +23,10 @@ const CategoryRow = ({
       <span className={`tag is-small ${type}`}>
         {post.name}
         {post.posts.length === 0 && (
-          <DeleteTagMutation
-            deleteId={post.id}
-            title="Are you sure to delete ?"
-            mutation={DELETE_A_POST_CATEGORY}
+          <PostCategoryDeleteMutation
+            postCategory={post}
+            notifyUser={notifyUser}
+            indexVariables={indexVariables}
           />
         )}
       </span>

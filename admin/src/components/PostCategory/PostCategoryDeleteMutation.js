@@ -1,11 +1,11 @@
 import React from 'react'
 import { Mutation } from 'react-apollo';
 import { produce } from 'immer';
-import ButtonHasLoading from '../Shared/ButtonHasLoading'
 import {
   DELETE_A_POST_CATEGORY,
   GET_POST_CATEGORIES,
 } from '../../queries/PostCategory';
+import CloseButtonHasLoading from '../Shared/CloseButtonHasLoading';
 
 const PostCategoryDeleteMutation = ({
   postCategory,
@@ -15,7 +15,7 @@ const PostCategoryDeleteMutation = ({
   return (
     <Mutation mutation={DELETE_A_POST_CATEGORY}>
       {mutation => (
-        <ButtonHasLoading
+        <CloseButtonHasLoading
           title="DELETE A POST CATEGORY"
           message="Are you sure to delete ?, This is irreversible!"
           caption="DELETE"

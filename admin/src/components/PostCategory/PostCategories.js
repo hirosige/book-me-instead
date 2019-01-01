@@ -20,11 +20,19 @@ import withMessageable from '../../hocs/WithMessageable'
 import ToolBox from '../Shared/ToolBox';
 import ReadMoreButton from '../Shared/ReadMoreButton';
 import PostCategoryTableLoading from './PostCategoryTableLoading';
+import PostCategoryCreateMutation from './PostCategoryCreateMutation';
 
 const PostCategories = (props) => (
   <div className=".l-main__content">
     <ToolBox>
-      TOOL BOX
+      <PostCategoryCreateMutation {...props} indexVariables={{
+        first: props.recordPerPage,
+        skip: (props.currentPage - 1) * props.recordPerPage,
+        searchFilter: {
+          ...props.searchCondition,
+          isRoot: true,
+        }
+      }} />
     </ToolBox>
     <Query
       query={GET_POST_CATEGORIES}
@@ -68,7 +76,10 @@ const PostCategories = (props) => (
                     indexVariables={{
                       first: props.recordPerPage,
                       skip: (props.currentPage - 1) * props.recordPerPage,
-                      searchFilter: props.searchCondition,
+                      searchFilter: {
+                        ...props.searchCondition,
+                        isRoot: true,
+                      },
                     }}
                     {...props}
                   />
@@ -81,8 +92,6 @@ const PostCategories = (props) => (
               modelName={`allPostCategories`}
               modelData={allPostCategories}
             />
-
-            {props.onedayTodoHere('トップカテゴリの作成ボタンを作る')}
           </div>
         )
       }}

@@ -60,6 +60,15 @@ const CREATE_CONTACT = gql`
       }
     ) {
       id
+      name
+      email
+      tel
+      title
+      reference
+      description
+      isReplied
+      createdAt
+      updatedAt
     }
   }
 `;

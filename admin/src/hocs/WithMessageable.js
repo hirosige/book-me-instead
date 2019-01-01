@@ -28,7 +28,7 @@ const withMessageable = () => WrappedComponent => {
           {this.state.isOpen && (
             <div
               className={`notification ${this.state.type} u-no-br`}
-              style={{ marginBottom: 0, fontSize: "1rem" }}
+              style={{ marginBottom: 0, fontSize: "1rem", padding: 10 }}
             >
               <button className="delete" onClick={this.closeNotification}></button>
               {this.state.message}

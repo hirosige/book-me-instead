@@ -62,6 +62,28 @@ const CREATE_POST_CATEGORY = gql`
       }
     ) {
       id
+      name
+      posts {
+        id
+        title
+      }
+      children {
+        id
+        name
+        posts {
+          id
+          title
+        }
+        children {
+          id
+          name
+          posts {
+            id
+            title
+          }
+          isRoot
+        }
+      }
     }
   }
 `;

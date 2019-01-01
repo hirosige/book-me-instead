@@ -14,6 +14,7 @@ const GET_ADVANTAGES = gql`
     ) {
       id
       name
+      iconName
       icon {
         name
         cdnUrl
@@ -48,18 +49,20 @@ const CREATE_ADVANTAGE = gql`
   mutation CreateAdvantage(
     $name: String!
     $iconName: String!
-    $iconCdnUrl: String!
-    $iconIsImage: Boolean!
-    $iconIsStored: Boolean!
-    $iconMimeType: String!
-    $iconUuid: String!
-    $iconSize: Int!
+    $iconOfName: String
+    $iconCdnUrl: String
+    $iconIsImage: Boolean
+    $iconIsStored: Boolean
+    $iconMimeType: String
+    $iconUuid: String
+    $iconSize: Int
   ) {
     createAdvantage(
       input: {
         name: $name
+        iconName: $iconName
         icon: {
-          name: $iconName
+          name: $iconOfName
           cdnUrl: $iconCdnUrl
           isImage: $iconIsImage
           isStored: $iconIsStored
@@ -70,6 +73,22 @@ const CREATE_ADVANTAGE = gql`
       }
     ) {
       id
+      name
+      iconName
+      icon {
+        name
+        cdnUrl
+        isImage
+        isStored
+        mimeType
+        uuid
+        size
+      }
+      hotels {
+        name
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -79,19 +98,21 @@ const UPDATE_ADVANTAGE = gql`
     $id: ID!
     $name: String!
     $iconName: String!
-    $iconCdnUrl: String!
-    $iconIsImage: Boolean!
-    $iconIsStored: Boolean!
-    $iconMimeType: String!
-    $iconUuid: String!
-    $iconSize: Int!
+    $iconOfName: String
+    $iconCdnUrl: String
+    $iconIsImage: Boolean
+    $iconIsStored: Boolean
+    $iconMimeType: String
+    $iconUuid: String
+    $iconSize: Int
   ) {
     updateAdvantage(
       input: {
         id: $id
         name: $name
+        iconName: $iconName
         icon: {
-          name: $iconName
+          name: $iconOfName
           cdnUrl: $iconCdnUrl
           isImage: $iconIsImage
           isStored: $iconIsStored
@@ -102,10 +123,25 @@ const UPDATE_ADVANTAGE = gql`
       }
     ) {
       id
+      name
+      iconName
+      icon {
+        name
+        cdnUrl
+        isImage
+        isStored
+        mimeType
+        uuid
+        size
+      }
+      hotels {
+        name
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
-
 
 const DELETE_AN_ADVANTAGE = gql`
   mutation DeleteAdvantage($id: ID!) {
@@ -115,6 +151,22 @@ const DELETE_AN_ADVANTAGE = gql`
       }
     ) {
       id
+      name
+      iconName
+      icon {
+        name
+        cdnUrl
+        isImage
+        isStored
+        mimeType
+        uuid
+        size
+      }
+      hotels {
+        name
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

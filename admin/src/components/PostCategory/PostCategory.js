@@ -13,6 +13,8 @@ const PostCategory = ({
       <CategoryRow
         post={postCategory}
         type="is-primary"
+        notifyUser={notifyUser}
+        indexVariables={indexVariables}
       />
       {postCategory.children.map(child => (
         <React.Fragment key={child.id}>
@@ -21,6 +23,8 @@ const PostCategory = ({
             parent={postCategory}
             type="is-warning"
             hierarchy={1}
+            notifyUser={notifyUser}
+            indexVariables={indexVariables}
           />
           {child.children.map(grandChild => (
             <React.Fragment key={grandChild.id}>
@@ -31,6 +35,8 @@ const PostCategory = ({
                   grandParent={postCategory}
                   type="is-danger"
                   hierarchy={2}
+                  notifyUser={notifyUser}
+                  indexVariables={indexVariables}
                 />
               )}
             </React.Fragment>

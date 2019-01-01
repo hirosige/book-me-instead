@@ -17,7 +17,7 @@ const validateCreate = ({
   if (!subscriptionEmail) {
     errors.subscriptionEmail = 'Subscription Email is required';
   } else if (!validator.isEmail(subscriptionEmail)) {
-    errors.subscriptionEmail = 'Subscription Email is invalid form';
+    errors.subscriptionEmail = 'Subscription Email is invalid format';
   }
 
   return errors;
@@ -40,7 +40,7 @@ const validateUpdate = ({
   if (!subscriptionEmail) {
     errors.subscriptionEmail = 'Subscription Email is required';
   } else if (!validator.isEmail(subscriptionEmail)) {
-    errors.subscriptionEmail = 'Subscription Email is invalid form';
+    errors.subscriptionEmail = 'Subscription Email is invalid format';
   }
 
   return errors;

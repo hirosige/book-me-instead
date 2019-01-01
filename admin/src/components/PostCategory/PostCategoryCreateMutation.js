@@ -2,54 +2,52 @@ import React from 'react'
 import { compose } from 'recompose'
 import withModal from '../../hocs/WithModal';
 import {
-  UPDATE_ADVANTAGE,
-  GET_ADVANTAGES,
-} from '../../queries/Advantage'
+  CREATE_POST_CATEGORY,
+  GET_POST_CATEGORIES,
+} from '../../queries/PostCategory'
 
 import { Mutation } from "react-apollo";
 import { Formik } from 'formik'
 import { produce } from 'immer';
-import { validateCreate } from '../../validators/Advantage'
-import AdvantageMutationForm from './AdvantageMutationForm';
+import { validateCreate } from '../../validators/PostCategory'
+import PostCategoryMutationForm from './PostCategoryMutationForm';
 
-const AdvantageCreateMutation = props => {
+const PostCategoryCreateMutation = props => {
   return (
     <React.Fragment>
-      <Mutation mutation={UPDATE_ADVANTAGE}>
+      <Mutation mutation={CREATE_POST_CATEGORY}>
         {(mutate, {loading, data, error}) => (
           <React.Fragment>
             <Formik
               initialValues={{
-                name: props.advantage.name,
-                iconName: props.advantage.iconName,
+                name: '',
               }}
               validate={values => validateCreate(values)}
               onSubmit={ async ({
                 name,
-                iconName
               }, { resetForm, setSubmitting }) => {
                 await mutate({
                   variables: {
-                    id: props.advantage.id,
                     name,
-                    iconName
+                    isRoot: true,
                   },
                   update: (store, { data }) => {
-                    if (!data || !data.updateAdvantage) {
+                    if (!data || !data.createPostCategory) {
                       return;
                     }
 
-                    const advantages = store.readQuery({
-                      query: GET_ADVANTAGES,
+                    const postCategories = store.readQuery({
+                      query: GET_POST_CATEGORIES,
                       variables: props.indexVariables
                     })
 
                     store.writeQuery({
-                      data: produce(advantages, ds => {
-                        ds.allAdvantages[ds.allAdvantages.findIndex(advantage => advantage.id === data.updateAdvantage.id)] =
-                          data.updateAdvantage
+                      data: produce(postCategories, ds => {
+                        ds.allPostCategories.unshift(
+                          data.createPostCategory
+                        )
                       }),
-                      query: GET_ADVANTAGES,
+                      query: GET_POST_CATEGORIES,
                       variables: props.indexVariables,
                     })
                   },
@@ -57,7 +55,7 @@ const AdvantageCreateMutation = props => {
                 .then(_ => {
                   setSubmitting(false)
                   resetForm()
-                  props.notifyUser({ type: "is-success", message: "Advantage is successfully updated" })
+                  props.notifyUser({ type: "is-success", message: "Root Category is successfully created" })
                   props.switchModal()
                 })
                 .catch(error => {
@@ -72,9 +70,9 @@ const AdvantageCreateMutation = props => {
                 isSubmitting
               }) => (
                 <React.Fragment>
-                  <AdvantageMutationForm
-                    title="UPDATE ADVANTAGE"
-                    message="Advantage is Successfully updated."
+                  <PostCategoryMutationForm
+                    title="CREATE POST CATEGORY"
+                    message="Root Category is Successfully created."
                     errors={errors}
                     graphqlErrors={error && error.graphQLErrors[0] && JSON.parse(error.graphQLErrors[0].message)}
                     touched={touched}
@@ -93,12 +91,12 @@ const AdvantageCreateMutation = props => {
 
 export default compose(
   withModal({
-    button: 'EDIT',
-    size: 'is-small',
+    button: 'CREATE ROOT CATEGORY',
+    size: '',
     color: 'is-primary',
     type: 'card',
     style: {
       width: "80%"
     }
   })
-)(AdvantageCreateMutation)
+)(PostCategoryCreateMutation)

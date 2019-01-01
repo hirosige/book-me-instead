@@ -38,6 +38,7 @@ const User = ({
           <ChangeRole
             user={user}
             notifyUser={notifyUser}
+            indexVariables={indexVariables}
           />
         )}
       </td>

@@ -117,6 +117,28 @@ const CHANGE_ROLE = gql`
       }
     ) {
       id
+      auth0UserId
+      email
+      omiseCustomerId
+      role
+      profile {
+        id
+        firstName
+        lastName
+        tel
+        address
+        subscriptionEmail
+        passportNo
+      }
+      favorites {
+        id
+        hotels {
+          id
+          name
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `

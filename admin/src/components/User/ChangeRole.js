@@ -1,7 +1,11 @@
 import React from 'react'
 import { Query, Mutation } from 'react-apollo';
-import { CHANGE_ROLE } from '../../queries/User'
+import {
+  CHANGE_ROLE,
+  GET_USERS,
+} from '../../queries/User'
 import { ROLE_ENUM } from '../../queries/Enum'
+import { produce } from 'immer';
 
 class ChangeRole extends React.Component {
   state = {
@@ -51,7 +55,34 @@ class ChangeRole extends React.Component {
                                 variables: {
                                   id: this.props.user.id,
                                   role: e.target.value
-                                }
+                                },
+                                optimisticResponse: {
+                                  updateUser: {
+                                    __typename: 'User',
+                                    id: '-1',
+                                    ...this.props.user,
+                                    role: e.target.value
+                                  }
+                                },
+                                update: (store, { data }) => {
+                                  if (!data || !data.updateUser) {
+                                    return;
+                                  }
+
+                                  const users = store.readQuery({
+                                    query: GET_USERS,
+                                    variables: this.props.indexVariables
+                                  })
+
+                                  store.writeQuery({
+                                    data: produce(users, ds => {
+                                      ds.allUsers[ds.allUsers.findIndex(user => user.id === data.updateUser.id)] =
+                                        data.updateUser
+                                    }),
+                                    query: GET_USERS,
+                                    variables: this.props.indexVariables,
+                                  })
+                                },
                               }).then(result => {
                                 this.props.notifyUser({ type: "is-success", message: "Role has been successfully changed" })
                                 this.toggleOpen()
@@ -76,12 +107,12 @@ class ChangeRole extends React.Component {
                 }}
               </Query>
             </span>
-            <butto
+            <button
               className="button is-small"
               onClick={this.toggleOpen}
             >
               CANCEL
-            </butto>
+            </button>
           </React.Fragment>
         ) : (
           <button

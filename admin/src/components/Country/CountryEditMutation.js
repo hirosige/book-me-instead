@@ -9,6 +9,7 @@ import { Mutation } from "react-apollo";
 import { Formik } from 'formik'
 import { produce } from 'immer';
 import CountryMutationForm from './CountryMutationForm';
+import { validateUpdate } from '../../validators/Country'
 
 const CountryEditMutation = props => {
   return (
@@ -20,22 +21,13 @@ const CountryEditMutation = props => {
               initialValues={{
                 ...props.editItem
               }}
-              validate={values => {
-                let errors = {};
-                if (!values.name) errors.name = 'Name is equired';
-                if (!values.code) errors.code = 'Code is equired';
-                if (!values.slug) errors.slug = 'Slug is equired';
-
-                return errors;
-              }}
+              validate={values => validateUpdate(values)}
               onSubmit={ async (formProps, { resetForm, setSubmitting }) => {
                 await mutate({
                   variables: {
                     ...formProps
                   },
                   update: (store, { data }) => {
-                    console.log('data', data)
-                    console.log('variables', props.indexVariables)
                     if (!data || !data.updateCountry) {
                       return;
                     }

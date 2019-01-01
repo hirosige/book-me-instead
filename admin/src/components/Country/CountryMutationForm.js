@@ -26,7 +26,6 @@ const CountryMutationForm = ({
           {graphqlErrors && (
             <FormErrorNotification graphqlErrors={graphqlErrors} />
           )}
-          {errors && console.log(errors)}
           <hr />
           <FormField
             errors={errors}

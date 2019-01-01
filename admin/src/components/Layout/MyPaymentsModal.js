@@ -30,7 +30,6 @@ class MyPaymentsModal extends React.PureComponent {
                 if (error) return <div>Error {JSON.stringify(error)}</div>;
 
                 const { getCustomer } = data
-                console.log(getCustomer)
 
                 if (getCustomer.cards.data.length === 0) {
                   return (

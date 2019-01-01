@@ -10,6 +10,7 @@ import { Mutation } from "react-apollo";
 import { Formik } from 'formik'
 import { produce } from 'immer';
 import CountryMutationForm from './CountryMutationForm';
+import { validateCreate } from '../../validators/Country'
 
 const CountryCreateMutation = props => {
   return (
@@ -23,14 +24,7 @@ const CountryCreateMutation = props => {
                 code: '',
                 slug: '',
               }}
-              validate={values => {
-                let errors = {};
-                if (!values.name) errors.name = 'Name is equired';
-                if (!values.code) errors.code = 'Code is equired';
-                if (!values.slug) errors.slug = 'Slug is equired';
-
-                return errors;
-              }}
+              validate={values => validateCreate(values)}
               onSubmit={ async ({ name, code, slug }, { resetForm, setSubmitting }) => {
                 await mutate({
                   variables: {

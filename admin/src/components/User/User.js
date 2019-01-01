@@ -1,7 +1,8 @@
 import React from 'react'
 import ProfileCreateMutation from './ProfileCreateMutation';
-import ProfileEditMutation from './ProfileEditMutation';
 import ChangeRole from './ChangeRole';
+import UserDeleteMutation from './UserDeleteMutation'
+import ProfileEditMutation from './ProfileEditMutation';
 
 const User = ({
   me,
@@ -56,15 +57,30 @@ const User = ({
       </td>
       <td>
         <div className="field has-addons">
-        {user.profile ? (
+          {user.profile ? (
+            <div className="control">
+              <ProfileEditMutation
+                user={user}
+                notifyUser={notifyUser}
+                indexVariables={indexVariables}
+              />
+            </div>
+          ) : (
+            <div className="control">
+              <ProfileCreateMutation
+                user={user}
+                notifyUser={notifyUser}
+                indexVariables={indexVariables}
+              />
+            </div>
+          )}
           <div className="control">
-            <ProfileEditMutation editItem={user} notifyUser={notifyUser} />
+            <UserDeleteMutation
+              user={user}
+              notifyUser={notifyUser}
+              indexVariables={indexVariables}
+            />
           </div>
-        ) : (
-          <div className="control">
-            <ProfileCreateMutation user={user} notifyUser={notifyUser} />
-          </div>
-        )}
         </div>
       </td>
     </tr>

@@ -73,6 +73,12 @@ const CREATE_PROFILE = gql`
       }
     ) {
       id
+      firstName
+      lastName
+      tel
+      address
+      subscriptionEmail
+      passportNo
     }
   }
 `
@@ -86,7 +92,6 @@ const UPDATE_PROFILE = gql`
     $address: String!
     $tel: String!
     $subscriptionEmail: String!
-    $userId: ID!
   ) {
     updateProfile(
       input: {
@@ -97,10 +102,51 @@ const UPDATE_PROFILE = gql`
         address: $address
         tel: $tel
         subscriptionEmail: $subscriptionEmail
-        userId: $userId
       }
     ) {
       id
+      firstName
+      lastName
+      tel
+      address
+      subscriptionEmail
+      passportNo
+    }
+  }
+`
+
+const DELETE_A_USER = gql`
+  mutation DeleteUser (
+    $id: ID!
+  ) {
+    deleteUser(
+      input: {
+        id: $id
+      }
+    ) {
+      id
+      auth0UserId
+      email
+      omiseCustomerId
+      role
+      profile {
+        id
+        firstName
+        lastName
+        tel
+        address
+        subscriptionEmail
+        passportNo
+      }
+      favorites {
+        id
+        hotels {
+          id
+          name
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `
@@ -148,5 +194,6 @@ export {
   GET_USER_COUNT,
   CREATE_PROFILE,
   UPDATE_PROFILE,
-  CHANGE_ROLE
+  CHANGE_ROLE,
+  DELETE_A_USER
 }

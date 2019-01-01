@@ -206,8 +206,6 @@ class MarkdownEditor extends React.Component {
                           data-images-only
                           data-multiple
                           onChange={(file) => {
-                            console.log('File changed: ', file)
-
                             if (file) {
                               file.progress(info => console.log('File progress: ', info.progress))
                               file.done(info => console.log('File uploaded: ', info))

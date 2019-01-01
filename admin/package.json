@@ -48,7 +48,8 @@
     "remark-toc": "^5.1.1",
     "subscriptions-transport-ws": "^0.9.15",
     "unified": "^7.1.0",
-    "uploadcare-widget": "^3.6.2"
+    "uploadcare-widget": "^3.6.2",
+    "validator": "^10.10.0"
   },
   "scripts": {
     "build:css": "postcss src/styles/styles.css -o src/index.css",

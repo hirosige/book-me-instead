@@ -10,6 +10,7 @@ const GET_POST_CATEGORIES = gql`
       filter: $searchFilter
       first: $first
       skip: $skip
+      orderBy: updatedAt_DESC
     ) {
       id
       name
@@ -99,14 +100,56 @@ const ADD_TO_CHILDREN = gql`
         children2PostCategoryId: $children2PostCategoryId
       }
     ) {
-      children2PostCategory {
+      parent {
         id
+        name
+        posts {
+          id
+          title
+        }
+        children {
+          id
+          name
+          posts {
+            id
+            title
+          }
+          children {
+            id
+            name
+            posts {
+              id
+              title
+            }
+            isRoot
+          }
+        }
       }
-      children1PostCategory {
+      target {
         id
+        name
+        posts {
+          id
+          title
+        }
+        children {
+          id
+          name
+          posts {
+            id
+            title
+          }
+          children {
+            id
+            name
+            posts {
+              id
+              title
+            }
+            isRoot
+          }
+        }
       }
-      createdAt
-      updatedAt
     }
   }
 `;

@@ -3,39 +3,22 @@ import { compose } from 'recompose'
 import { Mutation, graphql } from "react-apollo";
 import {
   CREATE_POST_CATEGORY,
-  ADD_TO_CHILDREN,
+  GET_POST_CATEGORIES,
+  ADD_TO_CHILDREN
 } from '../../queries/PostCategory'
 
-class AddCategoryButton extends React.Component {
+import { Formik } from 'formik'
+import { produce } from 'immer';
+import { validateCreate } from '../../validators/PostCategory'
+import PostCategoryChildMutationForm from './PostCategoryChildMutationForm';
+
+class AddCategoryButton extends React.PureComponent {
   state = {
-    isOpen: false,
-    category: {
-      name: "",
-      isRoot: false
-    },
+    isOpen: false
   }
 
   toggleOpen = () => {
     this.setState({ isOpen: !this.state.isOpen })
-  }
-
-  initializeState = () => {
-    this.setState({
-      isOpen: false,
-      category: {
-        name: "",
-        isRoot: false
-      },
-    })
-  }
-
-  handleChange = e => {
-    this.setState({
-      category: {
-        ...this.state.category,
-        [e.target.name]: e.target.value
-      }
-    })
   }
 
   render () {
@@ -43,64 +26,64 @@ class AddCategoryButton extends React.Component {
       <React.Fragment>
         {this.state.isOpen ? (
           <Mutation mutation={CREATE_POST_CATEGORY}>
-            {(mutate, { data, loading, error }) => (
+            {(mutate, {loading, data, error}) => (
               <React.Fragment>
-                <form onSubmit={e => {
-                  e.preventDefault();
-
-                  mutate({
-                    variables: {
-                      ...this.state.category,
-                    }
-                  }).then(res => {
-
-                    this.props.addToChildren({
+                <Formik
+                  initialValues={{
+                    name: '',
+                  }}
+                  validate={values => validateCreate(values)}
+                  onSubmit={ async ({
+                    name,
+                  }, { resetForm, setSubmitting }) => {
+                    await mutate({
                       variables: {
-                        children1PostCategoryId: this.props.category.id,
-                        children2PostCategoryId: res.data.createPostCategory.id
-                      }
-                    }).then(result => {
-                      console.log(result)
-                      this.initializeState()
-                    }).catch(e => {
-                      console.log(e)
+                        name,
+                        isRoot: false,
+                      },
                     })
-                  })
-                }}>
-                  {error && (
-                    <div>{error.message}</div>
-                  )}
-                  <div className="field has-addons" style={{ marginBottom: 0 }}>
-                    <div className="control">
-                      <div className="button is-static is-small">
-                        Category Name
-                      </div>
-                    </div>
-                    <div className="control">
-                      <input
-                        name="name"
-                        sytle={{ width: "50px" }}
-                        className="input is-small"
-                        type="text"
-                        placeholder="Category Name"
-                        value={this.state.category.name}
-                        onChange={this.handleChange}
+                    .then(res => {
+                      const { createPostCategory } = res.data
+
+                      this.props.addToChildren({
+                        variables: {
+                          children1PostCategoryId: this.props.postCategory.id,
+                          children2PostCategoryId: createPostCategory.id
+                        },
+                      }).then(_ => {
+                        setSubmitting(false)
+                        resetForm()
+                        this.props.notifyUser({ type: "is-success", message: "Post Category is successfully created" })
+                        this.toggleOpen()
+                      }).catch(error => {
+                        setSubmitting(false)
+                        this.props.notifyUser({ type: "is-danger", message: error.message })
+                      })
+                    })
+                    .catch(error => {
+                      setSubmitting(false)
+                      this.props.notifyUser({ type: "is-danger", message: error.message })
+                    })
+                  }}
+                >
+                  {({
+                    errors,
+                    touched,
+                    isSubmitting
+                  }) => (
+                    <React.Fragment>
+                      <PostCategoryChildMutationForm
+                        title="CREATE POST CATEGORY"
+                        message="Post Category is Successfully created."
+                        errors={errors}
+                        graphqlErrors={error && error.graphQLErrors[0] && JSON.parse(error.graphQLErrors[0].message)}
+                        touched={touched}
+                        isSubmitting={isSubmitting}
+                        switchModal={this.props.switchModal}
                       />
-                    </div>
-                  </div>
-                  <div className="field has-addons">
-                    <div className="control">
-                      <button className="button is-primary is-small">
-                        SUBMIT
-                      </button>
-                    </div>
-                    <div className="control">
-                      <div className="button is-small" onClick={this.toggleOpen}>
-                        CANCEL
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                    </React.Fragment>
+                  )}
+                </Formik>
               </React.Fragment>
             )}
           </Mutation>

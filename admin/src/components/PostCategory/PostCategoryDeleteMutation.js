@@ -25,26 +25,26 @@ const PostCategoryDeleteMutation = ({
               variables: {
                 id: postCategory.id,
               },
-              update: (store, { data }) => {
-                if (!data || !data.deletePostCategory) {
-                  return;
-                }
+              // update: (store, { data }) => {
+              //   if (!data || !data.deletePostCategory) {
+              //     return;
+              //   }
 
-                const postCategories = store.readQuery({
-                  query: GET_POST_CATEGORIES,
-                  variables: indexVariables
-                })
+              //   const postCategories = store.readQuery({
+              //     query: GET_POST_CATEGORIES,
+              //     variables: indexVariables
+              //   })
 
-                store.writeQuery({
-                  data: produce(postCategories, ds => {
-                    ds.allPostCategories.splice(
-                      ds.allPostCategories.findIndex(postCategory => postCategory.id === data.deletePostCategory.id
-                    ), 1)
-                  }),
-                  query: GET_POST_CATEGORIES,
-                  variables: indexVariables,
-                })
-              },
+              //   store.writeQuery({
+              //     data: produce(postCategories, ds => {
+              //       ds.allPostCategories.splice(
+              //         ds.allPostCategories.findIndex(postCategory => postCategory.id === data.deletePostCategory.id
+              //       ), 1)
+              //     }),
+              //     query: GET_POST_CATEGORIES,
+              //     variables: indexVariables,
+              //   })
+              // },
             }).then(_ => {
               notifyUser({
                 type: "is-success",

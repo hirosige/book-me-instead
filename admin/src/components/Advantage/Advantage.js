@@ -1,7 +1,6 @@
 import React from 'react'
 import AdvantageEditMutation from './AdvantageEditMutation'
 import AdvantageDeleteMutation from './AdvantageDeleteMutation';
-import ImageModal from '../Shared/ImageModal';
 
 const Advantage = ({
   advantage,

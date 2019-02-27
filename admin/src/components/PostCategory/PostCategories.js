@@ -45,7 +45,7 @@ const PostCategories = (props) => (
         },
       }}
     >
-      {({ data, loading, error, fetchMore }) => {
+      {({ data, loading, error, fetchMore, refetch }) => {
         if (loading) return <PostCategoryTableLoading />
         if (error) return <div>Error {JSON.stringify(error)}</div>;
 
@@ -62,9 +62,8 @@ const PostCategories = (props) => (
                 <tr>
                   <th className="c-table-cell u-w150"><abbr title="Name">Name</abbr></th>
                   <th className="c-table-cell u-w100"><abbr title="Posts">Posts</abbr></th>
-                  <th className="c-table-cell u-w200"><abbr title="MakePost">Make Post</abbr></th>
+                  <th className="c-table-cell u-w200"><abbr title="Make Child Category">Make Child Category</abbr></th>
                   <th className="c-table-cell u-w300"><abbr title="Breadcrumb">Breadcrumb</abbr></th>
-                  <th className="c-table-cell u-w100"><abbr title="Controls">Controls</abbr></th>
                 </tr>
               </thead>
               <tbody>
@@ -92,6 +91,7 @@ const PostCategories = (props) => (
               modelName={`allPostCategories`}
               modelData={allPostCategories}
             />
+            <button onClick={() => refetch()}>Refetch</button>
           </div>
         )
       }}

@@ -106,7 +106,7 @@ const ContactCreateMutation = props => {
 
 export default compose(
   withModal({
-    button: 'CREATE PROFILE',
+    button: 'CREATE CONTACT',
     size: '',
     color: 'is-primary',
     type: 'card',

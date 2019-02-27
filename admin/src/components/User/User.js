@@ -74,13 +74,15 @@ const User = ({
               />
             </div>
           )}
-          <div className="control">
-            <UserDeleteMutation
-              user={user}
-              notifyUser={notifyUser}
-              indexVariables={indexVariables}
-            />
-          </div>
+          {user.id !== me.id && (
+            <div className="control">
+              <UserDeleteMutation
+                user={user}
+                notifyUser={notifyUser}
+                indexVariables={indexVariables}
+              />
+            </div>
+          )}
         </div>
       </td>
     </tr>

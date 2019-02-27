@@ -8,15 +8,13 @@ const PostCategoryTableLoading = props => {
         <tr>
           <th className="c-table-cell u-w150"><abbr title="Name">Name</abbr></th>
           <th className="c-table-cell u-w100"><abbr title="Posts">Posts</abbr></th>
-          <th className="c-table-cell u-w200"><abbr title="MakePost">Make Post</abbr></th>
+          <th className="c-table-cell u-w200"><abbr title="Make Child Category">Make Child Category</abbr></th>
           <th className="c-table-cell u-w300"><abbr title="Breadcrumb">Breadcrumb</abbr></th>
-          <th className="c-table-cell u-w100"><abbr title="Controls">Controls</abbr></th>
         </tr>
       </thead>
       <tbody>
         {[...Array(5)].map((_, i) => (
           <tr key={`postCategory-${i}`}>
-            <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>
             <td><TableContentsLoading /></td>

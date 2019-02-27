@@ -13,6 +13,7 @@ class CloseButtonHasLoading extends React.PureComponent {
     this.toggleOnTransaction()
     await this.props.onClick()
     this.toggleOnTransaction()
+    this.props.switchModal()
   }
 
   render () {

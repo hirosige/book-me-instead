@@ -41,7 +41,11 @@ const CategoryRow = ({
       {hierarchy >= 2 ? (
         <span className="tag is-warning">これ以上下にはカテゴリを追加できません</span>
       ) : (
-        <AddCategoryButton category={post} />
+        <AddCategoryButton
+          postCategory={post}
+          notifyUser={notifyUser}
+          indexVariables={indexVariables}
+        />
       )}
     </td>
     <td>
